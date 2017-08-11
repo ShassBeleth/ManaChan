@@ -1,10 +1,13 @@
 ﻿<Window
 	x:Class="ManaChan.Views.Windows.MainWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:behaviors="clr-namespace:ManaChan.Behaviors"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="clr-namespace:ManaChan"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:prism="http://prismlibrary.com/"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	behaviors:CloseWindowAttachedBehavior.Close="{ Binding IsCloseWindow }"
 	mc:Ignorable="d"
 	prism:ViewModelLocator.AutoWireViewModel="True"
 	Title="MainWindow"
@@ -19,7 +22,8 @@
 	<Window.ContextMenu>
 		<ContextMenu>
 			<MenuItem
-				Header="{ Binding QuitHeaderOfContextMenu }" />
+				Header="{ Binding QuitHeaderOfContextMenu }" 
+				Command="{ Binding QuitCommandOfContextMenu }"/>
 		</ContextMenu>
 	</Window.ContextMenu>
 	

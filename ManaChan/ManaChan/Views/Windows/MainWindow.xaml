@@ -11,8 +11,8 @@
 	mc:Ignorable="d"
 	prism:ViewModelLocator.AutoWireViewModel="True"
 	Title="MainWindow"
-	Height="350"
-	Width="525"
+	Height="{ Binding PrimaryScreenHeight }"
+	Width="{ Binding PrimaryScreenWidth }"
 	AllowsTransparency="True"
 	Background="Transparent"
 	WindowStyle="None"
@@ -22,8 +22,9 @@
 	<Window.ContextMenu>
 		<ContextMenu>
 			<MenuItem
-				Header="{ Binding QuitHeaderOfContextMenu }" 
-				Command="{ Binding QuitCommandOfContextMenu }"/>
+				Header="{ Binding QuitHeaderOfContextMenu }"
+				Command="{ Binding QuitCommandOfContextMenu }"
+				IsEnabled="{ Binding IsQuitEnabledOfContextMenu }" />
 		</ContextMenu>
 	</Window.ContextMenu>
 	

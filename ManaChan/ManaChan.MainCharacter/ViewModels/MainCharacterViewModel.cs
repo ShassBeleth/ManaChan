@@ -1,6 +1,4 @@
 ﻿using System;
-using ManaChan.Models.ScreenSize;
-using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
@@ -16,13 +14,7 @@ namespace ManaChan.ViewModels {
 		/// アラート用リクエスト
 		/// </summary>
 		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
-
-		/// <summary>
-		/// 画面サイズ
-		/// </summary>
-		[Dependency]
-		public PrimaryScreenSize PrimaryScreenSize { get; } = new PrimaryScreenSize();
-			
+		
 		#region 画面を閉じるかどうか
 
 		/// <summary>
@@ -43,12 +35,12 @@ namespace ManaChan.ViewModels {
 		#region 右クリックメニュー
 
 		#region アラートテスト
-		
+
 		/// <summary>
 		/// アラートテスト文字列
 		/// </summary>
 		public string AlartTestHeaderOfContextMenu { get; } = "アラートテスト";
-	
+
 		/// <summary>
 		/// アラートテストコマンド
 		/// </summary>
@@ -77,12 +69,12 @@ namespace ManaChan.ViewModels {
 		#endregion
 
 		#region 終了
-		
+
 		/// <summary>
 		/// 終了文字列
 		/// </summary>
 		public string QuitHeaderOfContextMenu { get; } = "終了";
-		
+
 		/// <summary>
 		/// 終了ボタン押下可否
 		/// </summary>

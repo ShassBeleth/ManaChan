@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ManaChan.Behaviors {
+namespace ManaChan.MainCharacter.Behaviors {
 
 	/// <summary>
 	/// ウィンドウを閉じる添付ビヘイビア
@@ -12,7 +12,7 @@ namespace ManaChan.Behaviors {
 		/// </summary>
 		/// <param name="dependencyObject"></param>
 		/// <returns></returns>
-		public static bool GetClose( DependencyObject dependencyObject ) 
+		public static bool GetClose( DependencyObject dependencyObject )
 			=> (bool)dependencyObject.GetValue( CloseProperty );
 
 		/// <summary>
@@ -20,17 +20,17 @@ namespace ManaChan.Behaviors {
 		/// </summary>
 		/// <param name="dependencyObject"></param>
 		/// <param name="value"></param>
-		public static void SetClose( DependencyObject dependencyObject , bool value ) 
+		public static void SetClose( DependencyObject dependencyObject , bool value )
 			=> dependencyObject.SetValue( CloseProperty , value );
-		
+
 		/// <summary>
 		/// IsCloseプロパティ作成
 		/// </summary>
-		public static readonly DependencyProperty CloseProperty = DependencyProperty.RegisterAttached( 
-			"Close" , 
-			typeof( bool ) , 
-			typeof( CloseWindowAttachedBehavior ) , 
-			new PropertyMetadata( false , OnCloseChanged ) 
+		public static readonly DependencyProperty CloseProperty = DependencyProperty.RegisterAttached(
+			"Close" ,
+			typeof( bool ) ,
+			typeof( CloseWindowAttachedBehavior ) ,
+			new PropertyMetadata( false , OnCloseChanged )
 		);
 
 		/// <summary>
@@ -43,9 +43,9 @@ namespace ManaChan.Behaviors {
 		/// </remarks>
 		/// <param name="dependencyObject"></param>
 		/// <param name="dependencyPropertyChangedEventArgs"></param>
-		private static void OnCloseChanged( 
-			DependencyObject dependencyObject , 
-			DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs 
+		private static void OnCloseChanged(
+			DependencyObject dependencyObject ,
+			DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs
 		) {
 
 			Window window = dependencyObject as Window ?? Window.GetWindow( dependencyObject );

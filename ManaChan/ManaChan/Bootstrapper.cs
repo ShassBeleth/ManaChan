@@ -2,6 +2,8 @@
 using Prism.Unity;
 using System.Windows;
 using ManaChan.Views;
+using Prism.Modularity;
+using ManaChan.MainCharacter;
 
 namespace ManaChan {
 
@@ -20,6 +22,18 @@ namespace ManaChan {
 		/// Shellの表示
 		/// </summary>
 		protected override void InitializeShell() => ( (Window)this.Shell ).Show();
+
+		/// <summary>
+		/// モジュールの設定
+		/// </summary>
+		protected override void ConfigureModuleCatalog() {
+
+			base.ConfigureModuleCatalog();
+
+			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
+			catalog.AddModule( typeof( MainCharacterModule ) );
+
+		}
 
 	}
 

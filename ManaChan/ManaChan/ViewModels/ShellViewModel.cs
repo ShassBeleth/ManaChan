@@ -1,48 +1,28 @@
 ﻿using System;
-using System.Windows;
+using ManaChan.Models.ScreenSize;
+using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 
-namespace ManaChan.ViewModels.Windows {
+namespace ManaChan.ViewModels {
 
 	/// <summary>
-	/// MainWindowのViewModel
+	/// ShellのViewModel
 	/// </summary>
-	public class MainWindowViewModel : BindableBase {
+	public class ShellViewModel : BindableBase {
 
+		/// <summary>
+		/// アラート用リクエスト
+		/// </summary>
 		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
 
-		#region 画面サイズ
-
 		/// <summary>
-		/// 画面幅
+		/// 画面サイズ
 		/// </summary>
-		private double primaryScreenWidth = SystemParameters.PrimaryScreenWidth;
-
-		/// <summary>
-		/// 画面幅
-		/// </summary>
-		public double PrimaryScreenWidth {
-			private set => SetProperty( ref this.primaryScreenWidth , value );
-			get => this.primaryScreenWidth;
-		}
-
-		/// <summary>
-		/// 画面高さ
-		/// </summary>
-		private double primaryScreenHeight = SystemParameters.PrimaryScreenHeight;
-
-		/// <summary>
-		/// 画面高さ
-		/// </summary>
-		public double PrimaryScreenHeight {
-			private set => SetProperty( ref this.primaryScreenHeight , value );
-			get => this.primaryScreenHeight;
-		}
-
-		#endregion
-
+		[Dependency]
+		public PrimaryScreenSize PrimaryScreenSize { get; } = new PrimaryScreenSize();
+			
 		#region 画面を閉じるかどうか
 
 		/// <summary>
@@ -54,7 +34,7 @@ namespace ManaChan.ViewModels.Windows {
 		/// 画面を閉じるかどうか
 		/// </summary>
 		public bool IsCloseWindow {
-			set => SetProperty( ref this.isCloseWindow , value );
+			private set => SetProperty( ref this.isCloseWindow , value );
 			get => this.isCloseWindow;
 		}
 
@@ -63,20 +43,12 @@ namespace ManaChan.ViewModels.Windows {
 		#region 右クリックメニュー
 
 		#region アラートテスト
-
+		
 		/// <summary>
 		/// アラートテスト文字列
 		/// </summary>
-		private string alartTestHeaderOfContextMenu = "アラートテスト";
-
-		/// <summary>
-		/// アラートテスト文字列
-		/// </summary>
-		public string AlartTestHeaderOfContextMenu {
-			private set => SetProperty( ref this.alartTestHeaderOfContextMenu , value );
-			get => this.alartTestHeaderOfContextMenu;
-		}
-
+		public string AlartTestHeaderOfContextMenu { get; } = "アラートテスト";
+	
 		/// <summary>
 		/// アラートテストコマンド
 		/// </summary>
@@ -94,7 +66,7 @@ namespace ManaChan.ViewModels.Windows {
 		/// アラートテストイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AlartTextExecuteOfContextMenu() => () =>	this.NotificationRequest.Raise( new Notification { Title = "アラート" , Content = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!" } );
+		private Action AlartTextExecuteOfContextMenu() => () => this.NotificationRequest.Raise( new Notification { Title = "アラート" , Content = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!" } );
 
 		/// <summary>
 		/// アラートテスト可否
@@ -109,16 +81,8 @@ namespace ManaChan.ViewModels.Windows {
 		/// <summary>
 		/// 終了文字列
 		/// </summary>
-		private string quitHeaderOfContextMenu = "終了";
-
-		/// <summary>
-		/// 終了文字列
-		/// </summary>
-		public string QuitHeaderOfContextMenu {
-			private set => SetProperty( ref this.quitHeaderOfContextMenu , value );
-			get => this.quitHeaderOfContextMenu;
-		}
-
+		public string QuitHeaderOfContextMenu { get; } = "終了";
+		
 		/// <summary>
 		/// 終了ボタン押下可否
 		/// </summary>
@@ -164,11 +128,11 @@ namespace ManaChan.ViewModels.Windows {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public MainWindowViewModel() {
+		public ShellViewModel() {
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
 			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
 		}
 
-	}
 
+	}
 }

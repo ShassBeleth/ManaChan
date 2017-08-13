@@ -1,5 +1,5 @@
 ﻿<Window
-	x:Class="ManaChan.Views.Windows.MainWindow"
+	x:Class="ManaChan.Views.Shell"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:behaviors="clr-namespace:ManaChan.Behaviors"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,17 +11,17 @@
 	behaviors:CloseWindowAttachedBehavior.Close="{ Binding IsCloseWindow }"
 	mc:Ignorable="d"
 	prism:ViewModelLocator.AutoWireViewModel="True"
-	Title="MainWindow"
-	Height="{ Binding PrimaryScreenHeight }"
-	Width="{ Binding PrimaryScreenWidth }"
+	Title="Shell"
+	Height="{ Binding PrimaryScreenSize.Height }"
+	Width="{ Binding PrimaryScreenSize.Width }"
 	AllowsTransparency="True"
 	Background="Transparent"
-	WindowStyle="None"
-	>
+	WindowStyle="None">
 
+	<!-- トリガー -->
 	<i:Interaction.Triggers>
 		<prism:InteractionRequestTrigger
-			SourceObject="{ Binding NotificationRequest , Mode=OneWay }" >
+			SourceObject="{ Binding NotificationRequest , Mode=OneWay }">
 			<prism:PopupWindowAction
 				IsModal="True"
 				CenterOverAssociatedObject="True">
@@ -52,11 +52,11 @@
 				IsEnabled="{ Binding IsQuitEnabledOfContextMenu }" />
 		</ContextMenu>
 	</Window.ContextMenu>
-	
+
 	<!-- 描画 -->
 	<Grid>
 		<Image
-			Source="../../Graphics/Pictures/temp.png" />
+			Source="../Graphics/Pictures/temp.png" />
 	</Grid>
 
 </Window>

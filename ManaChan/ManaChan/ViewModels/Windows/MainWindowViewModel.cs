@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 
 namespace ManaChan.ViewModels.Windows {
@@ -9,6 +10,10 @@ namespace ManaChan.ViewModels.Windows {
 	/// MainWindowのViewModel
 	/// </summary>
 	public class MainWindowViewModel : BindableBase {
+
+		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
+
+		#region 画面サイズ
 
 		/// <summary>
 		/// 画面幅
@@ -36,6 +41,10 @@ namespace ManaChan.ViewModels.Windows {
 			get => this.primaryScreenHeight;
 		}
 
+		#endregion
+
+		#region 画面を閉じるかどうか
+
 		/// <summary>
 		/// 画面を閉じるかどうか
 		/// </summary>
@@ -49,7 +58,51 @@ namespace ManaChan.ViewModels.Windows {
 			get => this.isCloseWindow;
 		}
 
+		#endregion
+
 		#region 右クリックメニュー
+
+		#region アラートテスト
+
+		/// <summary>
+		/// アラートテスト文字列
+		/// </summary>
+		private string alartTestHeaderOfContextMenu = "アラートテスト";
+
+		/// <summary>
+		/// アラートテスト文字列
+		/// </summary>
+		public string AlartTestHeaderOfContextMenu {
+			private set => SetProperty( ref this.alartTestHeaderOfContextMenu , value );
+			get => this.alartTestHeaderOfContextMenu;
+		}
+
+		/// <summary>
+		/// アラートテストコマンド
+		/// </summary>
+		private DelegateCommand alartTextCommandOfContextMenu;
+
+		/// <summary>
+		/// アラートテストコマンド
+		/// </summary>
+		public DelegateCommand AlartTextCommandOfContextMenu {
+			private set => SetProperty( ref this.alartTextCommandOfContextMenu , value );
+			get => this.alartTextCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// アラートテストイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action AlartTextExecuteOfContextMenu() => () =>	this.NotificationRequest.Raise( new Notification { Title = "アラート" , Content = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!" } );
+
+		/// <summary>
+		/// アラートテスト可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanAlartTextExecuteOfContextMenu() => () => true;
+
+		#endregion
 
 		#region 終了
 		
@@ -102,7 +155,7 @@ namespace ManaChan.ViewModels.Windows {
 		/// 終了可否
 		/// </summary>
 		/// <returns></returns>
-		private Func<bool> QuitCanExecuteOfContextMenu() => () => this.IsQuitEnabledOfContextMenu;
+		private Func<bool> CanQuitExecuteOfContextMenu() => () => this.IsQuitEnabledOfContextMenu;
 
 		#endregion
 
@@ -111,7 +164,10 @@ namespace ManaChan.ViewModels.Windows {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public MainWindowViewModel() => this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.QuitCanExecuteOfContextMenu() );
+		public MainWindowViewModel() {
+			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
+			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
+		}
 
 	}
 

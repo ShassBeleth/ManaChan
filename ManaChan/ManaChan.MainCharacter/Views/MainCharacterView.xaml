@@ -3,13 +3,13 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:behaviors="clr-namespace:ManaChan.MainCharacter.Behaviors"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:local="clr-namespace:ManaChan.MainCharacter.Views"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:prism="http://prismlibrary.com/"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	mc:Ignorable="d"
-	prism:ViewModelLocator.AutoWireViewModel="True">
+	prism:ViewModelLocator.AutoWireViewModel="True"
+	behaviors:CloseWindowAttachedBehavior.Close="{ Binding IsCloseWindow }">
 
 	<!-- 描画 -->
 	<Grid>

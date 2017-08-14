@@ -2,12 +2,12 @@
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace ManaChan.ViewModels {
+namespace ManaChan.MainCharacter.ViewModels {
 
 	/// <summary>
 	/// ShellのViewModel
 	/// </summary>
-	public class ShellViewModel : BindableBase {
+	public class MainCharacterViewModel : BindableBase {
 				
 		#region 画面を閉じるかどうか
 
@@ -80,8 +80,10 @@ namespace ManaChan.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public ShellViewModel() => this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
-
-
+		public MainCharacterViewModel() {
+			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
+			Console.WriteLine( "aaaaa" );
+		}
+		
 	}
 }

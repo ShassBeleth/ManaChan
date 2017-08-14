@@ -10,6 +10,16 @@
 	mc:Ignorable="d"
 	prism:ViewModelLocator.AutoWireViewModel="True"
 	behaviors:CloseWindowAttachedBehavior.Close="{ Binding IsCloseWindow }">
+	
+	<!-- 右クリックメニュー -->
+	<UserControl.ContextMenu>
+		<ContextMenu>
+			<MenuItem
+				Header="{ Binding QuitHeaderOfContextMenu }"
+				Command="{ Binding QuitCommandOfContextMenu }"
+				IsEnabled="{ Binding IsQuitEnabledOfContextMenu }" />
+		</ContextMenu>
+	</UserControl.ContextMenu>
 
 	<!-- 描画 -->
 	<Grid>

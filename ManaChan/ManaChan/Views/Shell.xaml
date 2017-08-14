@@ -16,8 +16,20 @@
 	WindowStyle="None">
 
 	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="{ Binding CharacterWidth }" />
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="{ Binding CharacterWidth }" />
+		</Grid.ColumnDefinitions>
+		
 		<ContentControl
+			Grid.Column="1"
+			Grid.Row="1"
 			prism:RegionManager.RegionName="MainRegion" />
+	
 	</Grid>
 
 </Window>

@@ -1,6 +1,7 @@
 ﻿using System;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Interactivity.InteractionRequest;
 
 namespace ManaChan.MainCharacter.ViewModels {
 
@@ -8,7 +9,12 @@ namespace ManaChan.MainCharacter.ViewModels {
 	/// ShellのViewModel
 	/// </summary>
 	public class MainCharacterViewModel : BindableBase {
-				
+		
+		/// <summary>
+		/// アラート用リクエスト
+		/// </summary>
+		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
+
 		#region 画面を閉じるかどうか
 
 		/// <summary>
@@ -27,7 +33,41 @@ namespace ManaChan.MainCharacter.ViewModels {
 		#endregion
 
 		#region 右クリックメニュー
-		
+
+		#region アラートテスト
+
+		/// <summary>
+		/// アラートテスト文字列
+		/// </summary>
+		public string AlartTestHeaderOfContextMenu { get; } = "アラートテスト";
+
+		/// <summary>
+		/// アラートテストコマンド
+		/// </summary>
+		private DelegateCommand alartTextCommandOfContextMenu;
+
+		/// <summary>
+		/// アラートテストコマンド
+		/// </summary>
+		public DelegateCommand AlartTextCommandOfContextMenu {
+			private set => SetProperty( ref this.alartTextCommandOfContextMenu , value );
+			get => this.alartTextCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// アラートテストイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action AlartTextExecuteOfContextMenu() => () => this.NotificationRequest.Raise( new Notification { Title = "アラート" , Content = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!" } );
+
+		/// <summary>
+		/// アラートテスト可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanAlartTextExecuteOfContextMenu() => () => true;
+
+		#endregion
+
 		#region 終了
 
 		/// <summary>
@@ -82,7 +122,7 @@ namespace ManaChan.MainCharacter.ViewModels {
 		/// </summary>
 		public MainCharacterViewModel() {
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
-			Console.WriteLine( "aaaaa" );
+			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
 		}
 		
 	}

@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>

@@ -11,25 +11,22 @@
 	Background="Transparent"
 	Height="{ Binding PrimaryScreenSize.Height }"
 	WindowStartupLocation="CenterScreen"
-	Title="Shell"
+	Title="{ Binding Title }"
 	Width="{ Binding PrimaryScreenSize.Width }"
 	WindowStyle="None">
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition Height="{ Binding CharacterHeight }" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition Width="{ Binding CharacterWidth }" />
-		</Grid.ColumnDefinitions>
-
+	<Canvas
+		Name="canvas" >
 		<ContentControl
-			Grid.Column="1"
-			Grid.Row="1"
+			Canvas.Left="{ Binding CharacterPosX }"
+			Canvas.Top="{ Binding CharacterPosY }"
+			Height="{ Binding CharacterHeight }"
+			MouseLeftButtonDown="CharacterMouseLeftButtonDown"
+			MouseLeftButtonUp="CharacterMouseLeftButtonUp"
+			MouseMove="CharacterMouseMove"
+			Width="{ Binding CharacterWidth }"
 			prism:RegionManager.RegionName="MainRegion" />
-	
-	</Grid>
+		
+	</Canvas>
 
 </Window>

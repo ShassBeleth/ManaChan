@@ -15,7 +15,14 @@ namespace ManaChan.ViewModels {
 		[Dependency]
 		public PrimaryScreenSize PrimaryScreenSize { get; } = new PrimaryScreenSize();
 
-		#region キャラクターのサイズ
+		/// <summary>
+		/// タイトル
+		/// </summary>
+		public string Title { get; } = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ";
+
+		#region キャラクターの表示座標
+
+		#region キャラクターの高さ
 
 		/// <summary>
 		/// キャラクターの最小の描画高さ
@@ -34,6 +41,10 @@ namespace ManaChan.ViewModels {
 			set => SetProperty( ref this.characterHeight , value );
 			get => this.characterHeight;
 		}
+
+		#endregion
+
+		#region キャラクターの幅
 
 		/// <summary>
 		/// キャラクターの最小の描画幅
@@ -55,13 +66,53 @@ namespace ManaChan.ViewModels {
 
 		#endregion
 
+		#region キャラクターのX座標
+		
+		/// <summary>
+		/// キャラクターのX座標
+		/// </summary>
+		private int characterPosX;
+
+		/// <summary>
+		/// キャラクターのX座標
+		/// </summary>
+		public int CharacterPosX {
+			set => SetProperty( ref this.characterPosX , value );
+			get => this.characterPosX;
+		}
+
+		#endregion
+
+		#region キャラクターのY座標
+
+		/// <summary>
+		/// キャラクターのY座標
+		/// </summary>
+		private int characterPosY;
+
+		/// <summary>
+		/// キャラクターのY座標
+		/// </summary>
+		public int CharacterPosY {
+			set => SetProperty( ref this.characterPosY , value );
+			get => this.characterPosY;
+		}
+
+		#endregion
+
+		#endregion
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public ShellViewModel() =>
+		public ShellViewModel() {
 
 			// キャラクターのサイズ更新
 			this.UpdateCharacterSize();
+
+			// キャラクターの座標更新
+			this.UpdateCharacterPosition();
+		}
 
 		/// <summary>
 		/// キャラクターのサイズ更新
@@ -75,6 +126,16 @@ namespace ManaChan.ViewModels {
 			this.CharacterHeight = this.PrimaryScreenSize.Height / divisionHeightNum > CharacterMinHeight ? (int)( this.PrimaryScreenSize.Height / divisionHeightNum ) : CharacterMinHeight;
 			this.CharacterWidth = this.PrimaryScreenSize.Width / divisionWidthNum > CharacterMinWidth ? (int)( this.PrimaryScreenSize.Width / divisionWidthNum ) : CharacterMinWidth;
 			
+		}
+
+		/// <summary>
+		/// キャラクターの座標更新
+		/// </summary>
+		private void UpdateCharacterPosition() {
+
+			this.CharacterPosX = (int)this.PrimaryScreenSize.Width - this.CharacterWidth;
+			this.CharacterPosY = (int)this.PrimaryScreenSize.Height - this.CharacterHeight;
+
 		}
 
 	}

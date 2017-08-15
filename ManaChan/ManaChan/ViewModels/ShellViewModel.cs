@@ -58,9 +58,22 @@ namespace ManaChan.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public ShellViewModel() {
-			
+		public ShellViewModel() =>
 
+			// キャラクターのサイズ更新
+			this.UpdateCharacterSize();
+
+		/// <summary>
+		/// キャラクターのサイズ更新
+		/// </summary>
+		private void UpdateCharacterSize() {
+
+			// 分割数
+			int divisionHeightNum = 2;
+			int divisionWidthNum = 5;
+
+			this.CharacterHeight = this.PrimaryScreenSize.Height / divisionHeightNum > CharacterMinHeight ? (int)( this.PrimaryScreenSize.Height / divisionHeightNum ) : CharacterMinHeight;
+			this.CharacterWidth = this.PrimaryScreenSize.Width / divisionWidthNum > CharacterMinWidth ? (int)( this.PrimaryScreenSize.Width / divisionWidthNum ) : CharacterMinWidth;
 			
 		}
 

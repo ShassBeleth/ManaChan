@@ -17,14 +17,14 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="{ Binding CharacterWidth }" />
+			<RowDefinition />
+			<RowDefinition Height="{ Binding CharacterHeight }" />
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*" />
+			<ColumnDefinition />
 			<ColumnDefinition Width="{ Binding CharacterWidth }" />
 		</Grid.ColumnDefinitions>
-		
+
 		<ContentControl
 			Grid.Column="1"
 			Grid.Row="1"

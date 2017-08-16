@@ -13,7 +13,8 @@
 	WindowStartupLocation="CenterScreen"
 	Title="{ Binding Title }"
 	Width="{ Binding PrimaryScreenSize.Width }"
-	WindowStyle="None">
+	WindowStyle="None"
+	ShowInTaskbar="False">
 
 	<Canvas
 		Name="canvas" >

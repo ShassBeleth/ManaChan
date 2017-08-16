@@ -14,7 +14,8 @@
 	Title="{ Binding Title }"
 	Width="{ Binding PrimaryScreenSize.Width }"
 	WindowStyle="None"
-	ShowInTaskbar="False">
+	ShowInTaskbar="False"
+	Topmost="True">
 
 	<Canvas
 		Name="canvas" >

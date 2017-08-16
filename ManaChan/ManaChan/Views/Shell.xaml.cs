@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -59,7 +58,6 @@ namespace ManaChan.Views {
 		private void CharacterMouseMove( object sender , MouseEventArgs e ) {
 			if( this.isDrag == true ) {
 				Point point = Mouse.GetPosition( this.canvas );
-				Console.WriteLine( point.ToString() );
 				UIElement urElement = sender as UIElement;
 				Canvas.SetLeft( urElement , point.X - this.dragOffset.X );
 				Canvas.SetTop( urElement , point.Y - this.dragOffset.Y );

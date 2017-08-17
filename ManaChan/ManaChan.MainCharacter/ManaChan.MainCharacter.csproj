@@ -79,7 +79,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\CloseWindowAttachedBehavior.cs" />
     <Compile Include="MainCharacterModule.cs" />
     <Compile Include="ViewModels\MainCharacterViewModel.cs" />
     <Compile Include="Views\MainCharacterView.xaml.cs">
@@ -124,8 +123,6 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\temp.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -123,7 +123,9 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Akane\Normal.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Maki\Normal.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Aoi\Normal.png" />
   </ItemGroup>

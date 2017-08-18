@@ -11,7 +11,7 @@
 	<!-- 描画 -->
 	<Grid>
 		<Image
-			Source="../Graphics/Pictures/temp.png" />
+			Source="../Graphics/Pictures/Aoi/Normal.png" />
 	</Grid>
 
 </UserControl>

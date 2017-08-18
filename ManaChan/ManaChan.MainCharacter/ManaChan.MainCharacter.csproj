@@ -121,8 +121,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Graphics\Pictures\temp.png" />
+    <Resource Include="Graphics\Pictures\Akane\Normal.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Aoi\Normal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

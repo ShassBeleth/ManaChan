@@ -234,6 +234,193 @@ namespace ManaChan.ViewModels {
 
 		#endregion
 
+		#region キャラクター種別
+
+		/// <summary>
+		/// 選択中のキャラクター
+		/// </summary>
+		private CharacterType selectedCharacter = CharacterType.Akane;
+
+		/// <summary>
+		/// 選択中のキャラクター
+		/// </summary>
+		public CharacterType SelectedCharacter {
+			set => SetProperty( ref this.selectedCharacter , value );
+			get => this.selectedCharacter;
+		}
+
+		#region 琴葉 茜
+
+		/// <summary>
+		/// 琴葉 茜文字列
+		/// </summary>
+		public string AkaneHeaderOfContextMenu { get; } = "琴葉 茜";
+
+		/// <summary>
+		/// 琴葉 茜コマンド
+		/// </summary>
+		private DelegateCommand akaneCommandOfContextMenu;
+
+		/// <summary>
+		/// 琴葉 茜コマンド
+		/// </summary>
+		public DelegateCommand AkaneCommandOfContextMenu {
+			private set => SetProperty( ref this.akaneCommandOfContextMenu , value );
+			get => this.akaneCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 琴葉 茜イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action AkaneExecuteOfContextMenu() => () => Console.WriteLine( "あかね" );
+
+		/// <summary>
+		/// 琴葉 茜可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanAkaneExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 琴葉 葵
+
+		/// <summary>
+		/// 琴葉 葵文字列
+		/// </summary>
+		public string AoiHeaderOfContextMenu { get; } = "琴葉 葵";
+
+		/// <summary>
+		/// 琴葉 葵コマンド
+		/// </summary>
+		private DelegateCommand aoiCommandOfContextMenu;
+
+		/// <summary>
+		/// 琴葉 葵コマンド
+		/// </summary>
+		public DelegateCommand AoiCommandOfContextMenu {
+			private set => SetProperty( ref this.aoiCommandOfContextMenu , value );
+			get => this.aoiCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 琴葉 葵イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action AoiExecuteOfContextMenu() => () => Console.WriteLine( "あおい" );
+
+		/// <summary>
+		/// 琴葉 葵可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanAoiExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 弦巻 マキ
+
+		/// <summary>
+		/// 弦巻 マキ文字列
+		/// </summary>
+		public string MakiHeaderOfContextMenu { get; } = "弦巻 マキ";
+
+		/// <summary>
+		/// 弦巻 マキコマンド
+		/// </summary>
+		private DelegateCommand makiCommandOfContextMenu;
+
+		/// <summary>
+		/// 弦巻 マキコマンド
+		/// </summary>
+		public DelegateCommand MakiCommandOfContextMenu {
+			private set => SetProperty( ref this.makiCommandOfContextMenu , value );
+			get => this.makiCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 弦巻 マキイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action MakiExecuteOfContextMenu() => () => Console.WriteLine( "まき" );
+
+		/// <summary>
+		/// 弦巻 マキ可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanMakiExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 結月 ゆかり
+
+		/// <summary>
+		/// 結月 ゆかり文字列
+		/// </summary>
+		public string YukariHeaderOfContextMenu { get; } = "結月 ゆかり";
+
+		/// <summary>
+		/// 結月 ゆかりコマンド
+		/// </summary>
+		private DelegateCommand yukariCommandOfContextMenu;
+
+		/// <summary>
+		/// 結月 ゆかりコマンド
+		/// </summary>
+		public DelegateCommand YukariCommandOfContextMenu {
+			private set => SetProperty( ref this.yukariCommandOfContextMenu , value );
+			get => this.yukariCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 結月 ゆかりイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action YukariExecuteOfContextMenu() => () => Console.WriteLine( "ゆかり" );
+
+		/// <summary>
+		/// 結月 ゆかり可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanYukariExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 東北 ずん子
+
+		/// <summary>
+		/// 東北 ずん子文字列
+		/// </summary>
+		public string ZunkoHeaderOfContextMenu { get; } = "東北 ずん子";
+
+		/// <summary>
+		/// 東北 ずん子コマンド
+		/// </summary>
+		private DelegateCommand zunkoCommandOfContextMenu;
+
+		/// <summary>
+		/// 東北 ずん子コマンド
+		/// </summary>
+		public DelegateCommand ZunkoCommandOfContextMenu {
+			private set => SetProperty( ref this.zunkoCommandOfContextMenu , value );
+			get => this.zunkoCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 東北 ずん子イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action ZunkoExecuteOfContextMenu() => () => Console.WriteLine( "ずんこ" );
+
+		/// <summary>
+		/// 東北 ずん子可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanZunkoExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#endregion
+
 		#region 終了
 
 		/// <summary>
@@ -353,8 +540,6 @@ namespace ManaChan.ViewModels {
 
 		#endregion
 
-		#endregion
-
 		/// <summary>
 		/// キャラクターのサイズ更新
 		/// </summary>
@@ -400,9 +585,9 @@ namespace ManaChan.ViewModels {
 					heightMagnification = smallHeightMagnification;
 					widthMagnification = smallWidthMagnification;
 					break;
-					
+
 			}
-			
+
 			this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
 			this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
 
@@ -418,18 +603,31 @@ namespace ManaChan.ViewModels {
 
 		}
 
+		#endregion
+		
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public ShellViewModel() {
 
-			// コマンド作成
+			#region コマンド作成
+
 			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
+
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );
 			this.CharacterMediumCommandOfContextMenu = new DelegateCommand( this.CharacterMediumExecuteOfContextMenu() , this.CanCharacterMediumExecuteOfContextMenu() );
 			this.CharacterSmallCommandOfContextMenu = new DelegateCommand( this.CharacterSmallExecuteOfContextMenu() , this.CanCharacterSmallExecuteOfContextMenu() );
+
+			this.AkaneCommandOfContextMenu = new DelegateCommand( this.AkaneExecuteOfContextMenu() , this.CanAkaneExecuteOfContextMenu() );
+			this.AoiCommandOfContextMenu = new DelegateCommand( this.AoiExecuteOfContextMenu() , this.CanAoiExecuteOfContextMenu() );
+			this.MakiCommandOfContextMenu = new DelegateCommand( this.MakiExecuteOfContextMenu() , this.CanMakiExecuteOfContextMenu() );
+			this.YukariCommandOfContextMenu = new DelegateCommand( this.YukariExecuteOfContextMenu() , this.CanYukariExecuteOfContextMenu() );
+			this.ZunkoCommandOfContextMenu = new DelegateCommand( this.ZunkoExecuteOfContextMenu() , this.CanZunkoExecuteOfContextMenu() );
+			
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
+
+			#endregion
 
 			// キャラクターのサイズ更新
 			this.UpdateCharacterSize();

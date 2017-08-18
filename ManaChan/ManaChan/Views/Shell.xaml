@@ -54,9 +54,15 @@
 	<!-- 右クリックメニュー -->
 	<Window.ContextMenu>
 		<ContextMenu>
+			
+			<!-- アラートテスト -->
 			<MenuItem
 				Command="{ Binding AlartTextCommandOfContextMenu }"
 				Header="{ Binding AlartTestHeaderOfContextMenu }" />
+
+			<Separator />
+			
+			<!-- キャラクターサイズ変更 -->
 			<MenuItem
 				Command="{ Binding CharacterSpecialLargeCommandOfContextMenu }"
 				Header="{ Binding CharacterSpecialLargeHeaderOfContextMenu }" 
@@ -97,13 +103,71 @@
 					Converter={ StaticResource EnumToBooleanConverter } ,
 					ConverterParameter=Small
 				}" />
+
+			<Separator />
+
+			<!-- キャラクターグラフィック変更 -->
+			<MenuItem 
+				Command="{ Binding AkaneCommandOfContextMenu }"
+				Header="{ Binding AkaneHeaderOfContextMenu }" 
+				IsCheckable="True"
+				IsChecked="{ 
+					Binding 
+					Path=SelectedCharacter ,
+					Converter={ StaticResource EnumToBooleanConverter } ,
+					ConverterParameter=Akane
+				}" />
+			<MenuItem 
+				Command="{ Binding AoiCommandOfContextMenu }"
+				Header="{ Binding AoiHeaderOfContextMenu }" 
+				IsCheckable="True"
+				IsChecked="{ 
+					Binding 
+					Path=SelectedCharacter ,
+					Converter={ StaticResource EnumToBooleanConverter } ,
+					ConverterParameter=Aoi
+				}" />
+			<MenuItem 
+				Command="{ Binding MakiCommandOfContextMenu }"
+				Header="{ Binding MakiHeaderOfContextMenu }" 
+				IsCheckable="True"
+				IsChecked="{ 
+					Binding 
+					Path=SelectedCharacter ,
+					Converter={ StaticResource EnumToBooleanConverter } ,
+					ConverterParameter=Maki
+				}" />
+			<MenuItem 
+				Command="{ Binding YukariCommandOfContextMenu }"
+				Header="{ Binding YukariHeaderOfContextMenu }" 
+				IsCheckable="True"
+				IsChecked="{ 
+					Binding 
+					Path=SelectedCharacter ,
+					Converter={ StaticResource EnumToBooleanConverter } ,
+					ConverterParameter=Yukari
+				}" />
+			<MenuItem 
+				Command="{ Binding ZunkoCommandOfContextMenu }"
+				Header="{ Binding ZunkoHeaderOfContextMenu }" 
+				IsCheckable="True"
+				IsChecked="{ 
+					Binding 
+					Path=SelectedCharacter ,
+					Converter={ StaticResource EnumToBooleanConverter } ,
+					ConverterParameter=Zunko
+				}" />
+			
+			<Separator />
+
+			<!-- 終了 -->
 			<MenuItem
 				Command="{ Binding QuitCommandOfContextMenu }"
 				Header="{ Binding QuitHeaderOfContextMenu }"
 				IsEnabled="{ Binding IsQuitEnabledOfContextMenu }" />
+			
 		</ContextMenu>
 	</Window.ContextMenu>
-
 
 	<Canvas
 		Name="canvas" >

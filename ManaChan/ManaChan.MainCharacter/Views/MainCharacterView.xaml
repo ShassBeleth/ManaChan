@@ -11,7 +11,7 @@
 	<!-- 描画 -->
 	<Grid>
 		<Image
-			Source="../Graphics/Pictures/Zunko/Normal.png" />
+			Source="../Graphics/Pictures/Maki/Normal.png" />
 	</Grid>
 
 </UserControl>

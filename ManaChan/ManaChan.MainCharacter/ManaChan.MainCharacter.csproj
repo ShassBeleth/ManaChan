@@ -133,5 +133,8 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Yukari\Normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Zunko\Normal.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

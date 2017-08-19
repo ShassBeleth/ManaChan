@@ -129,7 +129,7 @@ namespace ManaChan.ViewModels {
 		/// ドアップイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action CharacterSpecialLargeExecuteOfContextMenu() => () => this.UpdateCharacterSize();
+		private Action CharacterSpecialLargeExecuteOfContextMenu() => () => this.UpdateSizeAndPosition();
 
 		/// <summary>
 		/// ドアップ可否
@@ -163,7 +163,7 @@ namespace ManaChan.ViewModels {
 		/// 大イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action CharacterLargeExecuteOfContextMenu() => () => this.UpdateCharacterSize();
+		private Action CharacterLargeExecuteOfContextMenu() => () => this.UpdateSizeAndPosition();
 
 		/// <summary>
 		/// 大可否
@@ -197,7 +197,7 @@ namespace ManaChan.ViewModels {
 		/// 中イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action CharacterMediumExecuteOfContextMenu() => () => this.UpdateCharacterSize();
+		private Action CharacterMediumExecuteOfContextMenu() => () => this.UpdateSizeAndPosition();
 
 		/// <summary>
 		/// 中可否
@@ -231,7 +231,7 @@ namespace ManaChan.ViewModels {
 		/// 小イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action CharacterSmallExecuteOfContextMenu() => () => this.UpdateCharacterSize();
+		private Action CharacterSmallExecuteOfContextMenu() => () => this.UpdateSizeAndPosition();
 
 		/// <summary>
 		/// 小可否
@@ -282,7 +282,7 @@ namespace ManaChan.ViewModels {
 		/// 琴葉 茜イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AkaneExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType .Akane );
+		private Action AkaneExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Akane );
 
 		/// <summary>
 		/// 琴葉 茜可否
@@ -482,7 +482,7 @@ namespace ManaChan.ViewModels {
 		#region キャラクターの表示座標
 
 		#region キャラクターの高さ
-		
+
 		/// <summary>
 		/// キャラクターの描画高さ
 		/// </summary>
@@ -499,7 +499,7 @@ namespace ManaChan.ViewModels {
 		#endregion
 
 		#region キャラクターの幅
-		
+
 		/// <summary>
 		/// キャラクターの描画幅
 		/// </summary>
@@ -516,7 +516,7 @@ namespace ManaChan.ViewModels {
 		#endregion
 
 		#region キャラクターのX座標
-		
+
 		/// <summary>
 		/// キャラクターのX座標
 		/// </summary>
@@ -552,7 +552,13 @@ namespace ManaChan.ViewModels {
 		/// <summary>
 		/// キャラクターのサイズ更新
 		/// </summary>
-		private void UpdateCharacterSize() {
+		private void UpdateSizeAndPosition() {
+
+			// 変更前のサイズと座標を保持
+			double beforeWidth = this.CharacterWidth;
+			double beforeHeight = this.CharacterHeight;
+			int beforePosX = this.CharacterPosX;
+			int beforePosY = this.CharacterPosY;
 
 			// ドアップ時の倍率
 			const double specialLargeHeightMagnification = 5;
@@ -570,42 +576,66 @@ namespace ManaChan.ViewModels {
 			const double smallHeightMagnification = 0.25;
 			const double smallWidthMagnification = 0.20;
 
+			// 画面からはみ出さないように調節
+			(int posX, int posY) CorrectionOverflow( int posX , int posY )
+				=> (
+					posX < 0 ? 0 :
+					this.PrimaryScreenSize.Width - this.CharacterWidth < posX ? 
+						(int)( this.PrimaryScreenSize.Width - this.CharacterWidth ) :
+					posX ,
+					posY < 0 ? 0 :
+					this.PrimaryScreenSize.Height - this.CharacterHeight < posY ?
+						(int)( this.PrimaryScreenSize.Height - this.CharacterHeight ) :
+					posY
+				);
+
 			// 実際の倍率
 			double heightMagnification = 0;
 			double widthMagnification = 0;
-
+			
 			switch( this.CharacterSize ) {
 				case Size.SpecialLarge:
 					heightMagnification = specialLargeHeightMagnification;
 					widthMagnification = specialLargeWidthMagnification;
+					this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
+					this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
+					this.CharacterPosX = (int)( ( this.PrimaryScreenSize.Width - this.CharacterWidth ) / 2 );
+					this.CharacterPosY = (int)( -this.PrimaryScreenSize.Height * 0.4 );
 					break;
 
 				case Size.Large:
 					heightMagnification = largeHeightMagnification;
 					widthMagnification = largeWidthMagnification;
+					this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
+					this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
+					this.CharacterPosY = 0;
+					( this.CharacterPosX , this.CharacterPosY ) = CorrectionOverflow( this.CharacterPosX , this.CharacterPosY );
 					break;
 
 				case Size.Medium:
 					heightMagnification = mediumHeightMagnification;
 					widthMagnification = mediumWidthMagnification;
+					this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
+					this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
+					(this.CharacterPosX, this.CharacterPosY) = CorrectionOverflow( this.CharacterPosX , this.CharacterPosY );
 					break;
 
 				case Size.Small:
 					heightMagnification = smallHeightMagnification;
 					widthMagnification = smallWidthMagnification;
+					this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
+					this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
+					(this.CharacterPosX, this.CharacterPosY) = CorrectionOverflow( this.CharacterPosX , this.CharacterPosY );
 					break;
 
 			}
-
-			this.CharacterHeight = (int)( this.PrimaryScreenSize.Height * heightMagnification );
-			this.CharacterWidth = (int)( this.PrimaryScreenSize.Width * widthMagnification );
-
+			
 		}
-
+		
 		/// <summary>
-		/// キャラクターの座標更新
+		/// キャラクターの座標初期化
 		/// </summary>
-		private void UpdateCharacterPosition() {
+		private void InitialCharacterPosition() {
 
 			this.CharacterPosX = (int)this.PrimaryScreenSize.Width - this.CharacterWidth;
 			this.CharacterPosY = (int)this.PrimaryScreenSize.Height - this.CharacterHeight;
@@ -613,7 +643,7 @@ namespace ManaChan.ViewModels {
 		}
 
 		#endregion
-		
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
@@ -633,16 +663,16 @@ namespace ManaChan.ViewModels {
 			this.MakiCommandOfContextMenu = new DelegateCommand( this.MakiExecuteOfContextMenu() , this.CanMakiExecuteOfContextMenu() );
 			this.YukariCommandOfContextMenu = new DelegateCommand( this.YukariExecuteOfContextMenu() , this.CanYukariExecuteOfContextMenu() );
 			this.ZunkoCommandOfContextMenu = new DelegateCommand( this.ZunkoExecuteOfContextMenu() , this.CanZunkoExecuteOfContextMenu() );
-			
+
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
 
 			#endregion
 
 			// キャラクターのサイズ更新
-			this.UpdateCharacterSize();
+			this.UpdateSizeAndPosition();
 
 			// キャラクターの座標更新
-			this.UpdateCharacterPosition();
+			this.InitialCharacterPosition();
 		}
 
 	}

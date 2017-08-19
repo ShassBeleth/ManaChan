@@ -172,8 +172,8 @@
 	<Canvas
 		Name="canvas" >
 		<ContentControl
-			Canvas.Left="{ Binding CharacterPosX }"
-			Canvas.Top="{ Binding CharacterPosY }"
+			Canvas.Left="{ Binding CharacterPosX , Mode=TwoWay }"
+			Canvas.Top="{ Binding CharacterPosY , Mode=TwoWay }"
 			Height="{ Binding CharacterHeight }"
 			MouseLeftButtonDown="CharacterMouseLeftButtonDown"
 			MouseLeftButtonUp="CharacterMouseLeftButtonUp"

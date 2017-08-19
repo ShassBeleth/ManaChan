@@ -79,7 +79,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums\CharacterType.cs" />
+    <Compile Include="Events\ChangeCharacterType\ChangeCharacterTypeEvent.cs" />
     <Compile Include="MainCharacterModule.cs" />
+    <Compile Include="Models\Provider\ChangeCharacterType\IChangeCharacterTypeProvider.cs" />
+    <Compile Include="Models\Provider\ChangeCharacterType\ChangeCharacterTypeProvider.cs" />
     <Compile Include="ViewModels\MainCharacterViewModel.cs" />
     <Compile Include="Views\MainCharacterView.xaml.cs">
       <DependentUpon>MainCharacterView.xaml</DependentUpon>

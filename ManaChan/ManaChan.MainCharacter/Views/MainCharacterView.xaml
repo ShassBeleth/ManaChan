@@ -11,7 +11,7 @@
 	<!-- 描画 -->
 	<Grid>
 		<Image
-			Source="../Graphics/Pictures/Maki/Normal.png" />
+			Source="{ Binding SourceUrl }" />
 	</Grid>
 
 </UserControl>

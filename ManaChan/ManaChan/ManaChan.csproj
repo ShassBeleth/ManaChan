@@ -115,8 +115,9 @@
     <Compile Include="Behaviors\CloseWindowAttachedBehavior.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="Models\Publishers\CharacterTypeValuePublisher.cs" />
+    <Compile Include="Models\Publishers\ICharacterTypeValuePublisher.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
-    <Compile Include="ViewModels\ShellViewModel.CharacterType.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.Size.cs" />
     <Compile Include="Views\Shell.xaml.cs">

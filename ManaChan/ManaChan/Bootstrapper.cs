@@ -21,7 +21,14 @@ namespace ManaChan {
 		/// <summary>
 		/// Shellの表示
 		/// </summary>
-		protected override void InitializeShell() => ( (Window)this.Shell ).Show();
+		protected override void InitializeShell() {
+
+			base.InitializeShell();
+
+			Application.Current.MainWindow = (Window)this.Shell;
+			Application.Current.MainWindow.Show();
+
+		}
 
 		/// <summary>
 		/// モジュールの設定
@@ -30,9 +37,11 @@ namespace ManaChan {
 
 			base.ConfigureModuleCatalog();
 
+			// TODO 自身のModelsもコンテナに登録したい
+
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
 			catalog.AddModule( typeof( MainCharacterModule ) );
-
+			
 		}
 
 	}

@@ -6,7 +6,7 @@ namespace ManaChan.MainCharacter.Views {
 	/// HelloWorldView.xaml の相互作用ロジック
 	/// </summary>
 	public partial class MainCharacterView : UserControl {
-
+		
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>

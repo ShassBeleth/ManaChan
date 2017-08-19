@@ -4,6 +4,8 @@ using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
+using ManaChan.MainCharacter.Enums;
+using ManaChan.Models;
 
 namespace ManaChan.ViewModels {
 
@@ -27,6 +29,13 @@ namespace ManaChan.ViewModels {
 		/// アラート用リクエスト
 		/// </summary>
 		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
+
+		/// <summary>
+		/// キャラクタータイプ値発行者
+		/// TODO DIなってない
+		/// </summary>
+		[Dependency]
+		public CharacterTypeValuePublisher CharacterTypeValuePublisher { set; get; }
 
 		#region 画面を閉じるかどうか
 
@@ -273,7 +282,7 @@ namespace ManaChan.ViewModels {
 		/// 琴葉 茜イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AkaneExecuteOfContextMenu() => () => Console.WriteLine( "あかね" );
+		private Action AkaneExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType .Akane );
 
 		/// <summary>
 		/// 琴葉 茜可否
@@ -307,7 +316,7 @@ namespace ManaChan.ViewModels {
 		/// 琴葉 葵イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AoiExecuteOfContextMenu() => () => Console.WriteLine( "あおい" );
+		private Action AoiExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Aoi );
 
 		/// <summary>
 		/// 琴葉 葵可否
@@ -341,7 +350,7 @@ namespace ManaChan.ViewModels {
 		/// 弦巻 マキイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action MakiExecuteOfContextMenu() => () => Console.WriteLine( "まき" );
+		private Action MakiExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Maki );
 
 		/// <summary>
 		/// 弦巻 マキ可否
@@ -375,7 +384,7 @@ namespace ManaChan.ViewModels {
 		/// 結月 ゆかりイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action YukariExecuteOfContextMenu() => () => Console.WriteLine( "ゆかり" );
+		private Action YukariExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Yukari );
 
 		/// <summary>
 		/// 結月 ゆかり可否
@@ -409,7 +418,7 @@ namespace ManaChan.ViewModels {
 		/// 東北 ずん子イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action ZunkoExecuteOfContextMenu() => () => Console.WriteLine( "ずんこ" );
+		private Action ZunkoExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Zunko );
 
 		/// <summary>
 		/// 東北 ずん子可否

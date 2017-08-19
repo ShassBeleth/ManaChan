@@ -1,4 +1,5 @@
-﻿using ManaChan.MainCharacter.Views;
+﻿using System.Linq;
+using ManaChan.MainCharacter.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -27,10 +28,26 @@ namespace ManaChan.MainCharacter {
 		/// </summary>
 		public void Initialize() {
 			
-			this.Container.RegisterType<object , MainCharacterView>( nameof( MainCharacterView ) );
+			// Modelをコンテナに登録
+			// TODO できれば末尾でなくModels配下のクラスすべてを登録できるようにしたい
+			this.Container.RegisterTypes(
+				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
+					.Where( x => x.Namespace.EndsWith( ".Models" ) ) ,
+				getFromTypes : WithMappings.FromAllInterfaces ,
+				getLifetimeManager : WithLifetime.ContainerControlled 
+			);
 
-			this.RegionManager.RequestNavigate( "MainRegion" , nameof( MainCharacterView ) );
+			// Viewをコンテナに登録
+			// TODO できれば末尾でなくViews配下のクラスすべてを登録できるようにしたい
+			this.Container.RegisterTypes(
+				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
+					.Where( x => x.Namespace.EndsWith( ".Views" ) ) ,
+				getFromTypes: _ => new[] { typeof( object ) } ,
+				getName: WithName.TypeName );
 
+			// Region登録
+			this.RegionManager.RegisterViewWithRegion( "MainRegion" , typeof( MainCharacterView ) );
+			
 		}
 
 	}

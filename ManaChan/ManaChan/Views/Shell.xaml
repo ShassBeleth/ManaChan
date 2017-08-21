@@ -55,6 +55,11 @@
 	<Window.ContextMenu>
 		<ContextMenu>
 			
+			<!-- Twitter認証 -->
+			<MenuItem
+				Command="{ Binding TwitterAuthenticateCommandOfContextMenu }"
+				Header="{ Binding TwitterAuthenticateHeaderOfContextMenu }" />
+
 			<!-- アラートテスト -->
 			<MenuItem
 				Command="{ Binding AlartTextCommandOfContextMenu }"
@@ -159,7 +164,7 @@
 				}" />
 			
 			<Separator />
-
+			
 			<!-- 終了 -->
 			<MenuItem
 				Command="{ Binding QuitCommandOfContextMenu }"

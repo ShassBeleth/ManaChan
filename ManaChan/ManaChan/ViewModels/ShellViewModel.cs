@@ -6,6 +6,7 @@ using Prism.Mvvm;
 using System;
 using ManaChan.MainCharacter.Enums;
 using ManaChan.Models;
+using ManaChan.Twitter.Services;
 
 namespace ManaChan.ViewModels {
 
@@ -37,6 +38,11 @@ namespace ManaChan.ViewModels {
 		[Dependency]
 		public CharacterTypeValuePublisher CharacterTypeValuePublisher { set; get; }
 
+		/// <summary>
+		/// ツイッター認証サービス
+		/// </summary>
+		private IAuthenticatedService AuthenticatedService { get; } = new AuthenticatedService();
+
 		#region 画面を閉じるかどうか
 
 		/// <summary>
@@ -55,6 +61,45 @@ namespace ManaChan.ViewModels {
 		#endregion
 
 		#region 右クリックメニュー
+
+		#region ツイッター認証
+
+		/// <summary>
+		/// ツイッター認証文字列
+		/// </summary>
+		public string TwitterAuthenticateHeaderOfContextMenu { get; } = "Twitter認証";
+
+		/// <summary>
+		/// ツイッター認証コマンド
+		/// </summary>
+		private DelegateCommand twitterAuthenticateCommandOfContextMenu;
+
+		/// <summary>
+		/// ツイッター認証コマンド
+		/// </summary>
+		public DelegateCommand TwitterAuthenticateCommandOfContextMenu {
+			private set => SetProperty( ref this.twitterAuthenticateCommandOfContextMenu , value );
+			get => this.twitterAuthenticateCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// ツイッター認証イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
+			this.AuthenticatedService.Authorize();
+			string pinCode = Console.ReadLine();
+			this.AuthenticatedService.SetPinCode( int.Parse( pinCode ) );
+			this.AuthenticatedService.Token
+		};
+
+		/// <summary>
+		/// ツイッター認証イベント可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanTwitterAuthenticateExecuteOfContextMenu() => () => true;
+
+		#endregion
 
 		#region アラートテスト
 
@@ -652,6 +697,7 @@ namespace ManaChan.ViewModels {
 			#region コマンド作成
 
 			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
+			this.TwitterAuthenticateCommandOfContextMenu = new DelegateCommand( this.TwitterAuthenticateExecuteOfContextMenu() , this.CanTwitterAuthenticateExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );

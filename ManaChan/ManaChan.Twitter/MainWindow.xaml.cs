@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CoreTweet;
 using CoreTweet.Core;
+using ManaChan.Twitter.Services;
 
 namespace ManaChan.Twitter {
 	/// <summary>
@@ -21,28 +22,23 @@ namespace ManaChan.Twitter {
 	/// </summary>
 	public partial class MainWindow : Window {
 
+		private AuthenticatedService service;
+
 		public MainWindow() {
 
 			InitializeComponent();
-			
-			string consumerKey = "";
-			string consumerSecret = "";
 
-			OAuth.OAuthSession session = OAuth.Authorize( consumerKey , consumerSecret );
-			
-			Uri url = session.AuthorizeUri;
-			System.Diagnostics.Process.Start( url.ToString() );
-			
-			Tokens tokens = OAuth.GetTokens( session , "" );
-
-			ListedResponse<Status> timeline = tokens.Statuses.HomeTimeline();
-
-			foreach( Status status in timeline ) {
-				Console.Write( status.FullText );
-			}
+			this.service = new AuthenticatedService();
 
 		}
+		
 
+		private void Auth( object sender , RoutedEventArgs e ) => this.service.Authorize();
+
+		private void SetPin( object sender , RoutedEventArgs e ) {
+			string inputPin = this.inputPin.Text;
+			this.service.SetPinCode( int.Parse( inputPin ) );
+		}
 	}
 
 }

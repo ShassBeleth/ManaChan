@@ -43,7 +43,8 @@ namespace ManaChan.MainCharacter {
 				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
 					.Where( x => x.Namespace.EndsWith( ".Views" ) ) ,
 				getFromTypes: _ => new[] { typeof( object ) } ,
-				getName: WithName.TypeName );
+				getName: WithName.TypeName 
+			);
 
 			// Region登録
 			this.RegionManager.RegisterViewWithRegion( "MainRegion" , typeof( MainCharacterView ) );

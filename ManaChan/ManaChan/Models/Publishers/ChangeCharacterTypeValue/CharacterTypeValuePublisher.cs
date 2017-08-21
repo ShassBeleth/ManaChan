@@ -16,7 +16,8 @@ namespace ManaChan.Models {
 		[Dependency]
 		public IEventAggregator EventAggregator { set; get; }
 
-		public void Publish( CharacterType characterType ) => this.EventAggregator
+		public void Publish( CharacterType characterType )
+			=> this.EventAggregator
 				.GetEvent<PubSubEvent<ChangeCharacterTypeEvent>>()
 				.Publish( new ChangeCharacterTypeEvent { Value = characterType } );
 

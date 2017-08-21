@@ -4,6 +4,7 @@ using System.Windows;
 using ManaChan.Views;
 using Prism.Modularity;
 using ManaChan.MainCharacter;
+using ManaChan.Twitter;
 
 namespace ManaChan {
 
@@ -41,6 +42,7 @@ namespace ManaChan {
 
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
 			catalog.AddModule( typeof( MainCharacterModule ) );
+			catalog.AddModule( typeof( TwitterModule ) );
 			
 		}
 

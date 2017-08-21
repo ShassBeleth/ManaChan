@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
-    </Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Button Grid.Row="0" Click="Auth" />
+		<TextBox Grid.Row="1" x:Name="inputPin" />
+		<Button Grid.Row="2" Click="SetPin" />
+	</Grid>
 </Window>

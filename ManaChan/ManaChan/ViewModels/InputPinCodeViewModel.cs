@@ -8,7 +8,7 @@ namespace ManaChan.ViewModels {
 
 	public class InputPinCodeViewModel : BindableBase , IInteractionRequestAware {
 		
-		public Action FinishInteraction { get; set; }
+		public Action FinishInteraction { set; get; }
 
 		private INotification notification;
 

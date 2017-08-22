@@ -41,8 +41,8 @@ namespace ManaChan {
 			// TODO 自身のModelsもコンテナに登録したい
 
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
-			catalog.AddModule( typeof( MainCharacterModule ) );
 			catalog.AddModule( typeof( TwitterModule ) );
+			catalog.AddModule( typeof( MainCharacterModule ) );
 			
 		}
 

@@ -4,13 +4,16 @@ using System.Linq;
 
 namespace ManaChan.Twitter {
 
+	/// <summary>
+	/// Twitterモジュールのエントリポイント
+	/// </summary>
 	public class TwitterModule : IModule {
 
 		/// <summary>
 		/// コンテナ
 		/// </summary>
 		[Dependency]
-		public IUnityContainer Container { get; set; }
+		public IUnityContainer Container { set; get; }
 
 		/// <summary>
 		/// 初期設定

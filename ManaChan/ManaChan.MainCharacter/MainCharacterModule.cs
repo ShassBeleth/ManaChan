@@ -15,13 +15,13 @@ namespace ManaChan.MainCharacter {
 		/// コンテナ
 		/// </summary>
 		[Dependency]
-		public IUnityContainer Container { get; set; }
+		public IUnityContainer Container { set; get; }
 
 		/// <summary>
 		/// Region管理
 		/// </summary>
 		[Dependency]
-		public IRegionManager RegionManager { get; set; }
+		public IRegionManager RegionManager { set; get; }
 
 		/// <summary>
 		/// 初期設定

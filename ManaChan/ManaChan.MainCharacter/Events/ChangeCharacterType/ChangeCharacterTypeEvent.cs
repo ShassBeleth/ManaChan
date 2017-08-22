@@ -10,7 +10,7 @@ namespace ManaChan.MainCharacter.Events.ChangeCharacterType {
 		/// <summary>
 		/// キャラクター種別
 		/// </summary>
-		public CharacterType Value { get; set; }
+		public CharacterType Value { set; get; }
 
 	}
 

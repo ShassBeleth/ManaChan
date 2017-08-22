@@ -4,9 +4,9 @@ using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
-using ManaChan.MainCharacter.Enums;
 using ManaChan.Models;
 using ManaChan.Twitter.Services;
+using ManaChan.Infrastructure.Enums;
 
 namespace ManaChan.ViewModels {
 
@@ -30,6 +30,11 @@ namespace ManaChan.ViewModels {
 		/// アラート用リクエスト
 		/// </summary>
 		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
+
+		/// <summary>
+		/// PINコード入力アラート用リクエスト
+		/// </summary>
+		public InteractionRequest<InputPinCodeNotification> InputNotificationRequest { get; } = new InteractionRequest<InputPinCodeNotification>();
 
 		/// <summary>
 		/// キャラクタータイプ値発行者
@@ -83,14 +88,29 @@ namespace ManaChan.ViewModels {
 		}
 
 		/// <summary>
+		/// PINコード
+		/// </summary>
+		private int pinCode;
+
+		/// <summary>
+		/// PINコード
+		/// </summary>
+		public int PinCode {
+			set => SetProperty( ref this.pinCode , value );
+			get => this.pinCode;
+		}
+
+		/// <summary>
 		/// ツイッター認証イベント
 		/// </summary>
 		/// <returns></returns>
 		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
 			this.AuthenticatedService.Authorize();
-			string pinCode = Console.ReadLine();
-			this.AuthenticatedService.SetPinCode( int.Parse( pinCode ) );
-			this.AuthenticatedService.Token
+			this.InputNotificationRequest.Raise( 
+				new InputPinCodeNotification {
+					Title = "AAA" ,
+					InputPinCode = this.PinCode }
+			);
 		};
 
 		/// <summary>
@@ -149,6 +169,11 @@ namespace ManaChan.ViewModels {
 			set => SetProperty( ref this.characterSize , value );
 			get => this.characterSize;
 		}
+
+		/// <summary>
+		/// キャラクターサイズ変更グループ文字列
+		/// </summary>
+		public string ChangeCharacterGroupHeaderOfContextMenu { get; } = "キャラクターサイズ変更";
 
 		#region ドアップ
 
@@ -302,6 +327,11 @@ namespace ManaChan.ViewModels {
 			set => SetProperty( ref this.selectedCharacter , value );
 			get => this.selectedCharacter;
 		}
+
+		/// <summary>
+		/// キャラクター変更グループ文字列
+		/// </summary>
+		public string ChangeCharacterGraphicGroupHeaderOfContextMenu { get; } = "キャラクター変更";
 
 		#region 琴葉 茜
 

@@ -47,7 +47,7 @@ namespace ManaChan.MainCharacter {
 			);
 
 			// Region登録
-			this.RegionManager.RegisterViewWithRegion( "MainRegion" , typeof( MainCharacterView ) );
+			this.RegionManager.RegisterViewWithRegion( "MainCharacterRegion" , typeof( MainCharacterView ) );
 			
 		}
 

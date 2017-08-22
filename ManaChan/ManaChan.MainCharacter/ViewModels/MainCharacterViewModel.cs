@@ -1,4 +1,4 @@
-﻿using ManaChan.MainCharacter.Enums;
+﻿using ManaChan.Infrastructure.Enums;
 using ManaChan.MainCharacter.Models;
 using Prism.Mvvm;
 

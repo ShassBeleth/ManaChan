@@ -1,4 +1,4 @@
-﻿using ManaChan.MainCharacter.Enums;
+﻿using ManaChan.Infrastructure.Enums;
 
 namespace ManaChan.MainCharacter.Events.ChangeCharacterType {
 

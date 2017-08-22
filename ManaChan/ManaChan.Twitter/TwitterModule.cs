@@ -1,6 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Modularity;
-using Prism.Regions;
 using System.Linq;
 
 namespace ManaChan.Twitter {
@@ -12,7 +11,7 @@ namespace ManaChan.Twitter {
 		/// </summary>
 		[Dependency]
 		public IUnityContainer Container { get; set; }
-		
+
 		/// <summary>
 		/// 初期設定
 		/// </summary>

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ManaChan.Behaviors {
+namespace ManaChan.Infrastructure.Behaviors {
 
 	/// <summary>
 	/// ウィンドウを閉じる添付ビヘイビア

@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManaChan", "ManaChan\ManaChan.csproj", "{7DE74B9A-1551-4E3B-B0CF-5BC23AB13B80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManaChan.MainCharacter", "ManaChan.MainCharacter\ManaChan.MainCharacter.csproj", "{6D5624E4-DB6E-453E-B465-3AC33778C446}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManaChan.Twitter", "ManaChan.Twitter\ManaChan.Twitter.csproj", "{C4AAE793-01AD-48E7-94A8-8A35C49BAC0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManaChan.Infrastructure", "ManaChan.Infrastructure\ManaChan.Infrastructure.csproj", "{689C3D16-6518-43D6-8A48-95D9A9ABE45C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{C4AAE793-01AD-48E7-94A8-8A35C49BAC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4AAE793-01AD-48E7-94A8-8A35C49BAC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4AAE793-01AD-48E7-94A8-8A35C49BAC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689C3D16-6518-43D6-8A48-95D9A9ABE45C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689C3D16-6518-43D6-8A48-95D9A9ABE45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689C3D16-6518-43D6-8A48-95D9A9ABE45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689C3D16-6518-43D6-8A48-95D9A9ABE45C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

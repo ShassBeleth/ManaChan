@@ -1,9 +1,9 @@
 ﻿using ManaChan.Infrastructure.Enums;
-using ManaChan.MainCharacter.Events.ChangeCharacterType;
+using ManaChan.Infrastructure.Models.ChangeCharacterType.Events;
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace ManaChan.Models {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers {
 
 	/// <summary>
 	/// キャラクター種別値発行者

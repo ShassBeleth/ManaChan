@@ -4,9 +4,10 @@ using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
-using ManaChan.Models;
 using ManaChan.Twitter.Services;
 using ManaChan.Infrastructure.Enums;
+using ManaChan.Infrastructure.Models.CustomNotifications;
+using ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers;
 
 namespace ManaChan.ViewModels {
 
@@ -46,6 +47,7 @@ namespace ManaChan.ViewModels {
 		/// <summary>
 		/// ツイッター認証サービス
 		/// </summary>
+		[Dependency]
 		private IAuthenticatedService AuthenticatedService { get; } = new AuthenticatedService();
 
 		#region 画面を閉じるかどうか
@@ -105,11 +107,12 @@ namespace ManaChan.ViewModels {
 		/// </summary>
 		/// <returns></returns>
 		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
-			this.AuthenticatedService.Authorize();
+			//this.AuthenticatedService.Authorize();
 			this.InputNotificationRequest.Raise( 
 				new InputPinCodeNotification {
 					Title = "AAA" ,
-					InputPinCode = this.PinCode }
+					Content="ええんか？"
+				}
 			);
 		};
 
@@ -723,7 +726,7 @@ namespace ManaChan.ViewModels {
 		/// コンストラクタ
 		/// </summary>
 		public ShellViewModel() {
-
+			
 			#region コマンド作成
 
 			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
@@ -750,6 +753,7 @@ namespace ManaChan.ViewModels {
 			// キャラクターの座標更新
 			this.InitialCharacterPosition();
 		}
+		
 
 	}
 

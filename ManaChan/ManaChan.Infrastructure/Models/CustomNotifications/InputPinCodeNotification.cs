@@ -1,6 +1,6 @@
 ﻿using Prism.Interactivity.InteractionRequest;
 
-namespace ManaChan.Models {
+namespace ManaChan.Infrastructure.Models.CustomNotifications {
 
 	/// <summary>
 	/// PINコードを入力させるアラート
@@ -10,7 +10,7 @@ namespace ManaChan.Models {
 		/// <summary>
 		/// PINコード
 		/// </summary>
-		public int InputPinCode { set; get; }
+		public string InputText { set; get; }
 
 	}
 

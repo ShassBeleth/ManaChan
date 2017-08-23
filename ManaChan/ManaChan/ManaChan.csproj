@@ -111,9 +111,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\CustomNotifications\InputPinCodeNotification.cs" />
-    <Compile Include="Models\Publishers\ChangeCharacterTypeValue\CharacterTypeValuePublisher.cs" />
-    <Compile Include="Models\Publishers\ChangeCharacterTypeValue\ICharacterTypeValuePublisher.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.Size.cs" />

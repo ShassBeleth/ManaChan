@@ -1,6 +1,6 @@
 ﻿using ManaChan.Infrastructure.Enums;
 
-namespace ManaChan.MainCharacter.Events.ChangeCharacterType {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Events {
 
 	/// <summary>
 	/// キャラクター種別変更時イベント

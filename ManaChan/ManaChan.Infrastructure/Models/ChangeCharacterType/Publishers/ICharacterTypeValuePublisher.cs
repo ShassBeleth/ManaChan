@@ -1,6 +1,6 @@
 ﻿using ManaChan.Infrastructure.Enums;
 
-namespace ManaChan.Models {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers {
 
 	/// <summary>
 	/// キャラクター種別値発行者

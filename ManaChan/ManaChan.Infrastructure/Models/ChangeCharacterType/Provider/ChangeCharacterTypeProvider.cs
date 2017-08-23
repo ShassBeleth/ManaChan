@@ -1,9 +1,9 @@
 ﻿using ManaChan.Infrastructure.Enums;
-using ManaChan.MainCharacter.Events.ChangeCharacterType;
+using ManaChan.Infrastructure.Models.ChangeCharacterType.Events;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace ManaChan.MainCharacter.Models {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Provider {
 
 	/// <summary>
 	/// キャラクター種別値購読者

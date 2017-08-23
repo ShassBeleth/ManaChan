@@ -2,7 +2,7 @@
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using Prism.Commands;
-using ManaChan.Models;
+using ManaChan.Infrastructure.Models.CustomNotifications;
 
 namespace ManaChan.ViewModels {
 
@@ -32,7 +32,7 @@ namespace ManaChan.ViewModels {
 		public InputPinCodeViewModel()
 			=> this.OKCommand = new DelegateCommand(
 				() => {
-					( (InputPinCodeNotification)this.Notification ).InputPinCode = int.Parse( this.InputText );
+					( (InputPinCodeNotification)this.Notification ).InputText = this.InputText;
 					Console.WriteLine( "OK押された" );
 					this.FinishInteraction();
 				} ,

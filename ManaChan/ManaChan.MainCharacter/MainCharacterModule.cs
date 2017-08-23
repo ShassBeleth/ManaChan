@@ -29,19 +29,17 @@ namespace ManaChan.MainCharacter {
 		public void Initialize() {
 			
 			// Modelをコンテナに登録
-			// TODO できれば末尾でなくModels配下のクラスすべてを登録できるようにしたい
 			this.Container.RegisterTypes(
 				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
-					.Where( x => x.Namespace.EndsWith( ".Models" ) ) ,
+					.Where( x => x.Namespace.Contains( ".Models" ) ) ,
 				getFromTypes : WithMappings.FromAllInterfaces ,
 				getLifetimeManager : WithLifetime.ContainerControlled 
 			);
 
 			// Viewをコンテナに登録
-			// TODO できれば末尾でなくViews配下のクラスすべてを登録できるようにしたい
 			this.Container.RegisterTypes(
 				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
-					.Where( x => x.Namespace.EndsWith( ".Views" ) ) ,
+					.Where( x => x.Namespace.Contains( ".Views" ) ) ,
 				getFromTypes: _ => new[] { typeof( object ) } ,
 				getName: WithName.TypeName 
 			);

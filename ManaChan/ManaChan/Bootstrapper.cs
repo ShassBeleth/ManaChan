@@ -4,6 +4,8 @@ using System.Windows;
 using ManaChan.Views;
 using Prism.Modularity;
 using ManaChan.MainCharacter;
+using ManaChan.Twitter;
+using ManaChan.Infrastructure;
 
 namespace ManaChan {
 
@@ -40,6 +42,8 @@ namespace ManaChan {
 			// TODO 自身のModelsもコンテナに登録したい
 
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
+			catalog.AddModule( typeof( InfrastructureModule ) );
+			catalog.AddModule( typeof( TwitterModule ) );
 			catalog.AddModule( typeof( MainCharacterModule ) );
 			
 		}

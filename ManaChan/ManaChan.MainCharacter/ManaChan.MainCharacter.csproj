@@ -79,11 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Enums\CharacterType.cs" />
-    <Compile Include="Events\ChangeCharacterType\ChangeCharacterTypeEvent.cs" />
     <Compile Include="MainCharacterModule.cs" />
-    <Compile Include="Models\Provider\ChangeCharacterType\IChangeCharacterTypeProvider.cs" />
-    <Compile Include="Models\Provider\ChangeCharacterType\ChangeCharacterTypeProvider.cs" />
     <Compile Include="ViewModels\MainCharacterViewModel.cs" />
     <Compile Include="Views\MainCharacterView.xaml.cs">
       <DependentUpon>MainCharacterView.xaml</DependentUpon>
@@ -133,7 +129,12 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Aoi\Normal.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ManaChan.Infrastructure\ManaChan.Infrastructure.csproj">
+      <Project>{689C3D16-6518-43D6-8A48-95D9A9ABE45C}</Project>
+      <Name>ManaChan.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Yukari\Normal.png" />
   </ItemGroup>

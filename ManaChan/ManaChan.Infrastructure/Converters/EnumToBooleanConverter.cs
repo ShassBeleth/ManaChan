@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace ManaChan.Converter {
+namespace ManaChan.Infrastructure.Converters {
 
 	/// <summary>
 	/// EnumとBooleanの変換

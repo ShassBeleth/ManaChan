@@ -1,4 +1,4 @@
-﻿namespace ManaChan.MainCharacter.Enums {
+﻿namespace ManaChan.Infrastructure.Enums {
 
 	/// <summary>
 	/// キャラ種別

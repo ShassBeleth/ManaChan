@@ -4,8 +4,10 @@ using Prism.Commands;
 using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
-using ManaChan.MainCharacter.Enums;
-using ManaChan.Models;
+using ManaChan.Twitter.Services;
+using ManaChan.Infrastructure.Enums;
+using ManaChan.Infrastructure.Models.CustomNotifications;
+using ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers;
 
 namespace ManaChan.ViewModels {
 
@@ -31,11 +33,22 @@ namespace ManaChan.ViewModels {
 		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
 
 		/// <summary>
+		/// PINコード入力アラート用リクエスト
+		/// </summary>
+		public InteractionRequest<InputPinCodeNotification> InputNotificationRequest { get; } = new InteractionRequest<InputPinCodeNotification>();
+
+		/// <summary>
 		/// キャラクタータイプ値発行者
 		/// TODO DIなってない
 		/// </summary>
 		[Dependency]
 		public CharacterTypeValuePublisher CharacterTypeValuePublisher { set; get; }
+
+		/// <summary>
+		/// ツイッター認証サービス
+		/// </summary>
+		[Dependency]
+		private IAuthenticatedService AuthenticatedService { get; } = new AuthenticatedService();
 
 		#region 画面を閉じるかどうか
 
@@ -55,6 +68,61 @@ namespace ManaChan.ViewModels {
 		#endregion
 
 		#region 右クリックメニュー
+
+		#region ツイッター認証
+
+		/// <summary>
+		/// ツイッター認証文字列
+		/// </summary>
+		public string TwitterAuthenticateHeaderOfContextMenu { get; } = "Twitter認証";
+
+		/// <summary>
+		/// ツイッター認証コマンド
+		/// </summary>
+		private DelegateCommand twitterAuthenticateCommandOfContextMenu;
+
+		/// <summary>
+		/// ツイッター認証コマンド
+		/// </summary>
+		public DelegateCommand TwitterAuthenticateCommandOfContextMenu {
+			private set => SetProperty( ref this.twitterAuthenticateCommandOfContextMenu , value );
+			get => this.twitterAuthenticateCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// PINコード
+		/// </summary>
+		private int pinCode;
+
+		/// <summary>
+		/// PINコード
+		/// </summary>
+		public int PinCode {
+			set => SetProperty( ref this.pinCode , value );
+			get => this.pinCode;
+		}
+
+		/// <summary>
+		/// ツイッター認証イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
+			//this.AuthenticatedService.Authorize();
+			this.InputNotificationRequest.Raise( 
+				new InputPinCodeNotification {
+					Title = "AAA" ,
+					Content="ええんか？"
+				}
+			);
+		};
+
+		/// <summary>
+		/// ツイッター認証イベント可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanTwitterAuthenticateExecuteOfContextMenu() => () => true;
+
+		#endregion
 
 		#region アラートテスト
 
@@ -104,6 +172,11 @@ namespace ManaChan.ViewModels {
 			set => SetProperty( ref this.characterSize , value );
 			get => this.characterSize;
 		}
+
+		/// <summary>
+		/// キャラクターサイズ変更グループ文字列
+		/// </summary>
+		public string ChangeCharacterGroupHeaderOfContextMenu { get; } = "キャラクターサイズ変更";
 
 		#region ドアップ
 
@@ -257,6 +330,11 @@ namespace ManaChan.ViewModels {
 			set => SetProperty( ref this.selectedCharacter , value );
 			get => this.selectedCharacter;
 		}
+
+		/// <summary>
+		/// キャラクター変更グループ文字列
+		/// </summary>
+		public string ChangeCharacterGraphicGroupHeaderOfContextMenu { get; } = "キャラクター変更";
 
 		#region 琴葉 茜
 
@@ -648,10 +726,11 @@ namespace ManaChan.ViewModels {
 		/// コンストラクタ
 		/// </summary>
 		public ShellViewModel() {
-
+			
 			#region コマンド作成
 
 			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
+			this.TwitterAuthenticateCommandOfContextMenu = new DelegateCommand( this.TwitterAuthenticateExecuteOfContextMenu() , this.CanTwitterAuthenticateExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );
@@ -674,6 +753,7 @@ namespace ManaChan.ViewModels {
 			// キャラクターの座標更新
 			this.InitialCharacterPosition();
 		}
+		
 
 	}
 

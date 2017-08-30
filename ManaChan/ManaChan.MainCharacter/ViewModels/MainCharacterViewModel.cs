@@ -1,5 +1,5 @@
-﻿using ManaChan.MainCharacter.Enums;
-using ManaChan.MainCharacter.Models;
+﻿using ManaChan.Infrastructure.Enums;
+using ManaChan.Infrastructure.Models.ChangeCharacterType.Provider;
 using Prism.Mvvm;
 
 namespace ManaChan.MainCharacter.ViewModels {

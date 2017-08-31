@@ -4,8 +4,6 @@
 	xmlns:behaviors="clr-namespace:ManaChan.Infrastructure.Behaviors;assembly=ManaChan.Infrastructure"
 	xmlns:converters="clr-namespace:ManaChan.Infrastructure.Converters;assembly=ManaChan.Infrastructure"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:interactivity="http://schemas.microsoft.com/expression/2010/interactivity"
-	xmlns:local="clr-namespace:ManaChan.Views"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:prism="http://prismlibrary.com/"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -152,14 +150,6 @@
 
 	<Canvas
 		Name="canvas" >
-		<Label
-			Canvas.Left="0"
-			Canvas.Top="0"
-			Content="PinCode" />
-		<Label
-			Canvas.Left="0"
-			Canvas.Top="30"
-			Content="{ Binding PinCode }" />
 		<ContentControl
 			Canvas.Left="{ Binding CharacterPosX , Mode=TwoWay }"
 			Canvas.Top="{ Binding CharacterPosY , Mode=TwoWay }"
@@ -169,7 +159,13 @@
 			MouseMove="CharacterMouseMove"
 			Width="{ Binding CharacterWidth }"
 			prism:RegionManager.RegionName="MainCharacterRegion" />
-		
+
+		<ContentControl
+			Canvas.Left="30"
+			Canvas.Top="30"
+			Visibility="{ Binding InputPinCodePopUpVisibility }"
+			prism:RegionManager.RegionName="InputPinCodePopUpRegion" />
+
 	</Canvas>
 
 </Window>

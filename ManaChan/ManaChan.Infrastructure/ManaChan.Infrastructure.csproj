@@ -86,11 +86,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InfrastructureModule.cs" />
-    <Compile Include="Models\ChangeCharacterType\Events\ChangeCharacterTypeEvent.cs" />
-    <Compile Include="Models\ChangeCharacterType\Providers\ChangeCharacterTypeProvider.cs" />
-    <Compile Include="Models\ChangeCharacterType\Providers\IChangeCharacterTypeProvider.cs" />
-    <Compile Include="Models\ChangeCharacterType\Publishers\CharacterTypeValuePublisher.cs" />
-    <Compile Include="Models\ChangeCharacterType\Publishers\ICharacterTypeValuePublisher.cs" />
+    <Compile Include="Models\Passer\Events\EventOfPasser.cs" />
+    <Compile Include="Models\Passer\Providers\ProviderOfPasser.cs" />
+    <Compile Include="Models\Passer\Providers\IProviderOfPasser.cs" />
+    <Compile Include="Models\Passer\Publishers\PublisherOfPasser.cs" />
+    <Compile Include="Models\Passer\Publishers\IPublisherOfPasser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

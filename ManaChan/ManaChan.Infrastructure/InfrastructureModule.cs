@@ -26,7 +26,6 @@ namespace ManaChan.Infrastructure {
 		/// 初期設定
 		/// </summary>
 		public void Initialize() =>
-
 			// Modelをコンテナに登録
 			this.Container.RegisterTypes(
 				AllClasses.FromAssemblies( typeof( InfrastructureModule ).Assembly )

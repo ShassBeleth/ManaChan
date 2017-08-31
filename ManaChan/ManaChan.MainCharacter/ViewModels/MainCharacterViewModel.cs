@@ -1,5 +1,5 @@
 ﻿using ManaChan.Infrastructure.Enums;
-using ManaChan.Infrastructure.Models.ChangeCharacterType.Providers;
+using ManaChan.Infrastructure.Models.Passer.Providers;
 using Prism.Mvvm;
 
 namespace ManaChan.MainCharacter.ViewModels {
@@ -28,16 +28,15 @@ namespace ManaChan.MainCharacter.ViewModels {
 		/// <param name="characterType">キャラクター種別</param>
 		private void UpdateSourceUrl( CharacterType characterType )
 			=> this.SourceUrl = "../Graphics/Pictures/" + characterType + "/Normal.png";
-		
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="changeCharacterTypeProvider">キャラクター種別値購読者</param>
-		public MainCharacterViewModel( IChangeCharacterTypeProvider changeCharacterTypeProvider ) 
-			=> changeCharacterTypeProvider.PropertyChanged += ( _ , e ) => {
-				if( e.PropertyName == "Value" )
-					this.UpdateSourceUrl( changeCharacterTypeProvider.Value );
-			};
-		
+		/// <param name="providerOfPasser">キャラクター種別値購読者</param>
+		public MainCharacterViewModel( IProviderOfPasser providerOfPasser ) 
+		=> providerOfPasser.PropertyChanged += ( _ , e ) => {
+			if( e.PropertyName == "CharacterType" )
+				this.UpdateSourceUrl( providerOfPasser.CharacterType );
+		};
 	}
 }

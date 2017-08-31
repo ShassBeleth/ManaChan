@@ -5,7 +5,9 @@ using Prism.Mvvm;
 using System;
 using ManaChan.Twitter.Services;
 using ManaChan.Infrastructure.Enums;
-using ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers;
+using ManaChan.Infrastructure.Models.Passer.Publishers;
+using System.Windows;
+using ManaChan.Infrastructure.Models.Passer.Providers;
 
 namespace ManaChan.ViewModels {
 
@@ -26,17 +28,28 @@ namespace ManaChan.ViewModels {
 		public string Title { get; } = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ";
 
 		/// <summary>
-		/// キャラクタータイプ値発行者
+		/// モジュール橋渡し発行者
 		/// TODO DIなってない
 		/// </summary>
 		[Dependency]
-		public CharacterTypeValuePublisher CharacterTypeValuePublisher { set; get; }
+		public PublisherOfPasser PublisherOfPasser { set; get; }
 
 		/// <summary>
 		/// ツイッター認証サービス
 		/// </summary>
 		[Dependency]
 		private IAuthenticatedService AuthenticatedService { get; } = new AuthenticatedService();
+
+		#region ポップアップ表示／非表示
+
+		private Visibility inputPinCodePopUpVisibility = Visibility.Hidden;
+
+		public Visibility InputPinCodePopUpVisibility {
+			private set => SetProperty( ref this.inputPinCodePopUpVisibility , value );
+			get => this.inputPinCodePopUpVisibility;
+		}
+		
+		#endregion
 
 		#region 画面を閉じるかどうか
 
@@ -76,26 +89,14 @@ namespace ManaChan.ViewModels {
 			private set => SetProperty( ref this.twitterAuthenticateCommandOfContextMenu , value );
 			get => this.twitterAuthenticateCommandOfContextMenu;
 		}
-
-		/// <summary>
-		/// PINコード
-		/// </summary>
-		private int pinCode;
-
-		/// <summary>
-		/// PINコード
-		/// </summary>
-		public int PinCode {
-			set => SetProperty( ref this.pinCode , value );
-			get => this.pinCode;
-		}
-
+		
 		/// <summary>
 		/// ツイッター認証イベント
 		/// </summary>
 		/// <returns></returns>
 		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
 			//this.AuthenticatedService.Authorize();
+			this.InputPinCodePopUpVisibility = Visibility.Visible;
 		};
 
 		/// <summary>
@@ -308,7 +309,7 @@ namespace ManaChan.ViewModels {
 		/// 琴葉 茜イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AkaneExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Akane );
+		private Action AkaneExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Akane );
 
 		/// <summary>
 		/// 琴葉 茜可否
@@ -342,7 +343,7 @@ namespace ManaChan.ViewModels {
 		/// 琴葉 葵イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AoiExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Aoi );
+		private Action AoiExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Aoi );
 
 		/// <summary>
 		/// 琴葉 葵可否
@@ -376,7 +377,7 @@ namespace ManaChan.ViewModels {
 		/// 弦巻 マキイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action MakiExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Maki );
+		private Action MakiExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Maki );
 
 		/// <summary>
 		/// 弦巻 マキ可否
@@ -410,7 +411,7 @@ namespace ManaChan.ViewModels {
 		/// 結月 ゆかりイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action YukariExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Yukari );
+		private Action YukariExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Yukari );
 
 		/// <summary>
 		/// 結月 ゆかり可否
@@ -444,7 +445,7 @@ namespace ManaChan.ViewModels {
 		/// 東北 ずん子イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action ZunkoExecuteOfContextMenu() => () => this.CharacterTypeValuePublisher.Publish( CharacterType.Zunko );
+		private Action ZunkoExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Zunko );
 
 		/// <summary>
 		/// 東北 ずん子可否
@@ -673,7 +674,7 @@ namespace ManaChan.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public ShellViewModel() {
+		public ShellViewModel( /*IProviderOfPasser providerOfPasser*/ ) {
 			
 			#region コマンド作成
 
@@ -694,6 +695,15 @@ namespace ManaChan.ViewModels {
 
 			#endregion
 
+			/*
+			providerOfPasser.PropertyChanged += ( _ , e ) => {
+				if( e.PropertyName == "PinCode" ) {
+					Console.WriteLine( providerOfPasser.PinCode );
+					this.InputPinCodePopUpVisibility = Visibility.Hidden;
+				}
+			};
+			*/
+			
 			// キャラクターのサイズ更新
 			this.UpdateSizeAndPosition();
 
@@ -701,7 +711,6 @@ namespace ManaChan.ViewModels {
 			this.InitialCharacterPosition();
 		}
 		
-
 	}
 
 }

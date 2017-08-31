@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using ManaChan.Infrastructure.Enums;
 
-namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Provider {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Providers {
 
 	/// <summary>
 	/// キャラクター種別値購読者

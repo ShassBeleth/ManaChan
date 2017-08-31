@@ -1,12 +1,10 @@
 ﻿using ManaChan.Models.ScreenSize;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
-using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 using System;
 using ManaChan.Twitter.Services;
 using ManaChan.Infrastructure.Enums;
-using ManaChan.Infrastructure.Models.CustomNotifications;
 using ManaChan.Infrastructure.Models.ChangeCharacterType.Publishers;
 
 namespace ManaChan.ViewModels {
@@ -26,16 +24,6 @@ namespace ManaChan.ViewModels {
 		/// タイトル
 		/// </summary>
 		public string Title { get; } = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ";
-
-		/// <summary>
-		/// アラート用リクエスト
-		/// </summary>
-		public InteractionRequest<Notification> NotificationRequest { get; } = new InteractionRequest<Notification>();
-
-		/// <summary>
-		/// PINコード入力アラート用リクエスト
-		/// </summary>
-		public InteractionRequest<InputPinCodeNotification> InputNotificationRequest { get; } = new InteractionRequest<InputPinCodeNotification>();
 
 		/// <summary>
 		/// キャラクタータイプ値発行者
@@ -108,12 +96,6 @@ namespace ManaChan.ViewModels {
 		/// <returns></returns>
 		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
 			//this.AuthenticatedService.Authorize();
-			this.InputNotificationRequest.Raise( 
-				new InputPinCodeNotification {
-					Title = "AAA" ,
-					Content="ええんか？"
-				}
-			);
 		};
 
 		/// <summary>
@@ -123,41 +105,7 @@ namespace ManaChan.ViewModels {
 		private Func<bool> CanTwitterAuthenticateExecuteOfContextMenu() => () => true;
 
 		#endregion
-
-		#region アラートテスト
-
-		/// <summary>
-		/// アラートテスト文字列
-		/// </summary>
-		public string AlartTestHeaderOfContextMenu { get; } = "アラートテスト";
-
-		/// <summary>
-		/// アラートテストコマンド
-		/// </summary>
-		private DelegateCommand alartTextCommandOfContextMenu;
-
-		/// <summary>
-		/// アラートテストコマンド
-		/// </summary>
-		public DelegateCommand AlartTextCommandOfContextMenu {
-			private set => SetProperty( ref this.alartTextCommandOfContextMenu , value );
-			get => this.alartTextCommandOfContextMenu;
-		}
-
-		/// <summary>
-		/// アラートテストイベント
-		/// </summary>
-		/// <returns></returns>
-		private Action AlartTextExecuteOfContextMenu() => () => this.NotificationRequest.Raise( new Notification { Title = "アラート" , Content = "ｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!" } );
-
-		/// <summary>
-		/// アラートテスト可否
-		/// </summary>
-		/// <returns></returns>
-		private Func<bool> CanAlartTextExecuteOfContextMenu() => () => true;
-
-		#endregion
-
+		
 		#region キャラクターサイズ
 
 		/// <summary>
@@ -729,7 +677,6 @@ namespace ManaChan.ViewModels {
 			
 			#region コマンド作成
 
-			this.AlartTextCommandOfContextMenu = new DelegateCommand( this.AlartTextExecuteOfContextMenu() , this.CanAlartTextExecuteOfContextMenu() );
 			this.TwitterAuthenticateCommandOfContextMenu = new DelegateCommand( this.TwitterAuthenticateExecuteOfContextMenu() , this.CanTwitterAuthenticateExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );

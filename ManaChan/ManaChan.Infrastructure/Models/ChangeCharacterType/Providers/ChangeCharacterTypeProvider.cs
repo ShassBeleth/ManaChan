@@ -3,7 +3,7 @@ using ManaChan.Infrastructure.Models.ChangeCharacterType.Events;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Provider {
+namespace ManaChan.Infrastructure.Models.ChangeCharacterType.Providers {
 
 	/// <summary>
 	/// キャラクター種別値購読者

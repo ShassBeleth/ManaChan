@@ -86,10 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InfrastructureModule.cs" />
-    <Compile Include="Models\CustomNotifications\InputPinCodeNotification.cs" />
     <Compile Include="Models\ChangeCharacterType\Events\ChangeCharacterTypeEvent.cs" />
-    <Compile Include="Models\ChangeCharacterType\Provider\ChangeCharacterTypeProvider.cs" />
-    <Compile Include="Models\ChangeCharacterType\Provider\IChangeCharacterTypeProvider.cs" />
+    <Compile Include="Models\ChangeCharacterType\Providers\ChangeCharacterTypeProvider.cs" />
+    <Compile Include="Models\ChangeCharacterType\Providers\IChangeCharacterTypeProvider.cs" />
     <Compile Include="Models\ChangeCharacterType\Publishers\CharacterTypeValuePublisher.cs" />
     <Compile Include="Models\ChangeCharacterType\Publishers\ICharacterTypeValuePublisher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

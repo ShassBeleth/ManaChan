@@ -99,10 +99,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\InputPinCodeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Shell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </Page>
@@ -114,10 +110,6 @@
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.Size.cs" />
-    <Compile Include="ViewModels\InputPinCodeViewModel.cs" />
-    <Compile Include="Views\InputPinCodeView.xaml.cs">
-      <DependentUpon>InputPinCodeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>

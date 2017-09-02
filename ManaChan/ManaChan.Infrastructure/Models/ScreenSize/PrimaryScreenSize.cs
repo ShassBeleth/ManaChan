@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ManaChan.Models.ScreenSize {
+namespace ManaChan.Infrastructure.Models.ScreenSize {
 
 	/// <summary>
 	/// 画面サイズ
@@ -16,15 +16,7 @@ namespace ManaChan.Models.ScreenSize {
 		/// 画面高さ
 		/// </summary>
 		public double Height { get; } = SystemParameters.PrimaryScreenHeight;
-
-		/// <summary>
-		/// デバッグ用
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString() => 
-			"width : " + this.Width + "\n" +
-			"height : " + this.Height;
-
+		
 	}
 
 }

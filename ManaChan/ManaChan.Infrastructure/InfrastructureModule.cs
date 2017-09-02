@@ -1,7 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
-using System.Linq;
+using ManaChan.Infrastructure.Models.Passer.Providers;
+using ManaChan.Infrastructure.Models.Passer.Publishers;
 
 namespace ManaChan.Infrastructure {
 
@@ -25,14 +26,12 @@ namespace ManaChan.Infrastructure {
 		/// <summary>
 		/// 初期設定
 		/// </summary>
-		public void Initialize() =>
-			// Modelをコンテナに登録
-			this.Container.RegisterTypes(
-				AllClasses.FromAssemblies( typeof( InfrastructureModule ).Assembly )
-					.Where( x => x.Namespace.Contains( ".Models" ) ) ,
-				getFromTypes: WithMappings.FromAllInterfaces ,
-				getLifetimeManager: WithLifetime.ContainerControlled
-			);
+		public void Initialize() {
+
+			this.Container.RegisterType<IProviderOfPasser , ProviderOfPasser>();
+			this.Container.RegisterType<IPublisherOfPasser , PublisherOfPasser>();
+			
+		}
 
 	}
 

@@ -1,14 +1,14 @@
-﻿using ManaChan.MainCharacter.Views;
+﻿using ManaChan.MainWindow.VIews;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
 
-namespace ManaChan.MainCharacter {
+namespace ManaChan.MainWindow {
 
 	/// <summary>
-	/// MainCharacterモジュールのエントリポイント
+	/// 
 	/// </summary>
-	public class MainCharacterModule : IModule {
+	public class MainWindowModule : IModule {
 
 		/// <summary>
 		/// コンテナ
@@ -27,10 +27,12 @@ namespace ManaChan.MainCharacter {
 		/// </summary>
 		public void Initialize() {
 
-			this.Container.RegisterType<MainCharacterView>();
+			this.Container.RegisterType<MainWindowView>();
 
-			this.RegionManager.RegisterViewWithRegion( "MainCharacterRegion" , typeof( MainCharacterView ) );
-			
+			this.RegionManager.RegisterViewWithRegion( "MainWindowRegion" , typeof( MainWindowView ) );
+
+
+
 		}
 
 	}

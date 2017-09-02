@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Modularity;
-using System.Linq;
+using ManaChan.Twitter.Services;
 
 namespace ManaChan.Twitter {
 
@@ -21,12 +21,7 @@ namespace ManaChan.Twitter {
 		public void Initialize() =>
 
 			// Serviceをコンテナに登録
-			this.Container.RegisterTypes(
-				AllClasses.FromAssemblies( typeof( TwitterModule ).Assembly )
-					.Where( x => x.Namespace.Contains( ".Services" ) ) ,
-				getFromTypes: WithMappings.FromAllInterfaces ,
-				getLifetimeManager: WithLifetime.ContainerControlled
-			);
+			this.Container.RegisterType<IAuthenticatedService , AuthenticatedService>();
 
 	}
 

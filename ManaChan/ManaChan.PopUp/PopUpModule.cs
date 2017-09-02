@@ -2,11 +2,6 @@
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ManaChan.PopUp {
 
@@ -32,15 +27,8 @@ namespace ManaChan.PopUp {
 		/// </summary>
 		public void Initialize() {
 			
-			// Viewをコンテナに登録
-			this.Container.RegisterTypes(
-				AllClasses.FromAssemblies( typeof( PopUpModule ).Assembly )
-					.Where( x => x.Namespace.Contains( ".Views" ) ) ,
-				getFromTypes: _ => new[] { typeof( object ) } ,
-				getName: WithName.TypeName
-			);
+			this.Container.RegisterType<InputPinCodePopUpView>();
 
-			// Region登録
 			this.RegionManager.RegisterViewWithRegion( "InputPinCodePopUpRegion" , typeof( InputPinCodePopUpView ) );
 
 		}

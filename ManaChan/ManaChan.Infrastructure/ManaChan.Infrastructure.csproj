@@ -91,6 +91,7 @@
     <Compile Include="Models\Passer\Providers\IProviderOfPasser.cs" />
     <Compile Include="Models\Passer\Publishers\PublisherOfPasser.cs" />
     <Compile Include="Models\Passer\Publishers\IPublisherOfPasser.cs" />
+    <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

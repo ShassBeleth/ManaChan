@@ -1,171 +1,23 @@
 ﻿<Window
 	x:Class="ManaChan.Views.Shell"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:behaviors="clr-namespace:ManaChan.Infrastructure.Behaviors;assembly=ManaChan.Infrastructure"
-	xmlns:converters="clr-namespace:ManaChan.Infrastructure.Converters;assembly=ManaChan.Infrastructure"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:prism="http://prismlibrary.com/"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	behaviors:CloseWindowAttachedBehavior.Close="{ Binding IsCloseWindow }"
 	mc:Ignorable="d"
 	prism:ViewModelLocator.AutoWireViewModel="True"
 	AllowsTransparency="True"
 	Background="Transparent"
 	Height="{ Binding PrimaryScreenSize.Height }"
-	WindowStartupLocation="CenterScreen"
-	Title="{ Binding Title }"
-	Width="{ Binding PrimaryScreenSize.Width }"
-	WindowStyle="None"
 	ShowInTaskbar="False"
-	Topmost="True">
-
-	<Window.Resources>
-		<converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
-	</Window.Resources>
-
-	<!-- 右クリックメニュー -->
-	<Window.ContextMenu>
-		<ContextMenu>
-			
-			<!-- Twitter認証 -->
-			<MenuItem
-				Command="{ Binding TwitterAuthenticateCommandOfContextMenu }"
-				Header="{ Binding TwitterAuthenticateHeaderOfContextMenu }" />
-
-			<Separator />
-			
-			<!-- キャラクターサイズ変更 -->
-			<MenuItem
-				Header="{ Binding ChangeCharacterGroupHeaderOfContextMenu }" >
-				<MenuItem
-					Command="{ Binding CharacterSpecialLargeCommandOfContextMenu }"
-					Header="{ Binding CharacterSpecialLargeHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=CharacterSize ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=SpecialLarge
-					}" />
-				<MenuItem
-					Command="{ Binding CharacterLargeCommandOfContextMenu }"
-					Header="{ Binding CharacterLargeHeaderOfContextMenu }"
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=CharacterSize ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Large
-					}" />
-				<MenuItem
-					Command="{ Binding CharacterMediumCommandOfContextMenu }"
-					Header="{ Binding CharacterMediumHeaderOfContextMenu }"
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=CharacterSize ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Medium
-					}"  />
-				<MenuItem
-					Command="{ Binding CharacterSmallCommandOfContextMenu }"
-					Header="{ Binding CharacterSmallHeaderOfContextMenu }"
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=CharacterSize ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Small
-					}" />
-
-			</MenuItem>
-
-			<!-- キャラクターグラフィック変更 -->
-			<MenuItem
-				Header="{ Binding ChangeCharacterGraphicGroupHeaderOfContextMenu }" >
-				<MenuItem 
-					Command="{ Binding AkaneCommandOfContextMenu }"
-					Header="{ Binding AkaneHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=SelectedCharacter ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Akane
-					}" />
-				<MenuItem 
-					Command="{ Binding AoiCommandOfContextMenu }"
-					Header="{ Binding AoiHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=SelectedCharacter ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Aoi
-					}" />
-				<MenuItem 
-					Command="{ Binding MakiCommandOfContextMenu }"
-					Header="{ Binding MakiHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=SelectedCharacter ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Maki
-					}" />
-				<MenuItem 
-					Command="{ Binding YukariCommandOfContextMenu }"
-					Header="{ Binding YukariHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=SelectedCharacter ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Yukari
-					}" />
-				<MenuItem 
-					Command="{ Binding ZunkoCommandOfContextMenu }"
-					Header="{ Binding ZunkoHeaderOfContextMenu }" 
-					IsCheckable="True"
-					IsChecked="{ 
-						Binding 
-						Path=SelectedCharacter ,
-						Converter={ StaticResource EnumToBooleanConverter } ,
-						ConverterParameter=Zunko
-					}" />
-
-			</MenuItem>
-
-			<Separator />
-			
-			<!-- 終了 -->
-			<MenuItem
-				Command="{ Binding QuitCommandOfContextMenu }"
-				Header="{ Binding QuitHeaderOfContextMenu }"
-				IsEnabled="{ Binding IsQuitEnabledOfContextMenu }" />
-			
-		</ContextMenu>
-	</Window.ContextMenu>
-
-	<Canvas
-		Name="canvas" >
-		<ContentControl
-			Canvas.Left="{ Binding CharacterPosX , Mode=TwoWay }"
-			Canvas.Top="{ Binding CharacterPosY , Mode=TwoWay }"
-			Height="{ Binding CharacterHeight }"
-			MouseLeftButtonDown="CharacterMouseLeftButtonDown"
-			MouseLeftButtonUp="CharacterMouseLeftButtonUp"
-			MouseMove="CharacterMouseMove"
-			Width="{ Binding CharacterWidth }"
-			prism:RegionManager.RegionName="MainCharacterRegion" />
-
-		<ContentControl
-			Canvas.Left="30"
-			Canvas.Top="30"
-			Visibility="{ Binding InputPinCodePopUpVisibility }"
-			prism:RegionManager.RegionName="InputPinCodePopUpRegion" />
-
-	</Canvas>
+	Title="{ Binding Title }"
+	Topmost="True"
+	WindowStartupLocation="CenterScreen"
+	Width="{ Binding PrimaryScreenSize.Width }"
+	WindowStyle="None">
+	
+	<ContentControl
+		prism:RegionManager.RegionName="MainWindowRegion" />
 
 </Window>

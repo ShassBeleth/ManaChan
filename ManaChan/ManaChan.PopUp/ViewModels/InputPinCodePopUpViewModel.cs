@@ -10,10 +10,9 @@ namespace ManaChan.PopUp.ViewModels {
 
 		/// <summary>
 		/// モジュール橋渡し発行者
-		/// TODO DIなってない
 		/// </summary>
 		[Dependency]
-		public PublisherOfPasser PublisherOfPasser { set; get; }
+		public IPublisherOfPasser PublisherOfPasser { set; get; }
 
 		private string pinCode = "";
 
@@ -46,7 +45,10 @@ namespace ManaChan.PopUp.ViewModels {
 		/// OKボタンイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action OkExecute() => () => this.PublisherOfPasser.PinCodePublish( int.Parse( this.PinCode ) );
+		private Action OkExecute() => () => {
+			Console.WriteLine( "OK" );
+			this.PublisherOfPasser.PinCodePublish( int.Parse( this.PinCode ) );
+		};
 
 		/// <summary>
 		/// OKボタンイベント可否
@@ -55,12 +57,11 @@ namespace ManaChan.PopUp.ViewModels {
 		private Func<bool> CanOkExecute() => () => true;
 
 		#endregion
-		
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public InputPinCodePopUpViewModel() => this.OkCommand = new DelegateCommand( this.OkExecute() , this.CanOkExecute() );
-
 
 	}
 

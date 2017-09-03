@@ -22,6 +22,12 @@ namespace ManaChan.Twitter.Services {
 		/// </summary>
 		/// <param name="pinCode">PINコード</param>
 		void SetPinCode( int pinCode );
+
+		/// <summary>
+		/// ツイート
+		/// </summary>
+		/// <param name="text">本文</param>
+		void Tweet( string text );
 		
 	}
 

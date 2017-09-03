@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
 using ManaChan.Infrastructure.Enums;
 using ManaChan.Infrastructure.Models.ScreenSize;
@@ -62,6 +63,13 @@ namespace ManaChan.MainWindow.ViewModels {
 
 		#region 右クリックメニュー
 
+		#region Twitter
+
+		/// <summary>
+		/// Twitterグループ文字列
+		/// </summary>
+		public string TwitterGroupHeaderOfContextMenu { get; } = "Twitter";
+
 		#region ツイッター認証
 
 		/// <summary>
@@ -87,7 +95,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		/// <returns></returns>
 		private Action TwitterAuthenticateExecuteOfContextMenu() => () => {
-			//this.AuthenticatedService.Authorize();
+			this.AuthenticatedService.Authorize();
 			this.InputPinCodePopUpVisibility = Visibility.Visible;
 		};
 
@@ -96,6 +104,42 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		/// <returns></returns>
 		private Func<bool> CanTwitterAuthenticateExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region テストツイート
+
+		/// <summary>
+		/// テストツイート文字列
+		/// </summary>
+		public string TestTweetHeaderOfContextMenu { get; } = "テストツイート";
+
+		/// <summary>
+		/// テストツイートコマンド
+		/// </summary>
+		private DelegateCommand testTweetCommandOfContextMenu;
+
+		/// <summary>
+		/// テストツイートコマンド
+		/// </summary>
+		public DelegateCommand TestTweetCommandOfContextMenu {
+			private set => SetProperty( ref this.testTweetCommandOfContextMenu , value );
+			get => this.testTweetCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// テストツイートイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action TestTweetExecuteOfContextMenu() => () => this.AuthenticatedService.Tweet( "茜ちゃんから投稿\nｱｶﾈﾁｬﾝｶﾜｲｲﾔｯﾀｰ!\n" + DateTime.Now );
+
+		/// <summary>
+		/// テストツイートイベント可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanTestTweetExecuteOfContextMenu() => () => true;
+
+		#endregion
 
 		#endregion
 
@@ -663,6 +707,21 @@ namespace ManaChan.MainWindow.ViewModels {
 
 		#endregion
 
+		#region Provider.PropertyChanged 
+
+		/// <summary>
+		/// PINコード入力時イベント
+		/// </summary>
+		/// <param name="pinCode">PINコード</param>
+		private void PinCodeChangedEvent( int pinCode ) {
+
+			this.AuthenticatedService.SetPinCode( pinCode );
+			this.InputPinCodePopUpVisibility = Visibility.Hidden;
+
+		}
+
+		#endregion
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
@@ -675,6 +734,7 @@ namespace ManaChan.MainWindow.ViewModels {
 			#region コマンド作成
 
 			this.TwitterAuthenticateCommandOfContextMenu = new DelegateCommand( this.TwitterAuthenticateExecuteOfContextMenu() , this.CanTwitterAuthenticateExecuteOfContextMenu() );
+			this.TestTweetCommandOfContextMenu = new DelegateCommand( this.TestTweetExecuteOfContextMenu() , this.CanTestTweetExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );
@@ -692,10 +752,8 @@ namespace ManaChan.MainWindow.ViewModels {
 			#endregion
 			
 			pinCodeProvider.PropertyChanged += ( _ , e ) => {
-				if( e.PropertyName == "PinCode" ) {
-					Console.WriteLine( pinCodeProvider.PinCode );
-					this.InputPinCodePopUpVisibility = Visibility.Hidden;
-				}
+				if( e.PropertyName == "PinCode" )
+					this.PinCodeChangedEvent( pinCodeProvider.PinCode );
 			};
 			
 			// キャラクターのサイズ更新

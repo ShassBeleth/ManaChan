@@ -32,6 +32,11 @@ namespace ManaChan.Twitter.Services {
 		public Tokens Token { private set; get; }
 
 		/// <summary>
+		/// PINコード
+		/// </summary>
+		private string PinCode { set; get; }
+
+		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		public AuthenticatedService() {
@@ -57,8 +62,16 @@ namespace ManaChan.Twitter.Services {
 		/// PINコードを設定する
 		/// </summary>
 		/// <param name="pinCode">PINコード</param>
-		public void SetPinCode( int pinCode )
-			=> this.Token = OAuth.GetTokens( this.Session , pinCode.ToString() );
+		public async void SetPinCode( int pinCode ) {
+			this.PinCode = pinCode.ToString();
+			this.Token = await OAuth.GetTokensAsync( this.Session , this.PinCode );
+		}
+
+		/// <summary>
+		/// ツイート
+		/// </summary>
+		/// <param name="text">本文</param>
+		public void Tweet( string text ) => this.Token.Statuses.Update( new { status = text } );
 
 	}
 

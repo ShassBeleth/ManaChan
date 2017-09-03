@@ -20,10 +20,20 @@
 	<UserControl.ContextMenu>
 		<ContextMenu>
 
-			<!-- Twitter認証 -->
 			<MenuItem
-				Command="{ Binding TwitterAuthenticateCommandOfContextMenu }"
-				Header="{ Binding TwitterAuthenticateHeaderOfContextMenu }" />
+				Header="{ Binding TwitterGroupHeaderOfContextMenu }">
+
+				<!-- Twitter認証 -->
+				<MenuItem
+					Command="{ Binding TwitterAuthenticateCommandOfContextMenu }"
+					Header="{ Binding TwitterAuthenticateHeaderOfContextMenu }" />
+				
+				<!-- テストツイート -->
+				<MenuItem
+					Command="{ Binding TestTweetCommandOfContextMenu }"
+					Header="{ Binding TestTweetHeaderOfContextMenu }" />
+
+			</MenuItem>
 
 			<Separator />
 

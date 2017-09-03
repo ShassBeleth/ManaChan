@@ -80,6 +80,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainCharacterModule.cs" />
+    <Compile Include="Models\Providers\ChangeCharacterType\IChangeCharacterTypeProvider.cs" />
+    <Compile Include="Models\Providers\ChangeCharacterType\ChangeCharacterTypeProvider.cs" />
     <Compile Include="ViewModels\MainCharacterViewModel.cs" />
     <Compile Include="Views\MainCharacterView.xaml.cs">
       <DependentUpon>MainCharacterView.xaml</DependentUpon>

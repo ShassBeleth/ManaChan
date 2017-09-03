@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using ManaChan.MainCharacter.Models.Providers.ChangeCharacterType;
 using ManaChan.MainCharacter.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -27,24 +27,10 @@ namespace ManaChan.MainCharacter {
 		/// 初期設定
 		/// </summary>
 		public void Initialize() {
-			
-			// Modelをコンテナに登録
-			this.Container.RegisterTypes(
-				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
-					.Where( x => x.Namespace.Contains( ".Models" ) ) ,
-				getFromTypes : WithMappings.FromAllInterfaces ,
-				getLifetimeManager : WithLifetime.ContainerControlled 
-			);
 
-			// Viewをコンテナに登録
-			this.Container.RegisterTypes(
-				AllClasses.FromAssemblies( typeof( MainCharacterModule ).Assembly )
-					.Where( x => x.Namespace.Contains( ".Views" ) ) ,
-				getFromTypes: _ => new[] { typeof( object ) } ,
-				getName: WithName.TypeName 
-			);
+			this.Container.RegisterType<MainCharacterView>();
+			this.Container.RegisterType<IChangeCharacterTypeProvider , ChangeCharacterTypeProvider>( new ContainerControlledLifetimeManager() );
 
-			// Region登録
 			this.RegionManager.RegisterViewWithRegion( "MainCharacterRegion" , typeof( MainCharacterView ) );
 			
 		}

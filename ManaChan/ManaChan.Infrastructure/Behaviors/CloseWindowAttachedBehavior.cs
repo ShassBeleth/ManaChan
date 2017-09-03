@@ -26,12 +26,13 @@ namespace ManaChan.Infrastructure.Behaviors {
 		/// <summary>
 		/// IsCloseプロパティ作成
 		/// </summary>
-		public static readonly DependencyProperty CloseProperty = DependencyProperty.RegisterAttached(
-			"Close" ,
-			typeof( bool ) ,
-			typeof( CloseWindowAttachedBehavior ) ,
-			new PropertyMetadata( false , OnCloseChanged )
-		);
+		public static readonly DependencyProperty CloseProperty
+			= DependencyProperty.RegisterAttached(
+				"Close" ,
+				typeof( bool ) ,
+				typeof( CloseWindowAttachedBehavior ) ,
+				new PropertyMetadata( false , OnCloseChanged )
+			);
 
 		/// <summary>
 		/// IsClose変化時イベント

@@ -5,8 +5,8 @@ using ManaChan.Views;
 using Prism.Modularity;
 using ManaChan.MainCharacter;
 using ManaChan.Twitter;
-using ManaChan.Infrastructure;
 using ManaChan.PopUp;
+using ManaChan.MainWindow;
 
 namespace ManaChan {
 
@@ -39,14 +39,12 @@ namespace ManaChan {
 		protected override void ConfigureModuleCatalog() {
 
 			base.ConfigureModuleCatalog();
-
-			// TODO 自身のModelsもコンテナに登録したい
-
+			
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
-			catalog.AddModule( typeof( InfrastructureModule ) );
 			catalog.AddModule( typeof( TwitterModule ) );
 			catalog.AddModule( typeof( PopUpModule ) );
 			catalog.AddModule( typeof( MainCharacterModule ) );
+			catalog.AddModule( typeof( MainWindowModule ) );
 			
 		}
 

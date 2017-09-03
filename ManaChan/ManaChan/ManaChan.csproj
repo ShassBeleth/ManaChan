@@ -107,9 +107,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ShellViewModel.Size.cs" />
     <Compile Include="Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
@@ -161,6 +159,10 @@
     <ProjectReference Include="..\ManaChan.MainCharacter\ManaChan.MainCharacter.csproj">
       <Project>{6d5624e4-db6e-453e-b465-3ac33778c446}</Project>
       <Name>ManaChan.MainCharacter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManaChan.MainWindow\ManaChan.MainWindow.csproj">
+      <Project>{ACA7EB77-9395-4736-8661-40A0B151BCEC}</Project>
+      <Name>ManaChan.MainWindow</Name>
     </ProjectReference>
     <ProjectReference Include="..\ManaChan.PopUp\ManaChan.PopUp.csproj">
       <Project>{065E52B1-A745-40CF-B2F1-3A1180B010E8}</Project>

@@ -80,6 +80,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\IPinCodePublisher.cs" />
+    <Compile Include="Models\PinCodePublisher.cs" />
     <Compile Include="PopUpModule.cs" />
     <Compile Include="ViewModels\InputPinCodePopUpViewModel.cs" />
     <Compile Include="Views\InputPinCodePopUpView.xaml.cs">

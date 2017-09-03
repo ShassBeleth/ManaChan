@@ -1,7 +1,7 @@
 ﻿using Prism.Mvvm;
 
-namespace ManaChan.ViewModels {
-	public partial class ShellViewModel : BindableBase {
+namespace ManaChan.MainWindow.ViewModels {
+	public partial class MainWindowViewModel : BindableBase {
 
 		/// <summary>
 		/// サイズ
@@ -34,6 +34,6 @@ namespace ManaChan.ViewModels {
 			Num
 
 		};
-
+		
 	}
 }

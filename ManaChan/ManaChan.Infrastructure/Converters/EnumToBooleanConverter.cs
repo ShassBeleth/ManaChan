@@ -17,7 +17,12 @@ namespace ManaChan.Infrastructure.Converters {
 		/// <param name="parameter"></param>
 		/// <param name="culture"></param>
 		/// <returns></returns>
-		public object Convert( object value , Type targetType , object parameter , System.Globalization.CultureInfo culture ) {
+		public object Convert( 
+			object value , 
+			Type targetType , 
+			object parameter , 
+			System.Globalization.CultureInfo culture 
+		) {
 
 			string parameterString = parameter as string;
 			if( parameterString == null )
@@ -40,8 +45,15 @@ namespace ManaChan.Infrastructure.Converters {
 		/// <param name="parameter"></param>
 		/// <param name="culture"></param>
 		/// <returns></returns>
-		public object ConvertBack( object value , Type targetType , object parameter , System.Globalization.CultureInfo culture )
-			=> parameter as string == null ? DependencyProperty.UnsetValue : Enum.Parse( targetType , parameter as string );
+		public object ConvertBack( 
+			object value , 
+			Type targetType , 
+			object parameter , 
+			System.Globalization.CultureInfo culture 
+		) => 
+			parameter as string == null ? 
+			DependencyProperty.UnsetValue : 
+			Enum.Parse( targetType , parameter as string );
 
 	}
 

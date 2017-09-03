@@ -1,8 +1,8 @@
-﻿using ManaChan.Infrastructure.Models.Passer.Publishers;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using ManaChan.PopUp.Models;
 
 namespace ManaChan.PopUp.ViewModels {
 
@@ -12,7 +12,7 @@ namespace ManaChan.PopUp.ViewModels {
 		/// モジュール橋渡し発行者
 		/// </summary>
 		[Dependency]
-		public IPublisherOfPasser PublisherOfPasser { set; get; }
+		public IPinCodePublisher PinCodePublisher { set; get; }
 
 		private string pinCode = "";
 
@@ -45,10 +45,7 @@ namespace ManaChan.PopUp.ViewModels {
 		/// OKボタンイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action OkExecute() => () => {
-			Console.WriteLine( "OK" );
-			this.PublisherOfPasser.PinCodePublish( int.Parse( this.PinCode ) );
-		};
+		private Action OkExecute() => () => this.PinCodePublisher.Publish( int.Parse( this.PinCode ) );
 
 		/// <summary>
 		/// OKボタンイベント可否

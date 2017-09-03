@@ -21,7 +21,7 @@ namespace ManaChan.Twitter {
 		public void Initialize() =>
 
 			// Serviceをコンテナに登録
-			this.Container.RegisterType<IAuthenticatedService , AuthenticatedService>();
+			this.Container.RegisterType<IAuthenticatedService , AuthenticatedService>( new ContainerControlledLifetimeManager() );
 
 	}
 

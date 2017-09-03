@@ -5,7 +5,6 @@ using ManaChan.Views;
 using Prism.Modularity;
 using ManaChan.MainCharacter;
 using ManaChan.Twitter;
-using ManaChan.Infrastructure;
 using ManaChan.PopUp;
 using ManaChan.MainWindow;
 
@@ -42,7 +41,6 @@ namespace ManaChan {
 			base.ConfigureModuleCatalog();
 			
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
-			catalog.AddModule( typeof( InfrastructureModule ) );
 			catalog.AddModule( typeof( TwitterModule ) );
 			catalog.AddModule( typeof( PopUpModule ) );
 			catalog.AddModule( typeof( MainCharacterModule ) );

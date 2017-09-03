@@ -1,4 +1,5 @@
-﻿using ManaChan.PopUp.Views;
+﻿using ManaChan.PopUp.Models;
+using ManaChan.PopUp.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -27,7 +28,8 @@ namespace ManaChan.PopUp {
 		/// </summary>
 		public void Initialize() {
 			
-			this.Container.RegisterType<InputPinCodePopUpView>();
+			this.Container.RegisterType<InputPinCodePopUpView>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<IPinCodePublisher , PinCodePublisher>( new ContainerControlledLifetimeManager() );
 
 			this.RegionManager.RegisterViewWithRegion( "InputPinCodePopUpRegion" , typeof( InputPinCodePopUpView ) );
 

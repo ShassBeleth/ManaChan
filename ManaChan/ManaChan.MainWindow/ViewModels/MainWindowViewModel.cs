@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows;
 using ManaChan.Infrastructure.Enums;
-using ManaChan.Infrastructure.Models.Passer.Publishers;
 using ManaChan.Infrastructure.Models.ScreenSize;
+using ManaChan.MainWindow.Models.Providers.InputPinCode;
+using ManaChan.MainWindow.Models.Publishers.ChangeCharacterType;
 using ManaChan.Twitter.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
@@ -23,13 +24,13 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// TODO DIなってない
 		/// </summary>
 		[Dependency]
-		public PublisherOfPasser PublisherOfPasser { set; get; }
+		public IChangeCharacterTypePublisher ChangeCharacterTypePublisher { set; get; }
 
 		/// <summary>
 		/// ツイッター認証サービス
 		/// </summary>
 		[Dependency]
-		private IAuthenticatedService AuthenticatedService { get; } = new AuthenticatedService();
+		private IAuthenticatedService AuthenticatedService { get; }
 
 		#region ポップアップ表示／非表示
 
@@ -300,7 +301,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 琴葉 茜イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AkaneExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Akane );
+		private Action AkaneExecuteOfContextMenu() => () => this.ChangeCharacterTypePublisher.Publish( CharacterType.Akane );
 
 		/// <summary>
 		/// 琴葉 茜可否
@@ -334,7 +335,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 琴葉 葵イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action AoiExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Aoi );
+		private Action AoiExecuteOfContextMenu() => () => this.ChangeCharacterTypePublisher.Publish( CharacterType.Aoi );
 
 		/// <summary>
 		/// 琴葉 葵可否
@@ -368,7 +369,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 弦巻 マキイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action MakiExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Maki );
+		private Action MakiExecuteOfContextMenu() => () => this.ChangeCharacterTypePublisher.Publish( CharacterType.Maki );
 
 		/// <summary>
 		/// 弦巻 マキ可否
@@ -402,7 +403,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 結月 ゆかりイベント
 		/// </summary>
 		/// <returns></returns>
-		private Action YukariExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Yukari );
+		private Action YukariExecuteOfContextMenu() => () => this.ChangeCharacterTypePublisher.Publish( CharacterType.Yukari );
 
 		/// <summary>
 		/// 結月 ゆかり可否
@@ -436,7 +437,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 東北 ずん子イベント
 		/// </summary>
 		/// <returns></returns>
-		private Action ZunkoExecuteOfContextMenu() => () => this.PublisherOfPasser.CharacterTypePublish( CharacterType.Zunko );
+		private Action ZunkoExecuteOfContextMenu() => () => this.ChangeCharacterTypePublisher.Publish( CharacterType.Zunko );
 
 		/// <summary>
 		/// 東北 ずん子可否
@@ -662,7 +663,14 @@ namespace ManaChan.MainWindow.ViewModels {
 
 		#endregion
 
-		public MainWindowViewModel() {
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="authenticatedService">認証サービス</param>
+		/// <param name="pinCodeProvider">PINコード購読者</param>
+		public MainWindowViewModel( IAuthenticatedService authenticatedService , IInputPinCodeProvider pinCodeProvider) {
+
+			this.AuthenticatedService = authenticatedService;
 
 			#region コマンド作成
 
@@ -682,17 +690,14 @@ namespace ManaChan.MainWindow.ViewModels {
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
 
 			#endregion
-
-
-			/*
-			providerOfPasser.PropertyChanged += ( _ , e ) => {
+			
+			pinCodeProvider.PropertyChanged += ( _ , e ) => {
 				if( e.PropertyName == "PinCode" ) {
-					Console.WriteLine( providerOfPasser.PinCode );
+					Console.WriteLine( pinCodeProvider.PinCode );
 					this.InputPinCodePopUpVisibility = Visibility.Hidden;
 				}
 			};
-			*/
-
+			
 			// キャラクターのサイズ更新
 			this.UpdateSizeAndPosition();
 

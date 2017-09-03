@@ -1,4 +1,6 @@
-﻿using ManaChan.MainWindow.VIews;
+﻿using ManaChan.MainWindow.Models.Providers.InputPinCode;
+using ManaChan.MainWindow.Models.Publishers.ChangeCharacterType;
+using ManaChan.MainWindow.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -28,6 +30,8 @@ namespace ManaChan.MainWindow {
 		public void Initialize() {
 
 			this.Container.RegisterType<MainWindowView>();
+			this.Container.RegisterType<IInputPinCodeProvider , InputPinCodeProvider>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<IChangeCharacterTypePublisher , ChangeCharacterTypePublisher>( new ContainerControlledLifetimeManager() );
 
 			this.RegionManager.RegisterViewWithRegion( "MainWindowRegion" , typeof( MainWindowView ) );
 

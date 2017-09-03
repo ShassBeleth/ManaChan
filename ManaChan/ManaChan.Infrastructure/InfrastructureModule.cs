@@ -1,8 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
-using ManaChan.Infrastructure.Models.Passer.Providers;
-using ManaChan.Infrastructure.Models.Passer.Publishers;
 
 namespace ManaChan.Infrastructure {
 
@@ -26,12 +24,7 @@ namespace ManaChan.Infrastructure {
 		/// <summary>
 		/// 初期設定
 		/// </summary>
-		public void Initialize() {
-
-			this.Container.RegisterType<IProviderOfPasser , ProviderOfPasser>();
-			this.Container.RegisterType<IPublisherOfPasser , PublisherOfPasser>();
-			
-		}
+		public void Initialize() { }
 
 	}
 

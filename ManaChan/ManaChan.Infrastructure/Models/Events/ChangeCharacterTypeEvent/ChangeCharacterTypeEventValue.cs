@@ -1,22 +1,17 @@
 ﻿using ManaChan.Infrastructure.Enums;
 
-namespace ManaChan.Infrastructure.Models.Passer.Events {
+namespace ManaChan.Infrastructure.Models.Events.ChangeCharacterTypeEvent{
 
 	/// <summary>
-	/// イベント
+	/// キャラクター種別変更時イベント
 	/// </summary>
-	public class EventOfPasser {
+	public class ChangeCharacterTypeEventValue {
 
 		/// <summary>
 		/// キャラクター種別
 		/// </summary>
 		public CharacterType CharacterType { set; get; }
-
-		/// <summary>
-		/// PINコード
-		/// </summary>
-		public int PinCode { set; get; }
-
+		
 	}
 
 }

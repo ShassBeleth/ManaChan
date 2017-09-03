@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace ManaChan.MainWindow.VIews {
+namespace ManaChan.MainWindow.Views {
 	/// <summary>
 	/// MainWindowView.xaml の相互作用ロジック
 	/// </summary>

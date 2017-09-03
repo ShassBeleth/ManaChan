@@ -83,9 +83,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Providers\InputPinCode\IInputPinCodeProvider.cs" />
+    <Compile Include="Models\Publishers\ChangeCharacterType\IChangeCharacterTypePublisher.cs" />
+    <Compile Include="Models\Providers\InputPinCode\InputPinCodeProvider.cs" />
+    <Compile Include="Models\Publishers\ChangeCharacterType\ChangeCharacterTypePublisher.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.Size.cs" />
-    <Compile Include="VIews\MainWindowView.xaml.cs">
+    <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -118,7 +122,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="VIews\MainWindowView.xaml">
+    <Page Include="Views\MainWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,5 +137,6 @@
       <Name>ManaChan.Twitter</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

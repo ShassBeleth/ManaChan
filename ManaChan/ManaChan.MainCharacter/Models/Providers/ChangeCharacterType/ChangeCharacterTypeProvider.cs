@@ -1,14 +1,14 @@
 ﻿using ManaChan.Infrastructure.Enums;
-using ManaChan.Infrastructure.Models.Passer.Events;
+using ManaChan.Infrastructure.Models.Events.ChangeCharacterTypeEvent;
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace ManaChan.Infrastructure.Models.Passer.Providers {
+namespace ManaChan.MainCharacter.Models.Providers.ChangeCharacterType {
 
 	/// <summary>
 	/// キャラクター種別値購読者
 	/// </summary>
-	public class ProviderOfPasser : BindableBase , IProviderOfPasser {
+	public class ChangeCharacterTypeProvider : BindableBase , IChangeCharacterTypeProvider {
 
 		/// <summary>
 		/// キャラクター種別
@@ -22,28 +22,15 @@ namespace ManaChan.Infrastructure.Models.Passer.Providers {
 			private set => this.SetProperty( ref this.characterType , value );
 			get => this.characterType;
 		}
-
-		/// <summary>
-		/// PINコード
-		/// </summary>
-		private int pinCode;
-
-		public int PinCode {
-			private set => this.SetProperty( ref this.pinCode , value );
-			get => this.pinCode;
-		}
-
+		
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="eventAggregator">イベントアグリゲータ</param>
-		public ProviderOfPasser( IEventAggregator eventAggregator )
-			=> eventAggregator.GetEvent< PubSubEvent < EventOfPasser > >()
+		public ChangeCharacterTypeProvider( IEventAggregator eventAggregator )
+			=> eventAggregator.GetEvent< PubSubEvent < ChangeCharacterTypeEventValue > >()
 			.Subscribe( 
-				x => {
-					this.CharacterType = x.CharacterType;
-					this.PinCode = x.PinCode;
-				} , 
+				x => this.CharacterType = x.CharacterType ,
 				ThreadOption.UIThread 
 			);
 

@@ -1,4 +1,5 @@
-﻿using ManaChan.MainCharacter.Views;
+﻿using ManaChan.MainCharacter.Models.Providers.ChangeCharacterType;
+using ManaChan.MainCharacter.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -28,6 +29,7 @@ namespace ManaChan.MainCharacter {
 		public void Initialize() {
 
 			this.Container.RegisterType<MainCharacterView>();
+			this.Container.RegisterType<IChangeCharacterTypeProvider , ChangeCharacterTypeProvider>( new ContainerControlledLifetimeManager() );
 
 			this.RegionManager.RegisterViewWithRegion( "MainCharacterRegion" , typeof( MainCharacterView ) );
 			

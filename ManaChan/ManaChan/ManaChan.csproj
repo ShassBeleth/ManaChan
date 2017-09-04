@@ -172,6 +172,10 @@
       <Project>{c4aae793-01ad-48e7-94a8-8a35c49bac0b}</Project>
       <Name>ManaChan.Twitter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ManaChan.Weather\ManaChan.Weather.csproj">
+      <Project>{B44E6653-A488-4FC5-88BC-F8CE840E84AF}</Project>
+      <Name>ManaChan.Weather</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

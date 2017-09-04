@@ -37,6 +37,12 @@
 
 			<Separator />
 
+			<MenuItem
+				Header="{ Binding WeatherInfoHeaderOfContextMenu }"
+				Command="{ Binding WeatherInfoCommandOfContextMenu }" />
+
+			<Separator />
+
 			<!-- キャラクターサイズ変更 -->
 			<MenuItem
 				Header="{ Binding ChangeCharacterGroupHeaderOfContextMenu }">

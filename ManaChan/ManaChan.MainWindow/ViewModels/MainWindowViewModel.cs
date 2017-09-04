@@ -9,6 +9,8 @@ using ManaChan.Twitter.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
+using ManaChan.Weather.Services;
+using System.Threading.Tasks;
 
 namespace ManaChan.MainWindow.ViewModels {
 
@@ -27,11 +29,21 @@ namespace ManaChan.MainWindow.ViewModels {
 		[Dependency]
 		public IChangeCharacterTypePublisher ChangeCharacterTypePublisher { set; get; }
 
+		#region Services
+
 		/// <summary>
 		/// ツイッター認証サービス
 		/// </summary>
 		[Dependency]
 		private IAuthenticatedService AuthenticatedService { get; }
+
+		/// <summary>
+		/// 天気情報サービス
+		/// </summary>
+		[Dependency]
+		private IWeatherService WeatherService { get; }
+
+		#endregion
 
 		#region ポップアップ表示／非表示
 
@@ -140,6 +152,41 @@ namespace ManaChan.MainWindow.ViewModels {
 		private Func<bool> CanTestTweetExecuteOfContextMenu() => () => true;
 
 		#endregion
+
+		#endregion
+
+		#region 天気
+
+		/// <summary>
+		/// 天気文字列
+		/// </summary>
+		public string WeatherInfoHeaderOfContextMenu { get; } = "天気";
+
+		/// <summary>
+		/// 天気コマンド
+		/// </summary>
+		private DelegateCommand weatherInfoCommandOfContextMenu;
+
+		/// <summary>
+		/// 天気コマンド
+		/// </summary>
+		public DelegateCommand WeatherInfoCommandOfContextMenu {
+			private set => SetProperty( ref this.weatherInfoCommandOfContextMenu , value );
+			get => this.weatherInfoCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 天気イベント
+		/// </summary>
+		private Action WeatherInfoExecuteOfContextMenu() => async () => {
+			string result = await this.WeatherService.GetWeatherAsync();
+			Console.WriteLine( result );
+		};
+
+		/// <summary>
+		/// 天気イベント可否
+		/// </summary>
+		private Func<bool> CanWeatherInfoExecuteOfContextMenu() => () => true;
 
 		#endregion
 
@@ -725,16 +772,24 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
+		/// <param name="weatherService">天気情報サービス</param>
 		/// <param name="authenticatedService">認証サービス</param>
 		/// <param name="pinCodeProvider">PINコード購読者</param>
-		public MainWindowViewModel( IAuthenticatedService authenticatedService , IInputPinCodeProvider pinCodeProvider) {
+		public MainWindowViewModel(
+			IWeatherService weatherService ,
+			IAuthenticatedService authenticatedService , 
+			IInputPinCodeProvider pinCodeProvider 
+		) {
 
+			this.WeatherService = weatherService;
 			this.AuthenticatedService = authenticatedService;
 
 			#region コマンド作成
 
 			this.TwitterAuthenticateCommandOfContextMenu = new DelegateCommand( this.TwitterAuthenticateExecuteOfContextMenu() , this.CanTwitterAuthenticateExecuteOfContextMenu() );
 			this.TestTweetCommandOfContextMenu = new DelegateCommand( this.TestTweetExecuteOfContextMenu() , this.CanTestTweetExecuteOfContextMenu() );
+
+			this.WeatherInfoCommandOfContextMenu = new DelegateCommand( this.WeatherInfoExecuteOfContextMenu() , this.CanWeatherInfoExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );

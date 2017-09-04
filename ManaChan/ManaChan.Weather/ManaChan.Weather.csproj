@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ACA7EB77-9395-4736-8661-40A0B151BCEC}</ProjectGuid>
+    <ProjectGuid>{B44E6653-A488-4FC5-88BC-F8CE840E84AF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ManaChan.MainWindow</RootNamespace>
-    <AssemblyName>ManaChan.MainWindow</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>ManaChan.Weather</RootNamespace>
+    <AssemblyName>ManaChan.Weather</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -55,9 +55,6 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
-    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -84,18 +81,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Providers\InputPinCode\IInputPinCodeProvider.cs" />
-    <Compile Include="Models\Publishers\ChangeCharacterType\IChangeCharacterTypePublisher.cs" />
-    <Compile Include="Models\Providers\InputPinCode\InputPinCodeProvider.cs" />
-    <Compile Include="Models\Publishers\ChangeCharacterType\ChangeCharacterTypePublisher.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.Size.cs" />
-    <Compile Include="Views\MainWindowView.xaml.cs">
-      <DependentUpon>MainWindowView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Services\IWeatherService.cs" />
+    <Compile Include="Services\WeatherService.cs" />
+    <Compile Include="WeatherModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -122,26 +112,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\MainWindowView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ManaChan.Infrastructure\ManaChan.Infrastructure.csproj">
-      <Project>{689c3d16-6518-43d6-8a48-95d9a9abe45c}</Project>
-      <Name>ManaChan.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ManaChan.Twitter\ManaChan.Twitter.csproj">
-      <Project>{C4AAE793-01AD-48E7-94A8-8A35C49BAC0B}</Project>
-      <Name>ManaChan.Twitter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ManaChan.Weather\ManaChan.Weather.csproj">
-      <Project>{B44E6653-A488-4FC5-88BC-F8CE840E84AF}</Project>
-      <Name>ManaChan.Weather</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

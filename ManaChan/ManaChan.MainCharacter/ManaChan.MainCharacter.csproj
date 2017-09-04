@@ -158,5 +158,20 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Aoi\Excitement.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Zunko\Sleepy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Yukari\Sleepy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Maki\Sleepy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Akane\Sleepy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Aoi\Sleepy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

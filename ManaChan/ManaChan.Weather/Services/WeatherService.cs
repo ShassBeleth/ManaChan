@@ -28,7 +28,7 @@ namespace ManaChan.Weather.Services {
 			HttpClient client = new HttpClient();
 			string result = null;
 			try {
-				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/weather?APPID=" + this.ApiKey + "&lat=35&lon=139" );
+				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/weather?APPID=" + this.ApiKey + "&lat=35.181469&lon=136.906403" );
 				result = await response.Content.ReadAsStringAsync();
 			}
 			catch( ArgumentException ex ) {

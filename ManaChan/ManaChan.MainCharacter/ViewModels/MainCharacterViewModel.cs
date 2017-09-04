@@ -12,7 +12,7 @@ namespace ManaChan.MainCharacter.ViewModels {
 		/// <summary>
 		/// 画像URL
 		/// </summary>
-		private string sourceUrl = "../Graphics/Pictures/Akane/Normal.png";
+		private string sourceUrl = "../Graphics/Pictures/Akane/Excitement.png";
 
 		/// <summary>
 		/// 画像URL
@@ -27,7 +27,7 @@ namespace ManaChan.MainCharacter.ViewModels {
 		/// </summary>
 		/// <param name="characterType">キャラクター種別</param>
 		private void UpdateSourceUrl( CharacterType characterType )
-			=> this.SourceUrl = "../Graphics/Pictures/" + characterType + "/Normal.png";
+			=> this.SourceUrl = "../Graphics/Pictures/" + characterType + "/Excitement.png";
 
 		/// <summary>
 		/// コンストラクタ

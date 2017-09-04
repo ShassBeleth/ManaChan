@@ -143,5 +143,20 @@
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Zunko\Normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Akane\Excitement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Zunko\Excitement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Yukari\Excitement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Maki\Excitement.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Aoi\Excitement.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -85,6 +85,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Providers\InputPinCode\IInputPinCodeProvider.cs" />
+    <Compile Include="Models\Publishers\ChangeCharacterEmotionType\ChangeCharacterEmotionTypePublisher.cs" />
+    <Compile Include="Models\Publishers\ChangeCharacterEmotionType\IChangeCharacterEmotionTypePublisher.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterType\IChangeCharacterTypePublisher.cs" />
     <Compile Include="Models\Providers\InputPinCode\InputPinCodeProvider.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterType\ChangeCharacterTypePublisher.cs" />

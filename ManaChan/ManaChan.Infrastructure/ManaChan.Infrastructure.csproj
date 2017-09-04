@@ -82,10 +82,12 @@
     </Compile>
     <Compile Include="Behaviors\CloseWindowAttachedBehavior.cs" />
     <Compile Include="Converters\EnumToBooleanConverter.cs" />
+    <Compile Include="Enums\CharacterEmotionType.cs" />
     <Compile Include="Enums\CharacterType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InfrastructureModule.cs" />
+    <Compile Include="Models\Events\ChangeCharacterEmotionTypeEvent\ChangeCharacterEmotionTypeEventValue.cs" />
     <Compile Include="Models\Events\ChangeCharacterTypeEvent\ChangeCharacterTypeEventValue.cs" />
     <Compile Include="Models\Events\InputPinCodeEvent\InputPinCodeEventValue.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />

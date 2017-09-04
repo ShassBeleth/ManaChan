@@ -1,4 +1,5 @@
-﻿using ManaChan.MainCharacter.Models.Providers.ChangeCharacterType;
+﻿using ManaChan.MainCharacter.Models.Providers.ChangeCharacterEmotionType;
+using ManaChan.MainCharacter.Models.Providers.ChangeCharacterType;
 using ManaChan.MainCharacter.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -30,6 +31,7 @@ namespace ManaChan.MainCharacter {
 
 			this.Container.RegisterType<MainCharacterView>();
 			this.Container.RegisterType<IChangeCharacterTypeProvider , ChangeCharacterTypeProvider>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<IChangeCharacterEmotionTypeProvider , ChangeCharacterEmotionTypeProvider>( new ContainerControlledLifetimeManager() );
 
 			this.RegionManager.RegisterViewWithRegion( "MainCharacterRegion" , typeof( MainCharacterView ) );
 			

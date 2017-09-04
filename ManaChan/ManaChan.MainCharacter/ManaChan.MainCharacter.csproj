@@ -80,6 +80,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MainCharacterModule.cs" />
+    <Compile Include="Models\Providers\ChangeCharacterEmotionType\ChangeCharacterEmotionTypeProvider.cs" />
+    <Compile Include="Models\Providers\ChangeCharacterEmotionType\IChangeCharacterEmotionTypeProvider.cs" />
     <Compile Include="Models\Providers\ChangeCharacterType\IChangeCharacterTypeProvider.cs" />
     <Compile Include="Models\Providers\ChangeCharacterType\ChangeCharacterTypeProvider.cs" />
     <Compile Include="ViewModels\MainCharacterViewModel.cs" />
@@ -184,6 +186,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Graphics\Pictures\Zunko\Hot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Aoi\Hot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Akane\Surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Aoi\Surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Maki\Surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Yukari\Surprise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Graphics\Pictures\Zunko\Surprise.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

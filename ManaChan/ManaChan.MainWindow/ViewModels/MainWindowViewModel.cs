@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Windows;
 using ManaChan.Infrastructure.Enums;
 using ManaChan.Infrastructure.Models.ScreenSize;
@@ -10,7 +9,7 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using ManaChan.Weather.Services;
-using System.Threading.Tasks;
+using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
 
 namespace ManaChan.MainWindow.ViewModels {
 
@@ -23,12 +22,17 @@ namespace ManaChan.MainWindow.ViewModels {
 		public PrimaryScreenSize PrimaryScreenSize { get; } = new PrimaryScreenSize();
 
 		/// <summary>
-		/// モジュール橋渡し発行者
-		/// TODO DIなってない
+		/// キャラクター種別発行者
 		/// </summary>
 		[Dependency]
 		public IChangeCharacterTypePublisher ChangeCharacterTypePublisher { set; get; }
 
+		/// <summary>
+		/// キャラクター表情種別発行者
+		/// </summary>
+		[Dependency]
+		public IChangeCharacterEmotionTypePublisher ChangeCharacterEmotionTypePublisher { set; get; }
+		
 		#region Services
 
 		/// <summary>
@@ -540,6 +544,198 @@ namespace ManaChan.MainWindow.ViewModels {
 
 		#endregion
 
+		#region キャラクター表情種別
+
+		/// <summary>
+		/// 選択中のキャラクター表情
+		/// </summary>
+		private CharacterEmotionType selectedCharacterEmotion = CharacterEmotionType.Normal;
+
+		/// <summary>
+		/// 選択中のキャラクター表情
+		/// </summary>
+		public CharacterEmotionType SelectedCharacterEmotion {
+			set => SetProperty( ref this.selectedCharacterEmotion , value );
+			get => this.selectedCharacterEmotion;
+		}
+
+		/// <summary>
+		/// キャラクター表情変更グループ文字列
+		/// </summary>
+		public string ChangeCharacterEmotionGraphicGroupHeaderOfContextMenu { get; } = "キャラクター表情変更";
+
+		#region 通常
+
+		/// <summary>
+		/// 通常文字列
+		/// </summary>
+		public string NormalHeaderOfContextMenu { get; } = "通常";
+
+		/// <summary>
+		/// 通常コマンド
+		/// </summary>
+		private DelegateCommand normalCommandOfContextMenu;
+
+		/// <summary>
+		/// 通常コマンド
+		/// </summary>
+		public DelegateCommand NormalCommandOfContextMenu {
+			private set => SetProperty( ref this.normalCommandOfContextMenu , value );
+			get => this.normalCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 通常イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action NormalExecuteOfContextMenu() => () => this.ChangeCharacterEmotionTypePublisher.Publish( CharacterEmotionType.Normal );
+
+		/// <summary>
+		/// 通常可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanNormalExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 暑い
+
+		/// <summary>
+		/// 暑い文字列
+		/// </summary>
+		public string HotHeaderOfContextMenu { get; } = "暑い";
+
+		/// <summary>
+		/// 暑いコマンド
+		/// </summary>
+		private DelegateCommand hotCommandOfContextMenu;
+
+		/// <summary>
+		/// 暑いコマンド
+		/// </summary>
+		public DelegateCommand HotCommandOfContextMenu {
+			private set => SetProperty( ref this.hotCommandOfContextMenu , value );
+			get => this.hotCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 暑いイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action HotExecuteOfContextMenu() => () => this.ChangeCharacterEmotionTypePublisher.Publish( CharacterEmotionType.Hot );
+
+		/// <summary>
+		/// 暑い可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanHotExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 興奮
+
+		/// <summary>
+		/// 興奮文字列
+		/// </summary>
+		public string ExcitementHeaderOfContextMenu { get; } = "興奮";
+
+		/// <summary>
+		/// 興奮コマンド
+		/// </summary>
+		private DelegateCommand excitementCommandOfContextMenu;
+
+		/// <summary>
+		/// 興奮コマンド
+		/// </summary>
+		public DelegateCommand ExcitementCommandOfContextMenu {
+			private set => SetProperty( ref this.excitementCommandOfContextMenu , value );
+			get => this.excitementCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 興奮イベント
+		/// </summary>
+		/// <returns></returns>
+		private Action ExcitementExecuteOfContextMenu() => () => this.ChangeCharacterEmotionTypePublisher.Publish( CharacterEmotionType.Excitement );
+
+		/// <summary>
+		/// 興奮可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanExcitementExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 眠い
+
+		/// <summary>
+		/// 眠い文字列
+		/// </summary>
+		public string SleepyHeaderOfContextMenu { get; } = "眠い";
+
+		/// <summary>
+		/// 眠いコマンド
+		/// </summary>
+		private DelegateCommand sleepyCommandOfContextMenu;
+
+		/// <summary>
+		/// 眠いコマンド
+		/// </summary>
+		public DelegateCommand SleepyCommandOfContextMenu {
+			private set => SetProperty( ref this.sleepyCommandOfContextMenu , value );
+			get => this.sleepyCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 眠いイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action SleepyExecuteOfContextMenu() => () => this.ChangeCharacterEmotionTypePublisher.Publish( CharacterEmotionType.Sleepy );
+
+		/// <summary>
+		/// 眠い可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanSleepyExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region 驚き
+
+		/// <summary>
+		/// 驚き文字列
+		/// </summary>
+		public string SurpriseHeaderOfContextMenu { get; } = "驚き";
+
+		/// <summary>
+		/// 驚きコマンド
+		/// </summary>
+		private DelegateCommand surpriseCommandOfContextMenu;
+
+		/// <summary>
+		/// 驚きコマンド
+		/// </summary>
+		public DelegateCommand SurpriseCommandOfContextMenu {
+			private set => SetProperty( ref this.surpriseCommandOfContextMenu , value );
+			get => this.surpriseCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// 驚きイベント
+		/// </summary>
+		/// <returns></returns>
+		private Action SurpriseExecuteOfContextMenu() => () => this.ChangeCharacterEmotionTypePublisher.Publish( CharacterEmotionType.Surprise );
+
+		/// <summary>
+		/// 驚き可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanSurpriseExecuteOfContextMenu() => () => true;
+
+		#endregion
+		
+		#endregion
+
 		#region 終了
 
 		/// <summary>
@@ -802,6 +998,12 @@ namespace ManaChan.MainWindow.ViewModels {
 			this.YukariCommandOfContextMenu = new DelegateCommand( this.YukariExecuteOfContextMenu() , this.CanYukariExecuteOfContextMenu() );
 			this.ZunkoCommandOfContextMenu = new DelegateCommand( this.ZunkoExecuteOfContextMenu() , this.CanZunkoExecuteOfContextMenu() );
 
+			this.NormalCommandOfContextMenu = new DelegateCommand( this.NormalExecuteOfContextMenu() , this.CanNormalExecuteOfContextMenu() );
+			this.HotCommandOfContextMenu = new DelegateCommand( this.HotExecuteOfContextMenu() , this.CanHotExecuteOfContextMenu() );
+			this.ExcitementCommandOfContextMenu = new DelegateCommand( this.ExcitementExecuteOfContextMenu() , this.CanExcitementExecuteOfContextMenu() );
+			this.SleepyCommandOfContextMenu = new DelegateCommand( this.SleepyExecuteOfContextMenu() , this.CanSleepyExecuteOfContextMenu() );
+			this.SurpriseCommandOfContextMenu = new DelegateCommand( this.SurpriseExecuteOfContextMenu() , this.CanSurpriseExecuteOfContextMenu() );
+			
 			this.QuitCommandOfContextMenu = new DelegateCommand( this.QuitExecuteOfContextMenu() , this.CanQuitExecuteOfContextMenu() );
 
 			#endregion

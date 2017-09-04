@@ -145,6 +145,61 @@
 
 			</MenuItem>
 
+			<!-- キャラクター表情変更 -->
+			<MenuItem
+				Header="{ Binding ChangeCharacterEmotionGraphicGroupHeaderOfContextMenu }">
+				<MenuItem
+					Command="{ Binding NormalCommandOfContextMenu }"
+					Header="{ Binding NormalHeaderOfContextMenu }"
+					IsCheckable="True"
+					IsChecked="{ 
+						Binding 
+						Path=SelectedCharacterEmotion ,
+						Converter={ StaticResource EnumToBooleanConverter } ,
+						ConverterParameter=Normal
+					}" />
+				<MenuItem
+					Command="{ Binding HotCommandOfContextMenu }"
+					Header="{ Binding HotHeaderOfContextMenu }"
+					IsCheckable="True"
+					IsChecked="{ 
+						Binding 
+						Path=SelectedCharacterEmotion ,
+						Converter={ StaticResource EnumToBooleanConverter } ,
+						ConverterParameter=Hot
+					}" />
+				<MenuItem
+					Command="{ Binding ExcitementCommandOfContextMenu }"
+					Header="{ Binding ExcitementHeaderOfContextMenu }"
+					IsCheckable="True"
+					IsChecked="{ 
+						Binding 
+						Path=SelectedCharacterEmotion ,
+						Converter={ StaticResource EnumToBooleanConverter } ,
+						ConverterParameter=Excitement
+					}" />
+				<MenuItem
+					Command="{ Binding SleepyCommandOfContextMenu }"
+					Header="{ Binding SleepyHeaderOfContextMenu }"
+					IsCheckable="True"
+					IsChecked="{ 
+						Binding 
+						Path=SelectedCharacterEmotion ,
+						Converter={ StaticResource EnumToBooleanConverter } ,
+						ConverterParameter=Sleepy
+					}" />
+				<MenuItem
+					Command="{ Binding SurpriseCommandOfContextMenu }"
+					Header="{ Binding SurpriseHeaderOfContextMenu }"
+					IsCheckable="True"
+					IsChecked="{ 
+						Binding 
+						Path=SelectedCharacterEmotion ,
+						Converter={ StaticResource EnumToBooleanConverter } ,
+						ConverterParameter=Surprise
+					}" />
+			</MenuItem>
+
 			<Separator />
 
 			<!-- 終了 -->

@@ -231,8 +231,11 @@
 			Visibility="{ Binding InputPinCodePopUpVisibility }"
 			prism:RegionManager.RegionName="InputPinCodePopUpRegion" />
 
+		<ContentControl
+			Canvas.Left="30"
+			Canvas.Top="30"
+			prism:RegionManager.RegionName="WeatherDetailRegion" />
+
 	</Canvas>
-
-
 
 </UserControl>

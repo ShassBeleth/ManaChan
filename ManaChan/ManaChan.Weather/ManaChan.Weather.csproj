@@ -83,6 +83,10 @@
     </Compile>
     <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\WeatherService.cs" />
+    <Compile Include="ViewModels\DetailPopUpViewModel.cs" />
+    <Compile Include="Views\DetailPopUpView.xaml.cs">
+      <DependentUpon>DetailPopUpView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WeatherModule.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +115,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\DetailPopUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

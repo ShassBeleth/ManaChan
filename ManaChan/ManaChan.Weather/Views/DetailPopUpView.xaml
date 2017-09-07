@@ -17,6 +17,7 @@
 			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
+			<RowDefinition/><!--仮-->
 		</Grid.RowDefinitions>
 
 		<!-- 今日の天気情報 -->
@@ -198,5 +199,11 @@
 			Grid.Row="2" 
 			Content="{ Binding CloseButtonContent }" />
 		
+		<!-- 仮 -->
+		<Button 
+			Grid.Row="3"
+			Content="データ取得"
+			Command="{ Binding TestCommand }" />
+
 	</Grid>
 </UserControl>

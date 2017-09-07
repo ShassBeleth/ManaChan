@@ -46,6 +46,9 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
@@ -81,6 +84,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CurrentWeatherDataModel.cs" />
+    <Compile Include="Models\CurrentWeatherDataModel.MainModel.cs" />
+    <Compile Include="Models\CurrentWeatherDataModel.WeatherModel.cs" />
+    <Compile Include="Models\CurrentWeatherDataModel.WindModel.cs" />
+    <Compile Include="Models\FiveDayWeatherForecastModel.CityModel.cs" />
+    <Compile Include="Models\FiveDayWeatherForecastModel.cs" />
+    <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.cs" />
+    <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.MainModel.cs" />
+    <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.WeatherModel.cs" />
     <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\WeatherService.cs" />
     <Compile Include="ViewModels\DetailPopUpViewModel.cs" />

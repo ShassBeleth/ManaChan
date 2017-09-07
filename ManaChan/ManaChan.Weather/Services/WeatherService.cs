@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ManaChan.Weather.Models;
+using Newtonsoft.Json;
+using System;
 using System.Configuration;
 using System.Net.Http;
 using System.Text;
@@ -20,22 +22,46 @@ namespace ManaChan.Weather.Services {
 		private string ApiKey { get; }
 
 		/// <summary>
-		/// 天気情報取得
+		/// 今日の天気情報取得
 		/// </summary>
 		/// <returns></returns>
-		public async Task<string> GetWeatherAsync() {
+		public async Task<CurrentWeatherDataModel> GetCurrentWeatherAsync() {
+
+			CurrentWeatherDataModel resultModel = null;
 
 			HttpClient client = new HttpClient();
-			string result = null;
 			try {
-				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/weather?APPID=" + this.ApiKey + "&lat=35.181469&lon=136.906403" );
-				result = await response.Content.ReadAsStringAsync();
+				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/weather?APPID=" + this.ApiKey + "&q=Nagoya-Shi" );
+				string result = await response.Content.ReadAsStringAsync();
+				resultModel = JsonConvert.DeserializeObject<CurrentWeatherDataModel>( result );
 			}
 			catch( ArgumentException ex ) {
 				Console.WriteLine( "ArgumentException : " + ex.Message );
 			}
 			
-			return result ?? "";
+			return resultModel;
+
+		}
+
+		/// <summary>
+		/// 5日間の天気予報情報取得
+		/// </summary>
+		/// <returns></returns>
+		public async Task<FiveDayWeatherForecastModel> GetFiveDayWeatherForecastAsync() {
+
+			FiveDayWeatherForecastModel resultModel = null;
+
+			HttpClient client = new HttpClient();
+			try {
+				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/forecast?APPID=" + this.ApiKey + "&q=Nagoya-Shi" );
+				string result = await response.Content.ReadAsStringAsync();
+				resultModel = JsonConvert.DeserializeObject<FiveDayWeatherForecastModel>( result );
+			}
+			catch( ArgumentException ex ) {
+				Console.WriteLine( "ArgumentException : " + ex.Message );
+			}
+
+			return resultModel;
 
 		}
 

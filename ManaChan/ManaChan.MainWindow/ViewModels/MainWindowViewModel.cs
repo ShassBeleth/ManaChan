@@ -40,13 +40,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		[Dependency]
 		private IAuthenticatedService AuthenticatedService { get; }
-
-		/// <summary>
-		/// 天気情報サービス
-		/// </summary>
-		[Dependency]
-		private IWeatherService WeatherService { get; }
-
+		
 		#endregion
 
 		#region ポップアップ表示／非表示
@@ -182,9 +176,8 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// <summary>
 		/// 天気イベント
 		/// </summary>
-		private Action WeatherInfoExecuteOfContextMenu() => async () => {
-			string result = await this.WeatherService.GetWeatherAsync();
-			Console.WriteLine( result );
+		private Action WeatherInfoExecuteOfContextMenu() => () => {
+			Console.WriteLine( "weather" );
 		};
 
 		/// <summary>
@@ -968,16 +961,13 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		/// <param name="weatherService">天気情報サービス</param>
 		/// <param name="authenticatedService">認証サービス</param>
 		/// <param name="pinCodeProvider">PINコード購読者</param>
 		public MainWindowViewModel(
-			IWeatherService weatherService ,
 			IAuthenticatedService authenticatedService , 
 			IInputPinCodeProvider pinCodeProvider 
 		) {
 
-			this.WeatherService = weatherService;
 			this.AuthenticatedService = authenticatedService;
 
 			#region コマンド作成

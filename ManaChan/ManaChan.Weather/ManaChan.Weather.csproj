@@ -88,7 +88,6 @@
     <Compile Include="Models\CurrentWeatherDataModel.MainModel.cs" />
     <Compile Include="Models\CurrentWeatherDataModel.WeatherModel.cs" />
     <Compile Include="Models\CurrentWeatherDataModel.WindModel.cs" />
-    <Compile Include="Models\FiveDayWeatherForecastModel.CityModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecastModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.MainModel.cs" />

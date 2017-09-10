@@ -76,11 +76,11 @@
 			<Label
 				Grid.Row="3"
 				Grid.Column="1"
-				Content="{ Binding MaxAndMinTemperatureContent }" />
+				Content="{ Binding TemperatureContent }" />
 			<Label
 				Grid.Row="3"
 				Grid.Column="2"
-				Content="{ Binding MaxAndMinTemperatureResultContent }" />
+				Content="{ Binding TemperatureResultContent }" />
 			<Label
 				Grid.Row="4"
 				Grid.Column="1"

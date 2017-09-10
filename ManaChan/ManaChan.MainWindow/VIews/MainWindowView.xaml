@@ -234,6 +234,9 @@
 		<ContentControl
 			Canvas.Left="30"
 			Canvas.Top="30"
+			MouseLeftButtonDown="WeatherPopUpMouseLeftButtonDown"
+			MouseLeftButtonUp="WeatherPopUpMouseLeftButtonUp"
+			MouseMove="WeatherPopUpMouseMove"
 			prism:RegionManager.RegionName="WeatherDetailRegion" />
 
 	</Canvas>

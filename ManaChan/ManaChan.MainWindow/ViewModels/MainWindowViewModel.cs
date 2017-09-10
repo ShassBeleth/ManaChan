@@ -8,7 +8,6 @@ using ManaChan.Twitter.Services;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
-using ManaChan.Weather.Services;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
 
 namespace ManaChan.MainWindow.ViewModels {

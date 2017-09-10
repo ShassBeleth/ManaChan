@@ -22,47 +22,55 @@ namespace ManaChan.Weather.Services {
 		private string ApiKey { get; }
 
 		/// <summary>
+		/// 今日の天気情報
+		/// </summary>
+		public CurrentWeatherDataModel CurrentWeatherDataModel {
+			private set;
+			get;
+		}
+
+		/// <summary>
+		/// 5日間の天気予報情報
+		/// </summary>
+		public FiveDayWeatherForecastModel FiveDayWeatherForecastModel {
+			private set;
+			get;
+		}
+		
+		/// <summary>
 		/// 今日の天気情報取得
 		/// </summary>
 		/// <returns></returns>
-		public async Task<CurrentWeatherDataModel> GetCurrentWeatherAsync() {
-
-			CurrentWeatherDataModel resultModel = null;
-
+		public async Task SendCurrentWeatherAsync() {
+			
 			HttpClient client = new HttpClient();
 			try {
 				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/weather?APPID=" + this.ApiKey + "&q=Nagoya-Shi" );
 				string result = await response.Content.ReadAsStringAsync();
-				resultModel = JsonConvert.DeserializeObject<CurrentWeatherDataModel>( result );
+				this.CurrentWeatherDataModel = JsonConvert.DeserializeObject<CurrentWeatherDataModel>( result );
 			}
 			catch( ArgumentException ex ) {
 				Console.WriteLine( "ArgumentException : " + ex.Message );
 			}
 			
-			return resultModel;
-
 		}
 
 		/// <summary>
 		/// 5日間の天気予報情報取得
 		/// </summary>
 		/// <returns></returns>
-		public async Task<FiveDayWeatherForecastModel> GetFiveDayWeatherForecastAsync() {
-
-			FiveDayWeatherForecastModel resultModel = null;
-
+		public async Task SendFiveDayWeatherForecastAsync() {
+			
 			HttpClient client = new HttpClient();
 			try {
 				HttpResponseMessage response = await client.GetAsync( "http://api.openweathermap.org/data/2.5/forecast?APPID=" + this.ApiKey + "&q=Nagoya-Shi" );
 				string result = await response.Content.ReadAsStringAsync();
-				resultModel = JsonConvert.DeserializeObject<FiveDayWeatherForecastModel>( result );
+				this.FiveDayWeatherForecastModel = JsonConvert.DeserializeObject<FiveDayWeatherForecastModel>( result );
 			}
 			catch( ArgumentException ex ) {
 				Console.WriteLine( "ArgumentException : " + ex.Message );
 			}
-
-			return resultModel;
-
+			
 		}
 
 		/// <summary>

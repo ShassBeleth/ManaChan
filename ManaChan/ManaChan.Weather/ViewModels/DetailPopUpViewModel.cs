@@ -25,9 +25,9 @@ namespace ManaChan.Weather.ViewModels {
 		public string CityNameContent { get; } = "都市名";
 
 		/// <summary>
-		/// 最高気温/最低気温文字列
+		/// 気温文字列
 		/// </summary>
-		public string MaxAndMinTemperatureContent { get; } = "最高気温/最低気温";
+		public string TemperatureContent { get; } = "気温";
 
 		/// <summary>
 		/// 湿度文字列
@@ -54,6 +54,11 @@ namespace ManaChan.Weather.ViewModels {
 		#region デフォ値
 
 		/// <summary>
+		/// 年月日と曜日の日付フォーマット
+		/// </summary>
+		private string DateFormat { get; } = "yyyy/MM/dd(ddd)";
+		
+		/// <summary>
 		/// デフォルトタイトル
 		/// </summary>
 		private const string DefaultTitle = "----/--/--(-)の天気";
@@ -62,26 +67,6 @@ namespace ManaChan.Weather.ViewModels {
 		/// デフォルト更新日時
 		/// </summary>
 		private const string DefaultUpdate = "更新日時:----/--/-- --:--:--";
-
-		/// <summary>
-		/// デフォルト天気情報
-		/// </summary>
-		private const string DefaultWeather = "---";
-
-		/// <summary>
-		/// デフォルト都市名
-		/// </summary>
-		private const string DefaultCityName = "---";
-
-		/// <summary>
-		/// デフォルト温度
-		/// </summary>
-		private const string DefaultTemperature = "--℃";
-
-		/// <summary>
-		/// デフォルト湿度
-		/// </summary>
-		private const string DefaultHumidity = "--%";
 
 		/// <summary>
 		/// デフォルト風速
@@ -119,7 +104,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 天気結果文字列
 		/// </summary>
-		private string weatherResultContent = DefaultWeather;
+		private string weatherResultContent;
 
 		/// <summary>
 		/// 天気結果文字列
@@ -132,7 +117,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 都市名結果文字列
 		/// </summary>
-		private string cityNameResultContent = DefaultCityName;
+		private string cityNameResultContent;
 
 		/// <summary>
 		/// 都市名結果文字列
@@ -143,22 +128,22 @@ namespace ManaChan.Weather.ViewModels {
 		}
 
 		/// <summary>
-		/// 最低気温最高気温結果文字列
+		/// 気温結果文字列
 		/// </summary>
-		private string maxAndMinTemperatureResultContent = DefaultTemperature + "/" + DefaultTemperature;
+		private string temperatureResultContent;
 
 		/// <summary>
-		/// 最低気温最高気温結果文字列
+		/// 気温結果文字列
 		/// </summary>
-		public string MaxAndMinTemperatureResultContent {
-			private set => SetProperty( ref this.maxAndMinTemperatureResultContent , value );
-			get => this.maxAndMinTemperatureResultContent;
+		public string TemperatureResultContent {
+			private set => SetProperty( ref this.temperatureResultContent , value );
+			get => this.temperatureResultContent;
 		}
 
 		/// <summary>
 		/// 湿度結果文字列
 		/// </summary>
-		private string humidityResultContent = DefaultHumidity;
+		private string humidityResultContent;
 
 		/// <summary>
 		/// 湿度結果文字列
@@ -249,7 +234,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 1日後の最高気温/最低気温
 		/// </summary>
-		private string maxAndMinTemperatureResultContentAfter1Day = DefaultTemperature + "/" + DefaultTemperature;
+		private string maxAndMinTemperatureResultContentAfter1Day;
 
 		/// <summary>
 		/// 1日後の最高気温/最低気温
@@ -262,7 +247,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 2日後の最高気温/最低気温
 		/// </summary>
-		private string maxAndMinTemperatureResultContentAfter2Day = DefaultTemperature + "/" + DefaultTemperature;
+		private string maxAndMinTemperatureResultContentAfter2Day;
 
 		/// <summary>
 		/// 1日後の最高気温/最低気温
@@ -275,7 +260,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 3日後の最高気温/最低気温
 		/// </summary>
-		private string maxAndMinTemperatureResultContentAfter3Day = DefaultTemperature + "/" + DefaultTemperature;
+		private string maxAndMinTemperatureResultContentAfter3Day;
 
 		/// <summary>
 		/// 1日後の最高気温/最低気温
@@ -288,7 +273,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 4日後の最高気温/最低気温
 		/// </summary>
-		private string maxAndMinTemperatureResultContentAfter4Day = DefaultTemperature + "/" + DefaultTemperature;
+		private string maxAndMinTemperatureResultContentAfter4Day;
 
 		/// <summary>
 		/// 1日後の最高気温/最低気温
@@ -301,7 +286,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// 5日後の最高気温/最低気温
 		/// </summary>
-		private string maxAndMinTemperatureResultContentAfter5Day = DefaultTemperature + "/" + DefaultTemperature;
+		private string maxAndMinTemperatureResultContentAfter5Day;
 
 		/// <summary>
 		/// 1日後の最高気温/最低気温
@@ -336,224 +321,78 @@ namespace ManaChan.Weather.ViewModels {
 		/// </summary>
 		public async void UpdateWatherData() {
 
-			CurrentWeatherDataModel currentWeatherDataModel = await this.WeatherService.GetCurrentWeatherAsync();
-			FiveDayWeatherForecastModel fiveDayWeatherForecastModel = await this.WeatherService.GetFiveDayWeatherForecastAsync();
+			await this.WeatherService.SendCurrentWeatherAsync();
+			await this.WeatherService.SendFiveDayWeatherForecastAsync();
 
-			Console.WriteLine( JsonConvert.SerializeObject( currentWeatherDataModel ) );
-			Console.WriteLine( JsonConvert.SerializeObject( fiveDayWeatherForecastModel ) );
+			CurrentWeatherDataModel currentData = this.WeatherService.CurrentWeatherDataModel;
+			FiveDayWeatherForecastModel fiveData = this.WeatherService.FiveDayWeatherForecastModel;
+
+			Console.WriteLine( JsonConvert.SerializeObject( currentData ) );
+			Console.WriteLine( JsonConvert.SerializeObject( fiveData ) );
 			
-			this.TitleContent = this.ConvertTitleContent( currentWeatherDataModel?.DateTime );
-			this.UpdateContent = this.ConvertUpdateDateTime( currentWeatherDataModel?.DateTime );
-			this.WeatherResultContent = this.ConvertWeather( currentWeatherDataModel?.Weathers );
-			this.CityNameResultContent = this.ConvertCityName( currentWeatherDataModel?.CityName );
-			this.MaxAndMinTemperatureResultContent = this.ConvertTemperature( currentWeatherDataModel?.Main?.MinTemperature , currentWeatherDataModel?.Main?.MaxTemperature );
-			this.HumidityResultContent = this.ConvertHumidity( currentWeatherDataModel?.Main?.Humidity );
-			this.WindSpeedResultContent = this.ConvertWind( currentWeatherDataModel?.Wind?.Speed , currentWeatherDataModel?.Wind?.Degree );
+			this.TitleContent = DateTime.Today.ToString( "yyyy/MM/dd(ddd)" ) + "の天気";
+			this.UpdateContent = "更新日時:" + currentData.ToDateTimeString();
+			this.WeatherResultContent = currentData.ToWeathersString();
+			this.CityNameResultContent = currentData.ToCityNameString();
+			this.TemperatureResultContent = currentData.Main?.ToTemperatureString() ?? "---℃";
+			this.HumidityResultContent = currentData.Main?.ToHumidityString();
+			this.WindSpeedResultContent = currentData.ToWindString();
 
-			FiveDayWeatherForecastModel.ForecastModel[][] splitForecastsEachDay = this.SplitForecastsEachDay( fiveDayWeatherForecastModel?.Forecasts );
-			bool isTodayIncludes = false;
-			for( int i = 0 ; i < splitForecastsEachDay.Length ; i++ ){
-
-				// 当日の予報はいらない
-				if( splitForecastsEachDay[ i ][ 0 ] == null || currentWeatherDataModel.DateTime.ToString( "MM/dd(ddd)" ).Equals( splitForecastsEachDay[ i ][ 0 ].DateTime.ToString( "MM/dd(ddd)" ) ) ) {
-					isTodayIncludes = true;
-					continue;
-				}
-
-				this.ConvertForecastDate( i - ( isTodayIncludes ? 1 : 0 ) , splitForecastsEachDay[ i ][ 0 ].DateTime );
-				this.ConvertForecastWeather( i - ( isTodayIncludes ? 1 : 0 ) , splitForecastsEachDay[ i ] );
-				this.ConvertForecastTemperature( i - ( isTodayIncludes ? 1 : 0 ) , splitForecastsEachDay[ i ] );
+			for( int i = 1 ; i <= 5 ; i++ ){
+				this.ConvertForecastDate( i , fiveData );
+				this.ConvertForecastTemperature( i , fiveData );
 				
 			}
 			
 		}
 		
 		/// <summary>
-		/// タイトル変換
-		/// </summary>
-		/// <param name="dateTime">日時</param>
-		/// <returns></returns>
-		private string ConvertTitleContent( DateTime? dateTime )
-		=> dateTime?.ToString( "yyyy/MM/dd(ddd)の天気" ) ?? DefaultTitle;
-
-		/// <summary>
-		/// 更新日時変換
-		/// </summary>
-		/// <param name="dateTime">日時</param>
-		/// <returns></returns>
-		private string ConvertUpdateDateTime( DateTime? dateTime )
-		=> dateTime?.ToString( "更新日時:yyyy/MM/dd HH:mm:ss" ) ?? DefaultUpdate;
-
-		/// <summary>
-		/// 天気情報変換
-		/// </summary>
-		/// <param name="weatherOfModelData">天気情報</param>
-		/// <returns></returns>
-		private string ConvertWeather( CurrentWeatherDataModel.WeatherModel[] weathers ) {
-
-			string result = "";
-
-			foreach( CurrentWeatherDataModel.WeatherModel weather in weathers ) {
-				if( !"".Equals( result ) )
-					result += "のち";
-
-				result +=
-					"Rain".Equals( weather.Main ) ? "雨" :
-					"Mist".Equals( weather.Main ) ? "曇り" :
-					"";
-
-			}
-
-			return "".Equals( result ) ? DefaultWeather : result;
-
-		}
-
-		/// <summary>
-		/// 都市名変換
-		/// </summary>
-		/// <param name="cityName">都市名</param>
-		/// <returns></returns>
-		private string ConvertCityName( string cityName )
-		=> "Aichi-ken".Equals( cityName ) ? "愛知県" : 
-			"Nagoya-shi".Equals( cityName ) ? "愛知県名古屋市" : 
-			DefaultCityName;
-
-		/// <summary>
-		/// 最高気温／最低気温変換
-		/// </summary>
-		/// <param name="min"></param>
-		/// <param name="max"></param>
-		/// <returns></returns>
-		private string ConvertTemperature( double? min , double? max ) =>
-			( max.HasValue ? string.Format( "{0:f2}℃" , max - 273.15 ) : DefaultTemperature ) +
-			"/" +
-			( min.HasValue ? string.Format( "{0:f2}℃" , min - 273.15 ) : DefaultTemperature );
-
-		/// <summary>
-		/// 湿度変換
-		/// </summary>
-		private string ConvertHumidity( double? humidity )
-		=> string.Format( "{0:f0}%" , humidity ) ?? DefaultHumidity;
-
-		/// <summary>
-		/// 風速変換
-		/// </summary>
-		private string ConvertWind( double? speed , double? degree ) => 
-			degree.HasValue && speed.HasValue ?
-				"(" +
-				(
-					360.0 * 15 / 16 <= degree || degree < 360.0 / 16 ? "北" :
-					360.0 / 16 <= degree && degree < 360.0 * 3 / 16 ? "北東" :
-					360.0 * 3 / 16 <= degree && degree < 360.0 * 5 / 16 ? "東" :
-					360.0 * 5 / 16 <= degree && degree < 360.0 * 7 / 16 ? "南東" :
-					360.0 * 7 / 16 <= degree && degree < 360.0 * 9 / 16 ? "南" :
-					360.0 * 9 / 16 <= degree && degree < 360.0 * 11 / 16 ? "南西" :
-					360.0 * 11 / 16 <= degree && degree < 360.0 * 13 / 16 ? "西" :
-					360.0 * 13 / 16 <= degree && degree < 360.0 * 15 / 16 ? "北西" :
-					"-"
-				) +
-				")" +
-				speed + "m/s" :
-				DefaultWindSpeed;
-
-		/// <summary>
-		/// 日毎に予報情報を分割する
-		/// </summary>
-		/// <param name="forecasts">予報</param>
-		/// <returns></returns>
-		private FiveDayWeatherForecastModel.ForecastModel[][] SplitForecastsEachDay( FiveDayWeatherForecastModel.ForecastModel[] forecasts ) {
-
-			if( forecasts == null )
-				return null;
-
-			FiveDayWeatherForecastModel.ForecastModel[][] resultData = new FiveDayWeatherForecastModel.ForecastModel[1][];
-			resultData[ 0 ] = new FiveDayWeatherForecastModel.ForecastModel[ 1 ];
-			resultData[ 0 ][ 0 ] = forecasts[ 0 ];
-
-			for( int i = 1 , j = 0 ; i < forecasts.Length ; i++ ) {
-
-				if( resultData[ j ][ 0 ].DateTime.ToString( "MM/dd(ddd)" ).Equals( forecasts[ i ].DateTime.ToString( "MM/dd(ddd)" ) ) ){
-					Array.Resize( ref resultData[j] , resultData[j].Length + 1 );
-					resultData[ j ][ resultData[ j ].Length - 1 ] = forecasts[ i ];
-				}
-				else {
-					Array.Resize( ref resultData , resultData.Length + 1 );
-					++j;
-					resultData[ j ] = new FiveDayWeatherForecastModel.ForecastModel[ 1 ];
-					resultData[ j ][ 0 ] = forecasts[ i ];
-				}
-
-			}
-			
-			return resultData;
-		}
-
-		/// <summary>
 		/// 天気予報の日付変換
 		/// </summary>
-		/// <param name="index">要素番号</param>
-		/// <param name="dateTime">日付</param>
-		private void ConvertForecastDate( int index , DateTime dateTime ) {
-			string result = dateTime.ToString( "MM/dd(ddd)" );
-			switch( index ) {
-				case 0:
-					this.DateContentAfter1Day = result;
-					break;
+		/// <param name="afterDayNum">何日後か</param>
+		/// <param name="fiveData">5日間の予測情報</param>
+		private void ConvertForecastDate( int afterDayNum , FiveDayWeatherForecastModel fiveData ) {
+			switch( afterDayNum ) {
 				case 1:
-					this.DateContentAfter2Day = result;
+					this.DateContentAfter1Day = fiveData.ToDateString( afterDayNum );
 					break;
 				case 2:
-					this.DateContentAfter3Day = result;
+					this.DateContentAfter2Day = fiveData.ToDateString( afterDayNum );
 					break;
 				case 3:
-					this.DateContentAfter4Day = result;
+					this.DateContentAfter3Day = fiveData.ToDateString( afterDayNum );
 					break;
 				case 4:
-					this.DateContentAfter5Day = result;
+					this.DateContentAfter4Day = fiveData.ToDateString( afterDayNum );
+					break;
+				case 5:
+					this.DateContentAfter5Day = fiveData.ToDateString( afterDayNum );
 					break;
 			}
-		}
-
-		/// <summary>
-		/// 天気予報の天気変換
-		/// </summary>
-		/// <param name="index">要素番号</param>
-		/// <param name="forecasts">予報情報</param>
-		private void ConvertForecastWeather( int index , FiveDayWeatherForecastModel.ForecastModel[] forecasts ) {
-			
 		}
 
 		/// <summary>
 		/// 天気予報の気温変換
 		/// </summary>
-		/// <param name="index">要素番号</param>
-		/// <param name="forecasts">予報情報</param>
-		private void ConvertForecastTemperature( int index , FiveDayWeatherForecastModel.ForecastModel[] forecasts ) {
+		/// <param name="afterDayNum">何日後か</param>
+		/// <param name="forecasts">5日間の予測情報</param>
+		private void ConvertForecastTemperature( int afterDayNum , FiveDayWeatherForecastModel fiveData ) {
 
-			double min = forecasts[ 0 ].Main.MinTemperature;
-			double max = forecasts[ 0 ].Main.MaxTemperature;
-			for( int i = 1 ; i < forecasts.Length ; i++ ) {
-				if( forecasts[ i ].Main.MinTemperature < min )
-					min = forecasts[ i ].Main.MinTemperature;
-				if( max < forecasts[ i ].Main.MaxTemperature )
-					max = forecasts[ i ].Main.MaxTemperature;
-			}
-
-			switch( index ) {
-				case 0:
-					this.MaxAndMinTemperatureResultContentAfter1Day = string.Format( "{0:f2}℃" , max - 273.15 ) + "/" + string.Format( "{0:f2}℃" , min - 273.15 );
-					break;
+			switch( afterDayNum ) {
 				case 1:
-					this.MaxAndMinTemperatureResultContentAfter2Day = string.Format( "{0:f2}℃" , max - 273.15 ) + "/" + string.Format( "{0:f2}℃" , min - 273.15 );
+					this.MaxAndMinTemperatureResultContentAfter1Day = fiveData.ToMinAndMaxTemperatureString( afterDayNum );
 					break;
 				case 2:
-					this.MaxAndMinTemperatureResultContentAfter3Day = string.Format( "{0:f2}℃" , max - 273.15 ) + "/" + string.Format( "{0:f2}℃" , min - 273.15 );
+					this.MaxAndMinTemperatureResultContentAfter2Day = fiveData.ToMinAndMaxTemperatureString( afterDayNum );
 					break;
 				case 3:
-					this.MaxAndMinTemperatureResultContentAfter4Day = string.Format( "{0:f2}℃" , max - 273.15 ) + "/" + string.Format( "{0:f2}℃" , min - 273.15 );
+					this.MaxAndMinTemperatureResultContentAfter3Day = fiveData.ToMinAndMaxTemperatureString( afterDayNum );
 					break;
 				case 4:
-					this.MaxAndMinTemperatureResultContentAfter5Day = string.Format( "{0:f2}℃" , max - 273.15 ) + "/" + string.Format( "{0:f2}℃" , min - 273.15 );
+					this.MaxAndMinTemperatureResultContentAfter4Day = fiveData.ToMinAndMaxTemperatureString( afterDayNum );
+					break;
+				case 5:
+					this.MaxAndMinTemperatureResultContentAfter5Day = fiveData.ToMinAndMaxTemperatureString( afterDayNum );
 					break;
 
 			}

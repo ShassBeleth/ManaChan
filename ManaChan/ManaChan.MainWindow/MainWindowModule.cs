@@ -1,4 +1,6 @@
-﻿using ManaChan.MainWindow.Models.Providers.InputPinCode;
+﻿using ManaChan.MainWindow.Models.Providers.ClosePopUp;
+using ManaChan.MainWindow.Models.Providers.InputPinCode;
+using ManaChan.MainWindow.Models.Publishers.CallWeatherService;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterType;
 using ManaChan.MainWindow.Views;
@@ -30,10 +32,12 @@ namespace ManaChan.MainWindow {
 		/// </summary>
 		public void Initialize() {
 
-			this.Container.RegisterType<MainWindowView>();
 			this.Container.RegisterType<IInputPinCodeProvider , InputPinCodeProvider>( new ContainerControlledLifetimeManager() );
 			this.Container.RegisterType<IChangeCharacterTypePublisher , ChangeCharacterTypePublisher>( new ContainerControlledLifetimeManager() );
 			this.Container.RegisterType<IChangeCharacterEmotionTypePublisher , ChangeCharacterEmotionTypePublisher>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<ICallWeatherServicePublisher , CallWeatherServicePublisher>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<ICloseWeatherPopUpProvider , CloseWeatherPopUpProvider>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<MainWindowView>();
 
 			this.RegionManager.RegisterViewWithRegion( "MainWindowRegion" , typeof( MainWindowView ) );
 			

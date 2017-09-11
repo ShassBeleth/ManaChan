@@ -1,4 +1,6 @@
-﻿using ManaChan.Weather.Services;
+﻿using ManaChan.Weather.Models.Providers;
+using ManaChan.Weather.Models.Publishers.ClosePopUp;
+using ManaChan.Weather.Services;
 using ManaChan.Weather.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
@@ -30,9 +32,12 @@ namespace ManaChan.Weather {
 
 			// Serviceをコンテナに登録
 			this.Container.RegisterType<IWeatherService , WeatherService>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<ICallWeatherServiceProvider , CallWeatherServiceProvider>( new ContainerControlledLifetimeManager() );
+			this.Container.RegisterType<ICloseWeatherPopUpPublisher , CloseWeatherPopUpPublisher>( new ContainerControlledLifetimeManager() );
 
 			// Regionの登録
 			this.RegionManager.RegisterViewWithRegion( "WeatherDetailRegion" , typeof( DetailPopUpView ) );
+
 		}
 
 	}

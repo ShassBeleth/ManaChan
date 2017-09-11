@@ -24,7 +24,9 @@ namespace ManaChan.Infrastructure {
 		/// <summary>
 		/// 初期設定
 		/// </summary>
-		public void Initialize() { }
+		public void Initialize() {
+			
+		}
 
 	}
 

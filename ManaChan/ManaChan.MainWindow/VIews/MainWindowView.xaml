@@ -211,10 +211,10 @@
 		</ContextMenu>
 	</UserControl.ContextMenu>
 
-
 	<Canvas
 		Name="canvas">
 		
+		<!-- キャラクター -->
 		<ContentControl
 			Canvas.Left="{ Binding CharacterPosX , Mode=TwoWay }"
 			Canvas.Top="{ Binding CharacterPosY , Mode=TwoWay }"
@@ -225,18 +225,21 @@
 			Width="{ Binding CharacterWidth }"
 			prism:RegionManager.RegionName="MainCharacterRegion" />
 
+		<!-- PINコード入力ポップアップ -->
 		<ContentControl
 			Canvas.Left="30"
 			Canvas.Top="30"
 			Visibility="{ Binding InputPinCodePopUpVisibility }"
 			prism:RegionManager.RegionName="InputPinCodePopUpRegion" />
 
+		<!-- 天気情報ポップアップ -->
 		<ContentControl
 			Canvas.Left="30"
 			Canvas.Top="30"
 			MouseLeftButtonDown="WeatherPopUpMouseLeftButtonDown"
 			MouseLeftButtonUp="WeatherPopUpMouseLeftButtonUp"
 			MouseMove="WeatherPopUpMouseMove"
+			Visibility="{ Binding WeatherPopUpVisibility }"
 			prism:RegionManager.RegionName="WeatherDetailRegion" />
 
 	</Canvas>

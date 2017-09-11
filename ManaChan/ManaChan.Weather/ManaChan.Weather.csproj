@@ -92,6 +92,10 @@
     <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.MainModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecastModel.ForecastModel.WeatherModel.cs" />
+    <Compile Include="Models\Providers\CallWeatherServiceProvider.cs" />
+    <Compile Include="Models\Providers\ICallWeatherServiceProvider.cs" />
+    <Compile Include="Models\Publishers\ClosePopUp\CloseWeatherPopUpPublisher.cs" />
+    <Compile Include="Models\Publishers\ClosePopUp\ICloseWeatherPopUpPublisher.cs" />
     <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\WeatherService.cs" />
     <Compile Include="ViewModels\DetailPopUpViewModel.cs" />
@@ -127,7 +131,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ManaChan.Infrastructure\ManaChan.Infrastructure.csproj">
+      <Project>{689C3D16-6518-43D6-8A48-95D9A9ABE45C}</Project>
+      <Name>ManaChan.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\DetailPopUpView.xaml">
       <SubType>Designer</SubType>

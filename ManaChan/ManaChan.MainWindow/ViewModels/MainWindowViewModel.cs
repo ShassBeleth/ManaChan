@@ -9,6 +9,8 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
+using ManaChan.MainWindow.Models.Publishers.CallWeatherService;
+using ManaChan.MainWindow.Models.Providers.ClosePopUp;
 
 namespace ManaChan.MainWindow.ViewModels {
 
@@ -19,6 +21,8 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		[Dependency]
 		public PrimaryScreenSize PrimaryScreenSize { get; } = new PrimaryScreenSize();
+
+		#region Publisher
 
 		/// <summary>
 		/// キャラクター種別発行者
@@ -31,7 +35,15 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		[Dependency]
 		public IChangeCharacterEmotionTypePublisher ChangeCharacterEmotionTypePublisher { set; get; }
-		
+
+		/// <summary>
+		/// 天気情報サービス呼び出し発行者
+		/// </summary>
+		[Dependency]
+		public ICallWeatherServicePublisher CallWeatherServicePublisher { set; get; }
+
+		#endregion
+
 		#region Services
 
 		/// <summary>
@@ -44,11 +56,30 @@ namespace ManaChan.MainWindow.ViewModels {
 
 		#region ポップアップ表示／非表示
 
+		/// <summary>
+		/// PINコード入力ポップアップの表示／非表示
+		/// </summary>
 		private Visibility inputPinCodePopUpVisibility = Visibility.Hidden;
-
+		
+		/// <summary>
+		/// PINコード入力ポップアップの表示／非表示
+		/// </summary>
 		public Visibility InputPinCodePopUpVisibility {
 			private set => SetProperty( ref this.inputPinCodePopUpVisibility , value );
 			get => this.inputPinCodePopUpVisibility;
+		}
+
+		/// <summary>
+		/// 天気情報ポップアップの表示／非表示
+		/// </summary>
+		private Visibility weatherPopUpVisibility = Visibility.Hidden;
+
+		/// <summary>
+		/// 天気情報ポップアップの表示／非表示
+		/// </summary>
+		public Visibility WeatherPopUpVisibility {
+			private set => SetProperty( ref this.weatherPopUpVisibility , value );
+			get => this.weatherPopUpVisibility;
 		}
 
 		#endregion
@@ -176,7 +207,8 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 天気イベント
 		/// </summary>
 		private Action WeatherInfoExecuteOfContextMenu() => () => {
-			Console.WriteLine( "weather" );
+			this.CallWeatherServicePublisher.Publish();
+			this.WeatherPopUpVisibility = Visibility.Visible;
 		};
 
 		/// <summary>
@@ -962,9 +994,11 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		/// <param name="authenticatedService">認証サービス</param>
 		/// <param name="pinCodeProvider">PINコード購読者</param>
+		/// <param name="closeWeatherPopUpProvider">天気情報ポップアップを閉じるための購読者</param>
 		public MainWindowViewModel(
 			IAuthenticatedService authenticatedService , 
-			IInputPinCodeProvider pinCodeProvider 
+			IInputPinCodeProvider pinCodeProvider ,
+			ICloseWeatherPopUpProvider closeWeatherPopUpProvider
 		) {
 
 			this.AuthenticatedService = authenticatedService;
@@ -1001,14 +1035,17 @@ namespace ManaChan.MainWindow.ViewModels {
 				if( e.PropertyName == "PinCode" )
 					this.PinCodeChangedEvent( pinCodeProvider.PinCode );
 			};
-			
+			closeWeatherPopUpProvider.PropertyChanged += ( _ , e ) => {
+				if( e.PropertyName == "Guid" )
+					this.WeatherPopUpVisibility = Visibility.Hidden;
+			};
+
 			// キャラクターのサイズ更新
 			this.UpdateSizeAndPosition();
 
 			// キャラクターの座標更新
 			this.InitialCharacterPosition();
-
-
+			
 		}
 
 

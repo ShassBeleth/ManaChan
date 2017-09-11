@@ -85,11 +85,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Providers\InputPinCode\IInputPinCodeProvider.cs" />
+    <Compile Include="Models\Publishers\CallWeatherService\CallWeatherServicePublisher.cs" />
+    <Compile Include="Models\Publishers\CallWeatherService\ICallWeatherServicePublisher.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterEmotionType\ChangeCharacterEmotionTypePublisher.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterEmotionType\IChangeCharacterEmotionTypePublisher.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterType\IChangeCharacterTypePublisher.cs" />
     <Compile Include="Models\Providers\InputPinCode\InputPinCodeProvider.cs" />
     <Compile Include="Models\Publishers\ChangeCharacterType\ChangeCharacterTypePublisher.cs" />
+    <Compile Include="Models\Publishers\ClosePopUp\CloseWeatherPopUpProvider.cs" />
+    <Compile Include="Models\Publishers\ClosePopUp\ICloseWeatherPopUpProvider.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.Size.cs" />
     <Compile Include="Views\MainWindowView.xaml.cs">

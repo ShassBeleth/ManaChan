@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using ManaChan.Weather.Models.Providers;
+using Microsoft.Practices.Unity;
+using ManaChan.Weather.Models.Publishers.ClosePopUp;
 
 namespace ManaChan.Weather.ViewModels {
 
@@ -11,6 +14,12 @@ namespace ManaChan.Weather.ViewModels {
 	/// DetailPopUpViewのViewModel
 	/// </summary>
 	public class DetailPopUpViewModel : BindableBase {
+
+		/// <summary>
+		/// ダイアログを閉じるための発行者
+		/// </summary>
+		[Dependency]
+		public CloseWeatherPopUpPublisher CloseWeatherPopUpPublisher { set; get; }
 
 		#region 固定文言
 		
@@ -52,12 +61,7 @@ namespace ManaChan.Weather.ViewModels {
 		#endregion
 
 		#region デフォ値
-
-		/// <summary>
-		/// 年月日と曜日の日付フォーマット
-		/// </summary>
-		private string DateFormat { get; } = "yyyy/MM/dd(ddd)";
-		
+				
 		/// <summary>
 		/// デフォルトタイトル
 		/// </summary>
@@ -74,6 +78,8 @@ namespace ManaChan.Weather.ViewModels {
 		private const string DefaultWindSpeed = "--m/s";
 
 		#endregion
+
+		#region 表示項目
 
 		/// <summary>
 		/// タイトル文字列
@@ -296,6 +302,48 @@ namespace ManaChan.Weather.ViewModels {
 			get => this.maxAndMinTemperatureResultContentAfter5Day;
 		}
 
+		#endregion
+
+		#region 閉じるボタン
+
+		/// <summary>
+		/// 閉じるボタンコマンド
+		/// </summary>
+		private DelegateCommand closeButtonCommand;
+
+		/// <summary>
+		/// 閉じるボタンコマンド
+		/// </summary>
+		public DelegateCommand CloseButtonCommand {
+			private set => SetProperty( ref this.closeButtonCommand , value );
+			get => this.closeButtonCommand;
+		}
+
+		/// <summary>
+		/// 閉じるボタン実行
+		/// </summary>
+		/// <returns></returns>
+		private Action CloseButtonExecute() => () => { this.CloseWeatherPopUpPublisher.Publish(); };
+
+		/// <summary>
+		/// 閉じるボタン実行可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanCloseButtonExecute() => () => true;
+
+		#endregion
+
+		#region テスト用更新ボタン
+
+		private DelegateCommand testCommand;
+
+		public DelegateCommand TestCommand {
+			private set => SetProperty( ref this.testCommand , value );
+			get => this.testCommand;
+		}
+
+		#endregion
+
 		/// <summary>
 		/// 天気情報サービス
 		/// </summary>
@@ -304,17 +352,25 @@ namespace ManaChan.Weather.ViewModels {
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public DetailPopUpViewModel( IWeatherService weatherService ) {
+		/// <param name="weatherService">天気情報サービス</param>
+		/// <param name="callWeatherServiceProvider">天気情報サービス呼び出し購読者</param>
+		public DetailPopUpViewModel( 
+			IWeatherService weatherService ,
+			ICallWeatherServiceProvider callWeatherServiceProvider ) {
+
 			this.WeatherService = weatherService;
+
+			this.CloseButtonCommand = new DelegateCommand( this.CloseButtonExecute() , this.CanCloseButtonExecute() );
 			this.TestCommand = new DelegateCommand( () => UpdateWatherData() , () => true );
+
+			callWeatherServiceProvider.PropertyChanged += ( _ , e ) => {
+				if( e.PropertyName == "Guid" )
+					this.UpdateWatherData();
+			};
+
 		}
 
-		private DelegateCommand testCommand;
-
-		public DelegateCommand TestCommand {
-			private set => SetProperty( ref this.testCommand , value );
-			get => this.testCommand;
-		}
+		#region privateロジック
 
 		/// <summary>
 		/// データ更新
@@ -398,6 +454,8 @@ namespace ManaChan.Weather.ViewModels {
 			}
 
 		}
+
+		#endregion
 
 	}
 

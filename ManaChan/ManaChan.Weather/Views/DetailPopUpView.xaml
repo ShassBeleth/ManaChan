@@ -197,7 +197,8 @@
 		<!-- 閉じる -->
 		<Button
 			Grid.Row="2" 
-			Content="{ Binding CloseButtonContent }" />
+			Content="{ Binding CloseButtonContent }" 
+			Command="{ Binding CloseButtonCommand }"/>
 		
 		<!-- 仮 -->
 		<Button 

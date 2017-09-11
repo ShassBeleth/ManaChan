@@ -22,7 +22,7 @@ namespace ManaChan.Weather.Models {
 		/// <returns>日付の文字列</returns>
 		public string ToDateString( int afterDayNum ) {
 			ForecastModel[] resultData = this.SplitForecastsEachDay( afterDayNum );
-			return resultData?[ 0 ]?.ToDateTimeString() ?? "--/--(---)";
+			return resultData.Length > 0 ? resultData?[ 0 ]?.ToDateTimeString() ?? "--/--(---)" : "--/--(---)";
 		}
 
 		/// <summary>
@@ -31,21 +31,27 @@ namespace ManaChan.Weather.Models {
 		/// <param name="afterDayNum">当日よりも何日先か</param>
 		/// <returns>最大気温と最低気温の文字列</returns>
 		public string ToMinAndMaxTemperatureString( int afterDayNum ) {
-			ForecastModel[] resultData = this.SplitForecastsEachDay( afterDayNum );
 
-			double min = resultData?[ 0 ]?.Main?.MinTemperature ?? 999.999;
-			double max = resultData?[ 0 ]?.Main?.MaxTemperature ?? -999.999;
 			string minStr = "--℃";
 			string maxStr = "--℃";
-			for( int i = 1 ; i < resultData.Length ; i++ ) {
-				if( ( resultData?[ i ]?.Main?.MinTemperature ?? 999.999 ) < min ) {
-					min = resultData[ i ].Main.MinTemperature;
-					minStr = resultData[ i ].Main.ToMinTemperatureString();
+
+			ForecastModel[] resultData = this.SplitForecastsEachDay( afterDayNum );
+
+			if( resultData.Length > 0 ) {
+
+				double min = resultData?[ 0 ]?.Main?.MinTemperature ?? 999.999;
+				double max = resultData?[ 0 ]?.Main?.MaxTemperature ?? -999.999;
+				for( int i = 1 ; i < resultData.Length ; i++ ) {
+					if( ( resultData?[ i ]?.Main?.MinTemperature ?? 999.999 ) < min ) {
+						min = resultData[ i ].Main.MinTemperature;
+						minStr = resultData[ i ].Main.ToMinTemperatureString();
+					}
+					if( max < ( resultData?[ i ]?.Main?.MaxTemperature ?? -999.999 ) ) {
+						max = resultData[ i ].Main.MaxTemperature;
+						maxStr = resultData[ i ].Main.ToMaxTemperatureString();
+					}
 				}
-				if( max < ( resultData?[ i ]?.Main?.MaxTemperature ?? -999.999 ) ) {
-					max = resultData[ i ].Main.MaxTemperature;
-					maxStr = resultData[ i ].Main.ToMaxTemperatureString();
-				}
+
 			}
 
 			return maxStr + "/" + minStr;
@@ -60,7 +66,7 @@ namespace ManaChan.Weather.Models {
 		private ForecastModel[] SplitForecastsEachDay( int afterDayNum ) {
 
 			if( this.Forecasts == null )
-				return null;
+				return new ForecastModel[0];
 
 			ForecastModel[] resultData = new ForecastModel[0];
 			DateTime specified = DateTime.Today.AddDays( afterDayNum );

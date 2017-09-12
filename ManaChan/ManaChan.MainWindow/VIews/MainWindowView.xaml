@@ -242,6 +242,12 @@
 			Visibility="{ Binding WeatherPopUpVisibility }"
 			prism:RegionManager.RegionName="WeatherDetailRegion" />
 
+		<!-- クリップボード管理ポップアップ -->
+		<ContentControl
+			Canvas.Left="30"
+			Canvas.Top="30"
+			prism:RegionManager.RegionName="ClipBoardManagerRegion" />
+
 	</Canvas>
 
 </UserControl>

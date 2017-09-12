@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace ManaChan.Weather.Models {
+namespace ManaChan.Weather.Models.FiveDayWeatherForecast {
 
 	/// <summary>
 	/// 5日間の天気予報情報Model

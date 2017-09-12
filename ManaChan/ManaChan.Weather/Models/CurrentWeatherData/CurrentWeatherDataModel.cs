@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace ManaChan.Weather.Models {
+namespace ManaChan.Weather.Models.CurrentWeatherData {
 
 	/// <summary>
 	/// 今日の天気情報Model

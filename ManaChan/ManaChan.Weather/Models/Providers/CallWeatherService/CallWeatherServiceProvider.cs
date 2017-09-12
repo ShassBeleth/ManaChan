@@ -2,7 +2,7 @@
 using Prism.Events;
 using Prism.Mvvm;
 
-namespace ManaChan.Weather.Models.Providers {
+namespace ManaChan.Weather.Models.Providers.CallWeatherService {
 
 	public class CallWeatherServiceProvider : BindableBase , ICallWeatherServiceProvider{
 

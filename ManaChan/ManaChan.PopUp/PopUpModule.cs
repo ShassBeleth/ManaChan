@@ -1,4 +1,4 @@
-﻿using ManaChan.PopUp.Models;
+﻿using ManaChan.PopUp.Models.PinCode;
 using ManaChan.PopUp.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;

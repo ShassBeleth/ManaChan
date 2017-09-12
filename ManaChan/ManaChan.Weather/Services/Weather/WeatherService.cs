@@ -1,4 +1,5 @@
-﻿using ManaChan.Weather.Models;
+﻿using ManaChan.Weather.Models.CurrentWeatherData;
+using ManaChan.Weather.Models.FiveDayWeatherForecast;
 using Newtonsoft.Json;
 using System;
 using System.Configuration;
@@ -6,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ManaChan.Weather.Services {
+namespace ManaChan.Weather.Services.Weather {
 
 	/// <summary>
 	/// 天気情報サービス

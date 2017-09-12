@@ -1,7 +1,8 @@
-﻿using ManaChan.Weather.Models;
+﻿using ManaChan.Weather.Models.CurrentWeatherData;
+using ManaChan.Weather.Models.FiveDayWeatherForecast;
 using System.Threading.Tasks;
 
-namespace ManaChan.Weather.Services {
+namespace ManaChan.Weather.Services.Weather {
 
 	/// <summary>
 	/// 天気情報サービス

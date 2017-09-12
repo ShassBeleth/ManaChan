@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace ManaChan.Weather.Models.Providers {
+namespace ManaChan.Weather.Models.Providers.CallWeatherService {
 
 	/// <summary>
 	/// 天気情報サービス呼び出し購読者

@@ -1,12 +1,13 @@
-﻿using ManaChan.Weather.Models;
-using ManaChan.Weather.Services;
+﻿using ManaChan.Weather.Services.Weather;
 using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using ManaChan.Weather.Models.Providers;
+using ManaChan.Weather.Models.Providers.CallWeatherService;
 using Microsoft.Practices.Unity;
 using ManaChan.Weather.Models.Publishers.ClosePopUp;
+using ManaChan.Weather.Models.CurrentWeatherData;
+using ManaChan.Weather.Models.FiveDayWeatherForecast;
 
 namespace ManaChan.Weather.ViewModels {
 

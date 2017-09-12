@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ManaChan.Weather.Models {
+namespace ManaChan.Weather.Models.FiveDayWeatherForecast {
 	public partial class FiveDayWeatherForecastModel {
 		public partial class ForecastModel {
 

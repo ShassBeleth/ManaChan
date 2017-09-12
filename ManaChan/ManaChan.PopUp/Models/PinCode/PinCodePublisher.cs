@@ -2,7 +2,7 @@
 using Microsoft.Practices.Unity;
 using Prism.Events;
 
-namespace ManaChan.PopUp.Models {
+namespace ManaChan.PopUp.Models.PinCode {
 
 	/// <summary>
 	/// PINコード発行者

@@ -2,7 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using ManaChan.PopUp.Models;
+using ManaChan.PopUp.Models.PinCode;
 
 namespace ManaChan.PopUp.ViewModels {
 

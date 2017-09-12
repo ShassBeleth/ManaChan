@@ -1,6 +1,6 @@
-﻿using ManaChan.Weather.Models.Providers;
+﻿using ManaChan.Weather.Models.Providers.CallWeatherService;
 using ManaChan.Weather.Models.Publishers.ClosePopUp;
-using ManaChan.Weather.Services;
+using ManaChan.Weather.Services.Weather;
 using ManaChan.Weather.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;

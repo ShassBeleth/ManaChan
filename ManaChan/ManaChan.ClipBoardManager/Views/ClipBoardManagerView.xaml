@@ -6,12 +6,26 @@
 	xmlns:prism="http://prismlibrary.com/"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	mc:Ignorable="d" 
-	prism:ViewModelLocator.AutoWireViewModel="True">
+	prism:ViewModelLocator.AutoWireViewModel="True"
+	Height="300"
+	Width="300">
 
-	<Grid>
-	
-		<Label Content="aaaaaaaaaaaaaaaaa" />
-	
+	<Grid Background="AntiqueWhite" >
+
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		
+		<Label
+			Grid.Row="0"
+			Content="{ Binding Test }" />
+
+		<Button
+			Grid.Row="1"
+			Content="{ Binding WatcherSwitchContent }"
+			Command="{ Binding WatcherSwitchCommand }" />
+
 	</Grid>
 
 </UserControl>

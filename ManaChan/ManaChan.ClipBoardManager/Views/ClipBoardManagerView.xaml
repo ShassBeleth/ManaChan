@@ -13,7 +13,7 @@
 	<Grid Background="AntiqueWhite" >
 
 		<Grid.RowDefinitions>
-			<RowDefinition />
+			<RowDefinition Height="auto"/>
 			<RowDefinition />
 		</Grid.RowDefinitions>
 		
@@ -21,10 +21,19 @@
 			Grid.Row="0"
 			Content="{ Binding Test }" />
 
-		<Button
+		<DataGrid
+			AutoGenerateColumns="False"
 			Grid.Row="1"
-			Content="{ Binding WatcherSwitchContent }"
-			Command="{ Binding WatcherSwitchCommand }" />
+			ItemsSource="{ Binding ClipBoardDataList }">
+			<DataGrid.Columns>
+				<DataGridTextColumn
+					Header="登録日時"
+					Binding="{ Binding Time }" />
+				<DataGridTextColumn
+					Header="登録内容"
+					Binding="{ Binding Content }" />
+			</DataGrid.Columns>
+		</DataGrid>
 
 	</Grid>
 

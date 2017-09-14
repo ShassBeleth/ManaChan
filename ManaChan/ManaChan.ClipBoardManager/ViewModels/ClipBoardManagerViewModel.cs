@@ -1,20 +1,14 @@
-﻿using Prism.Commands;
+﻿using System;
+using System.Collections.ObjectModel;
 using Prism.Mvvm;
-using System;
-using System.IO;
 
 namespace ManaChan.ClipBoardManager.ViewModels {
 
 	/// <summary>
 	/// クリップボード管理のViewModel
 	/// </summary>
-	public class ClipBoardManagerViewModel : BindableBase {
-
-		/// <summary>
-		/// ファイル監視者
-		/// </summary>
-		private FileSystemWatcher FileSystemWatcher { set; get; }
-
+	public partial class ClipBoardManagerViewModel : BindableBase {
+		
 		#region テスト用
 
 		public string test = "123123123awefawfwfwfwfwefwefwfwe";
@@ -26,88 +20,45 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 
 		#endregion
 
-		#region 監視切り替えボタン
+		#region クリップボード保存データ一覧
+		
+		/// <summary>
+		/// クリップボード監視者
+		/// </summary>
+		private ClipBoardMonitor clipBoardMonitor = new ClipBoardMonitor();
 
 		/// <summary>
-		/// 実行中かどうか
+		/// クリップボード保存データ一覧
 		/// </summary>
-		private bool IsExecuting { set; get; } = false;
+		public ObservableCollection<ClipBoardData> ClipBoardDataList { set; get; } = new ObservableCollection<ClipBoardData>();
 
 		/// <summary>
-		/// 監視切り替えボタン文字列
+		/// クリップボード更新時イベント
 		/// </summary>
-		private string watcherSwitchContent = "クリップボード監視開始";
+		private void OnClipBoardContentChanged() {
 
-		/// <summary>
-		/// 監視切り替えボタン文字列
-		/// </summary>
-		public string WatcherSwitchContent {
-			private set => SetProperty( ref this.watcherSwitchContent , value );
-			get => this.watcherSwitchContent;
-		}
+			this.ClipBoardDataList.Add( new ClipBoardData() { Time = DateTime.Now.ToString( "MM/dd hh:mm:ss" ) , Content = "aaa" } );
 
-		/// <summary>
-		/// 監視切り替えボタンコマンド
-		/// </summary>
-		private DelegateCommand watcherSwitchCommand;
+			Console.WriteLine( "ok" );
 
-		/// <summary>
-		/// 監視切り替えボタンコマンド
-		/// </summary>
-		public DelegateCommand WatcherSwitchCommand {
-			private set => SetProperty( ref this.watcherSwitchCommand , value );
-			get => this.watcherSwitchCommand;
-		}
-
-		/// <summary>
-		/// 監視切り替えボタン実行
-		/// </summary>
-		/// <returns></returns>
-		private Action WatcherSwitchExecute() => () => {
-			
-			this.IsExecuting = !this.IsExecuting;
-			
-			// 監視の開始
-			if( this.IsExecuting ) {
-				this.WatcherSwitchContent = "クリップボード監視停止";
-				this.FileSystemWatcher.EnableRaisingEvents = true;
-				Console.WriteLine( "File System Watcher Start" );
+			/*
+			IDataObject data = Clipboard.GetDataObject();
+			string[] formats = data.GetFormats();
+			Console.WriteLine( "formats" );
+			foreach( string format in formats ) {
+				Console.WriteLine( format );
 			}
-			// 監視の停止
-			else {
-				this.WatcherSwitchContent = "クリップボード監視開始";
-				this.FileSystemWatcher.EnableRaisingEvents = false;
-				Console.WriteLine( "File System Watcher Stop" );
-			}
-
-		};
-
-		/// <summary>
-		/// 監視切り替えボタン実行可否
-		/// </summary>
-		/// <returns></returns>
-		private Func<bool> CanWatcherSwitchExecute() => () => true;
+			*/
+		}
 
 		#endregion
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
-		public ClipBoardManagerViewModel() {
+		public ClipBoardManagerViewModel()
+		=> this.clipBoardMonitor.OnClipboardContentChanged += ( sender , e ) => this.OnClipBoardContentChanged();
 
-			this.FileSystemWatcher = new FileSystemWatcher() {
-				Path = @"C:\Unity" ,
-				NotifyFilter = ( NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName ) ,
-				Filter = ""
-			};
-			this.FileSystemWatcher.Changed += ( _ , e ) => { Console.WriteLine( "チェンジ" ); };
-			this.FileSystemWatcher.Created += ( _ , e ) => { Console.WriteLine( "クリエイト" ); };
-			this.FileSystemWatcher.Deleted += ( _ , e ) => { Console.WriteLine( "デリート" ); };
-			this.FileSystemWatcher.Renamed += ( _ , e ) => { Console.WriteLine( "リネーム" ); };
-			
-			this.WatcherSwitchCommand = new DelegateCommand( this.WatcherSwitchExecute() , this.CanWatcherSwitchExecute() );
-
-		}
 	}
 
 }

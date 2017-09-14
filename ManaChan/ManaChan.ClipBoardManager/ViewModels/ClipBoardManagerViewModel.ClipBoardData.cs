@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.Windows;
+using Prism.Mvvm;
 
 namespace ManaChan.ClipBoardManager.ViewModels {
 	public partial class ClipBoardManagerViewModel : BindableBase {
@@ -27,6 +29,44 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 			/// 形式群
 			/// </summary>
 			public string[] Formats { set; get; }
+			
+			/// <summary>
+			/// クリップボードに戻す際に指定する形式
+			/// </summary>
+			public string MainFormat { set; get; }
+
+			/// <summary>
+			/// クリップボードに戻すデータ
+			/// </summary>
+			public object DataObject { set; get; }
+
+			/// <summary>
+			/// コンストラクタ
+			/// </summary>
+			/// <param name="data"></param>
+			public ClipBoardData( IDataObject data ) {
+				
+				this.Time = DateTime.Now.ToString( "MM/dd hh:mm:ss" );
+
+				this.SimpleFormat =
+					data != null ? (
+						data.GetDataPresent( DataFormats.Text ) ? "テキスト" :
+						data.GetDataPresent( DataFormats.Bitmap ) ? "画像" :
+						"その他データ"
+					) : "";
+
+				this.Content =
+					data != null ? (
+						data.GetDataPresent( DataFormats.Text ) ? (string)data?.GetData( DataFormats.Text ) :
+						data.GetDataPresent( DataFormats.Bitmap ) ? "画像" :
+						"その他データ"
+					) : "";
+
+				this.Formats = data?.GetFormats();
+
+				this.DataObject = data;
+
+			}
 
 		}
 

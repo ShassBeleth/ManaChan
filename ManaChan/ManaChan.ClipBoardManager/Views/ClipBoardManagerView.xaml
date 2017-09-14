@@ -8,9 +8,14 @@
 	mc:Ignorable="d" 
 	prism:ViewModelLocator.AutoWireViewModel="True"
 	Height="300"
-	Width="300">
+	Width="1300">
 
 	<Grid Background="AntiqueWhite" >
+
+		<!-- DataGridのHeaderをBindingするために使用するプロキシ -->
+		<Grid.Resources>
+			<FrameworkElement x:Key="frameworkElement" />
+		</Grid.Resources>
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="auto"/>
@@ -21,21 +26,102 @@
 			Grid.Row="0"
 			Content="{ Binding Test }" />
 
+		<!-- DataGridのHeaderをBindingするために使用するContentControl -->
+		<ContentControl
+			Grid.Row="1"
+			Visibility="Collapsed"
+			Content="{StaticResource frameworkElement}" />
+
 		<DataGrid
 			AutoGenerateColumns="False"
 			Grid.Row="1"
-			ItemsSource="{ Binding ClipBoardDataList }">
+			ItemsSource="{ Binding ClipBoardDataList }"
+			SelectedItem="{ Binding SelectedItem }" >
+			
 			<DataGrid.Columns>
+
+				<!-- 使用ボタン -->
+				<DataGridTemplateColumn
+					Header="{ 
+						Binding 
+						DataContext.InsertButtonHeader , 
+						Source={ StaticResource frameworkElement }
+					}">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Grid>
+								<Button
+									Content="{ 
+										Binding 
+										DataContext.InsertButtonContent ,
+										Source={ StaticResource frameworkElement }
+									}" 
+									Command="{
+										Binding
+										DataContext.InsertClipBoardDataCommand ,
+										Source={ StaticResource frameworkElement }
+									}"/>
+							</Grid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				
+				<!-- 登録日時 -->
 				<DataGridTextColumn
-					Header="登録日時"
+					Header="{ 
+						Binding 
+						DataContext.TimeHeader ,
+						Source={ StaticResource frameworkElement }
+					}"
 					Binding="{ Binding Time }" />
+				
+				<!-- 簡易形式 -->
 				<DataGridTextColumn
-					Header="形式"
+					Header="{ 
+						Binding 
+						DataContext.SimpleFormatHeader ,
+						Source={ StaticResource frameworkElement }
+					}"
 					Binding="{ Binding SimpleFormat }" />
+				
+				<!-- 内容 -->
 				<DataGridTextColumn
-					Header="登録内容"
+					Header="{ 
+						Binding 
+						DataContext.ContentHeader ,
+						Source={ StaticResource frameworkElement }
+					}"
 					Binding="{ Binding Content }" />
+				
+				<!-- 削除ボタン -->
+				<DataGridTemplateColumn
+					Header="{ 
+						Binding 
+						DataContext.RemoveButtonHeader ,
+						Source={ StaticResource frameworkElement }
+					}">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Grid>
+								<Button
+									Content="{ 
+										Binding 
+										DataContext.RemoveButtonContent ,
+										Source={ StaticResource frameworkElement }
+									}"
+									Command="{ 
+										Binding 
+										DataContext.RemoveClipBoardDataCommand ,
+										Source={ StaticResource frameworkElement }
+									}"
+									CommandParameter="{Binding }" />
+							</Grid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
 			</DataGrid.Columns>
+
 		</DataGrid>
 
 	</Grid>

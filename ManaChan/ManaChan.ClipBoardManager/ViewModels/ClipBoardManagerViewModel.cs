@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using Prism.Mvvm;
 
 namespace ManaChan.ClipBoardManager.ViewModels {
@@ -37,18 +38,33 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 		/// </summary>
 		private void OnClipBoardContentChanged() {
 
-			this.ClipBoardDataList.Add( new ClipBoardData() { Time = DateTime.Now.ToString( "MM/dd hh:mm:ss" ) , Content = "aaa" } );
-
-			Console.WriteLine( "ok" );
-
-			/*
 			IDataObject data = Clipboard.GetDataObject();
-			string[] formats = data.GetFormats();
-			Console.WriteLine( "formats" );
-			foreach( string format in formats ) {
-				Console.WriteLine( format );
-			}
-			*/
+
+			string simpleFormat = 
+				data != null ? (
+					data.GetDataPresent( DataFormats.Text ) ? "テキスト" :
+					data.GetDataPresent( DataFormats.Bitmap ) ? "画像" :
+					"その他データ"
+				) : "";
+			
+			string content = 
+				data != null ? (
+					data.GetDataPresent( DataFormats.Text ) ? (string)data?.GetData( DataFormats.Text ) :
+					data.GetDataPresent( DataFormats.Bitmap ) ? "画像" :
+					"その他データ" 
+				) : "";
+
+			string[] formats = data?.GetFormats();
+
+			this.ClipBoardDataList.Add( 
+				new ClipBoardData() {
+					Time = DateTime.Now.ToString( "MM/dd hh:mm:ss" ) ,
+					SimpleFormat = simpleFormat ,
+					Content = content ,
+					Formats = formats
+				} 
+			);
+			
 		}
 
 		#endregion

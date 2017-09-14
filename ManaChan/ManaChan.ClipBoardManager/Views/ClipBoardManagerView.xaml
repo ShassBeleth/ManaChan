@@ -30,6 +30,9 @@
 					Header="登録日時"
 					Binding="{ Binding Time }" />
 				<DataGridTextColumn
+					Header="形式"
+					Binding="{ Binding SimpleFormat }" />
+				<DataGridTextColumn
 					Header="登録内容"
 					Binding="{ Binding Content }" />
 			</DataGrid.Columns>

@@ -18,6 +18,16 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 			/// </summary>
 			public string Content { set; get; }
 
+			/// <summary>
+			/// 簡易フォーマット
+			/// </summary>
+			public string SimpleFormat { set; get; }
+
+			/// <summary>
+			/// 形式群
+			/// </summary>
+			public string[] Formats { set; get; }
+
 		}
 
 	}

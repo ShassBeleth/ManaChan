@@ -82,6 +82,19 @@ namespace ManaChan.MainWindow.ViewModels {
 			get => this.weatherPopUpVisibility;
 		}
 
+		/// <summary>
+		/// クリップボードポップアップの表示／非表示
+		/// </summary>
+		private Visibility clipBoardPopUpVisibility = Visibility.Hidden;
+
+		/// <summary>
+		/// クリップボードポップアップの表示／非表示
+		/// </summary>
+		public Visibility ClipBoardPopUpVisibility {
+			private set => SetProperty( ref this.clipBoardPopUpVisibility , value );
+			get => this.clipBoardPopUpVisibility;
+		}
+		
 		#endregion
 
 		#region 画面を閉じるかどうか
@@ -215,6 +228,40 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 天気イベント可否
 		/// </summary>
 		private Func<bool> CanWeatherInfoExecuteOfContextMenu() => () => true;
+
+		#endregion
+
+		#region クリップボード
+
+		/// <summary>
+		/// クリップボード文字列
+		/// </summary>
+		public string ClipBoardHeaderOfContextMenu { get; } = "クリップボード";
+
+		/// <summary>
+		/// クリップボードコマンド
+		/// </summary>
+		private DelegateCommand clipBoardCommandOfContextMenu;
+
+		/// <summary>
+		/// クリップボードコマンド
+		/// </summary>
+		public DelegateCommand ClipBoardCommandOfContextMenu {
+			private set => SetProperty( ref this.clipBoardCommandOfContextMenu , value );
+			get => this.clipBoardCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// クリップボードイベント
+		/// </summary>
+		private Action ClipBoardExecuteOfContextMenu() => () => {
+			this.ClipBoardPopUpVisibility = Visibility.Visible;
+		};
+
+		/// <summary>
+		/// クリップボードイベント可否
+		/// </summary>
+		private Func<bool> CanClipBoardExecuteOfContextMenu() => () => true;
 
 		#endregion
 
@@ -1009,6 +1056,7 @@ namespace ManaChan.MainWindow.ViewModels {
 			this.TestTweetCommandOfContextMenu = new DelegateCommand( this.TestTweetExecuteOfContextMenu() , this.CanTestTweetExecuteOfContextMenu() );
 
 			this.WeatherInfoCommandOfContextMenu = new DelegateCommand( this.WeatherInfoExecuteOfContextMenu() , this.CanWeatherInfoExecuteOfContextMenu() );
+			this.ClipBoardCommandOfContextMenu = new DelegateCommand( this.ClipBoardExecuteOfContextMenu() , this.CanClipBoardExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );

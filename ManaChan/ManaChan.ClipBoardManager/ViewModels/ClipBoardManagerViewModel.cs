@@ -11,14 +11,9 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 	/// </summary>
 	public partial class ClipBoardManagerViewModel : BindableBase {
 
-		#region テスト用
+		#region タイトル
 
-		public string test = "123123123awefawfwfwfwfwefwefwfwe";
-
-		public string Test {
-			private set => SetProperty( ref this.test , value );
-			get => this.test;
-		}
+		public string TitleContent { get; } = "クリップボード";
 
 		#endregion
 
@@ -82,23 +77,14 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 		/// クリップボード更新時イベント
 		/// </summary>
 		private void OnClipBoardContentChanged() {
-
-			Console.WriteLine( "クリップボード更新" );
-
-			Console.WriteLine( "isChangeEventActive : " + this.isChangeEventActive );
-
+			
 			if( !this.isChangeEventActive ) {
 				this.isChangeEventActive = true;
 				return;
 			}
-
-			try {
-				this.ClipBoardDataList.Add( new ClipBoardData( Clipboard.GetDataObject() ) );
-			}
-			catch( Exception e ) {
-				Console.WriteLine( e );
-			}
-
+			
+			this.ClipBoardDataList.Add( new ClipBoardData( Clipboard.GetDataObject() ) );
+			
 		}
 			
 		/// <summary>
@@ -126,7 +112,6 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 		/// </summary>
 		/// <returns></returns>
 		private Action InsertClipBoardDataExecute() => () => {
-			Console.WriteLine( "使用ボタン実行" );
 			this.isChangeEventActive = false;
 			Clipboard.SetDataObject( this.SelectedItem.DataObject );
 		};
@@ -170,6 +155,42 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 
 		#endregion
 
+		#region 閉じるボタン
+
+		/// <summary>
+		/// 閉じるボタン文字列
+		/// </summary>
+		public string CloseButtonContent { get; } = "閉じる";
+
+		/// <summary>
+		/// 閉じるボタンコマンド
+		/// </summary>
+		private DelegateCommand closeButtonCommand;
+
+		/// <summary>
+		/// 閉じるボタンコマンド
+		/// </summary>
+		public DelegateCommand CloseButtonCommand {
+			private set => SetProperty( ref this.closeButtonCommand , value );
+			get => this.closeButtonCommand;
+		}
+
+		/// <summary>
+		/// 閉じるボタン実行
+		/// </summary>
+		/// <returns></returns>
+		private Action CloseButtonExecute() => () => {
+			Console.WriteLine( "aaa" );
+		};
+
+		/// <summary>
+		/// 閉じるボタン実行可否
+		/// </summary>
+		/// <returns></returns>
+		private Func<bool> CanCloseButtonExecute() => () => true;
+
+		#endregion
+
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
@@ -177,6 +198,7 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 			this.clipBoardMonitor.OnClipboardContentChanged += ( sender , e ) => this.OnClipBoardContentChanged();
 			this.RemoveClipBoardDataCommand = new DelegateCommand( this.RemoveClipBoardDataExecute() , this.CanRemoveClipBoardDataExecute() );
 			this.InsertClipBoardDataCommand = new DelegateCommand( this.InsertClipBoardDataExecute() , this.CanInsertClipBoardDataExecute() );
+			this.CloseButtonCommand = new DelegateCommand( this.CloseButtonExecute() , this.CanCloseButtonExecute() );
 		}
 		
 	}

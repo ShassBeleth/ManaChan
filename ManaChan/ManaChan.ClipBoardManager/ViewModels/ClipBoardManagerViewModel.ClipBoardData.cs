@@ -38,7 +38,7 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 			/// <summary>
 			/// クリップボードに戻すデータ
 			/// </summary>
-			public object DataObject { set; get; }
+			public DataObject DataObject { set; get; }
 
 			/// <summary>
 			/// コンストラクタ
@@ -64,7 +64,10 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 
 				this.Formats = data?.GetFormats();
 
-				this.DataObject = data;
+				this.DataObject = new DataObject();
+				foreach( string format in this.Formats ) {
+					this.DataObject.SetData( format , data.GetData( format ) );
+				}
 
 			}
 

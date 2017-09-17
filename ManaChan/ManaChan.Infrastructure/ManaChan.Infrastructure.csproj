@@ -86,13 +86,22 @@
     <Compile Include="Enums\CharacterType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\PopUpNames.cs" />
+    <Compile Include="Enums\ServiceNames.cs" />
     <Compile Include="InfrastructureModule.cs" />
-    <Compile Include="Models\Events\CallWeatherServiceEvent\CallWeatherServiceEventValue.cs" />
+    <Compile Include="Models\Events\CallServices\CallServiceEventValue.cs" />
     <Compile Include="Models\Events\ChangeCharacterEmotionTypeEvent\ChangeCharacterEmotionTypeEventValue.cs" />
     <Compile Include="Models\Events\ChangeCharacterTypeEvent\ChangeCharacterTypeEventValue.cs" />
-    <Compile Include="Models\Events\ClosePopUpEvent\CloseClipBoardPopUpEventValue.cs" />
-    <Compile Include="Models\Events\ClosePopUpEvent\CloseWeatherPopUpEventValue.cs" />
+    <Compile Include="Models\Events\ClosePopUps\ClosePopUpEventValue.cs" />
     <Compile Include="Models\Events\InputPinCodeEvent\InputPinCodeEventValue.cs" />
+    <Compile Include="Models\Providers\CallServices\CallServiceProvider.cs" />
+    <Compile Include="Models\Providers\CallServices\ICallServiceProvider.cs" />
+    <Compile Include="Models\Providers\ClosePopUps\ClosePopUpProvider.cs" />
+    <Compile Include="Models\Providers\ClosePopUps\IClosePopUpProvider.cs" />
+    <Compile Include="Models\Publishers\CallServices\CallServicePublisher.cs" />
+    <Compile Include="Models\Publishers\CallServices\ICallServicePublisher.cs" />
+    <Compile Include="Models\Publishers\ClosePopUps\ClosePopUpPublisher.cs" />
+    <Compile Include="Models\Publishers\ClosePopUps\IClosePopUpPublisher.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

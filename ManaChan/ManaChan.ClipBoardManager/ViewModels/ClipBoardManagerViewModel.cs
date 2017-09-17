@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using ManaChan.ClipBoardManager.Models.Publishers.ClosePopUp;
+using ManaChan.Infrastructure.Enums;
+using ManaChan.Infrastructure.Models.Publishers.ClosePopUps;
 using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -17,7 +18,7 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 		/// ダイアログを閉じるための発行者
 		/// </summary>
 		[Dependency]
-		public CloseClipBoardPopUpPublisher CloseClipBoardPopUpPublisher { set; get; }
+		public ClosePopUpPublisher ClosePopUpPublisher { set; get; }
 
 		#region タイトル
 
@@ -188,7 +189,7 @@ namespace ManaChan.ClipBoardManager.ViewModels {
 		/// </summary>
 		/// <returns></returns>
 		private Action CloseButtonExecute() => () => {
-			this.CloseClipBoardPopUpPublisher.Publish();
+			this.ClosePopUpPublisher.Publish( PopUpNames.ClipBoard );
 		};
 
 		/// <summary>

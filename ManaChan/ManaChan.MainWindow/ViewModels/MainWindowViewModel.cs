@@ -9,9 +9,8 @@ using Microsoft.Practices.Unity;
 using Prism.Commands;
 using Prism.Mvvm;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
-using ManaChan.MainWindow.Models.Publishers.CallWeatherService;
-using ManaChan.MainWindow.Models.Providers.ClosePopUp;
-using ManaChan.MainWindow.Models.Publishers.ClosePopUp;
+using ManaChan.Infrastructure.Models.Publishers.CallServices;
+using ManaChan.Infrastructure.Models.Providers.ClosePopUps;
 
 namespace ManaChan.MainWindow.ViewModels {
 
@@ -38,10 +37,10 @@ namespace ManaChan.MainWindow.ViewModels {
 		public IChangeCharacterEmotionTypePublisher ChangeCharacterEmotionTypePublisher { set; get; }
 
 		/// <summary>
-		/// 天気情報サービス呼び出し発行者
+		/// サービス呼び出し発行者
 		/// </summary>
 		[Dependency]
-		public ICallWeatherServicePublisher CallWeatherServicePublisher { set; get; }
+		public ICallServicePublisher CallServicePublisher { set; get; }
 
 		#endregion
 
@@ -221,7 +220,7 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// 天気イベント
 		/// </summary>
 		private Action WeatherInfoExecuteOfContextMenu() => () => {
-			this.CallWeatherServicePublisher.Publish();
+			this.CallServicePublisher.Publish( ServiceNames.WeatherService );
 			this.WeatherPopUpVisibility = Visibility.Visible;
 		};
 
@@ -1042,13 +1041,11 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// </summary>
 		/// <param name="authenticatedService">認証サービス</param>
 		/// <param name="pinCodeProvider">PINコード購読者</param>
-		/// <param name="closeWeatherPopUpProvider">天気情報ポップアップを閉じるための購読者</param>
-		/// <param name="closeClipBoardPopUpProvider">クリップボードポップアップを閉じるための購読者</param>
+		/// <param name="closePopUpProvider">ポップアップを閉じるための購読者</param>
 		public MainWindowViewModel(
 			IAuthenticatedService authenticatedService , 
 			IInputPinCodeProvider pinCodeProvider ,
-			ICloseWeatherPopUpProvider closeWeatherPopUpProvider ,
-			ICloseClipBoardPopUpProvider closeClipBoardPopUpProvider
+			IClosePopUpProvider closePopUpProvider
 		) {
 
 			this.AuthenticatedService = authenticatedService;
@@ -1086,16 +1083,19 @@ namespace ManaChan.MainWindow.ViewModels {
 				if( e.PropertyName == "PinCode" )
 					this.PinCodeChangedEvent( pinCodeProvider.PinCode );
 			};
-			closeWeatherPopUpProvider.PropertyChanged += ( _ , e ) => {
-				if( e.PropertyName == "Guid" )
-					this.WeatherPopUpVisibility = Visibility.Hidden;
-			};
-			closeClipBoardPopUpProvider.PropertyChanged += ( _ , e ) => { 
-				if( e.PropertyName == "Guid" )
-					this.ClipBoardPopUpVisibility = Visibility.Hidden;
-			};
 
-
+			closePopUpProvider.PropertyChanged += ( sender , e ) => {
+				if( e.PropertyName == "Guid" ) {
+					switch( closePopUpProvider.PopUpName ) {
+						case PopUpNames.Weather:
+							this.WeatherPopUpVisibility = Visibility.Hidden;
+							break;
+						case PopUpNames.ClipBoard:
+							this.ClipBoardPopUpVisibility = Visibility.Hidden;
+							break;
+					}
+				}
+			};
 
 			// キャラクターのサイズ更新
 			this.UpdateSizeAndPosition();

@@ -1,5 +1,4 @@
-﻿using ManaChan.ClipBoardManager.Models.Publishers.ClosePopUp;
-using ManaChan.ClipBoardManager.Views;
+﻿using ManaChan.ClipBoardManager.Views;
 using Microsoft.Practices.Unity;
 using Prism.Modularity;
 using Prism.Regions;
@@ -26,13 +25,8 @@ namespace ManaChan.ClipBoardManager {
 		/// <summary>
 		/// 初期設定
 		/// </summary>
-		public void Initialize() {
-
-			this.Container.RegisterType<ICloseClipBoardPopUpPublisher , CloseClipBoardPopUpPublisher>( new ContainerControlledLifetimeManager() );
-
-			this.RegionManager.RegisterViewWithRegion( "ClipBoardManagerRegion" , typeof( ClipBoardManagerView ) );
-
-		}
+		public void Initialize()
+		=> this.RegionManager.RegisterViewWithRegion( "ClipBoardManagerRegion" , typeof( ClipBoardManagerView ) );
 
 	}
 

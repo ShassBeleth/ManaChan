@@ -3,11 +3,12 @@ using Newtonsoft.Json;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using ManaChan.Weather.Models.Providers.CallWeatherService;
 using Microsoft.Practices.Unity;
-using ManaChan.Weather.Models.Publishers.ClosePopUp;
 using ManaChan.Weather.Models.CurrentWeatherData;
 using ManaChan.Weather.Models.FiveDayWeatherForecast;
+using ManaChan.Infrastructure.Models.Publishers.ClosePopUps;
+using ManaChan.Infrastructure.Models.Providers.CallServices;
+using ManaChan.Infrastructure.Enums;
 
 namespace ManaChan.Weather.ViewModels {
 
@@ -20,7 +21,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// ダイアログを閉じるための発行者
 		/// </summary>
 		[Dependency]
-		public CloseWeatherPopUpPublisher CloseWeatherPopUpPublisher { set; get; }
+		public ClosePopUpPublisher ClosePopUpPublisher { set; get; }
 
 		#region 固定文言
 		
@@ -324,7 +325,7 @@ namespace ManaChan.Weather.ViewModels {
 		/// 閉じるボタン実行
 		/// </summary>
 		/// <returns></returns>
-		private Action CloseButtonExecute() => () => { this.CloseWeatherPopUpPublisher.Publish(); };
+		private Action CloseButtonExecute() => () => { this.ClosePopUpPublisher.Publish( PopUpNames.Weather ); };
 
 		/// <summary>
 		/// 閉じるボタン実行可否
@@ -354,17 +355,18 @@ namespace ManaChan.Weather.ViewModels {
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="weatherService">天気情報サービス</param>
-		/// <param name="callWeatherServiceProvider">天気情報サービス呼び出し購読者</param>
+		/// <param name="callServiceProvider">サービス呼び出し購読者</param>
 		public DetailPopUpViewModel( 
 			IWeatherService weatherService ,
-			ICallWeatherServiceProvider callWeatherServiceProvider ) {
+			ICallServiceProvider callServiceProvider ) {
 
 			this.WeatherService = weatherService;
 
 			this.CloseButtonCommand = new DelegateCommand( this.CloseButtonExecute() , this.CanCloseButtonExecute() );
 			this.TestCommand = new DelegateCommand( () => UpdateWatherData() , () => true );
 
-			callWeatherServiceProvider.PropertyChanged += ( _ , e ) => {
+			callServiceProvider.PropertyChanged += ( _ , e ) => {
+				Console.WriteLine( "aaa" );
 				if( e.PropertyName == "Guid" )
 					this.UpdateWatherData();
 			};

@@ -92,10 +92,6 @@
     <Compile Include="Models\FiveDayWeatherForecast\FiveDayWeatherForecastModel.ForecastModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecast\FiveDayWeatherForecastModel.ForecastModel.MainModel.cs" />
     <Compile Include="Models\FiveDayWeatherForecast\FiveDayWeatherForecastModel.ForecastModel.WeatherModel.cs" />
-    <Compile Include="Models\Providers\CallWeatherService\CallWeatherServiceProvider.cs" />
-    <Compile Include="Models\Providers\CallWeatherService\ICallWeatherServiceProvider.cs" />
-    <Compile Include="Models\Publishers\ClosePopUp\CloseWeatherPopUpPublisher.cs" />
-    <Compile Include="Models\Publishers\ClosePopUp\ICloseWeatherPopUpPublisher.cs" />
     <Compile Include="Services\Weather\IWeatherService.cs" />
     <Compile Include="Services\Weather\WeatherService.cs" />
     <Compile Include="ViewModels\DetailPopUpViewModel.cs" />

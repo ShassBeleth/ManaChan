@@ -121,6 +121,60 @@ namespace ManaChan.MainWindow.Views {
 
 		#endregion
 
+		#region クリップボードポップアップのドラッグ&ドロップ
+
+		/// <summary>
+		/// ドラッグ中かどうか
+		/// </summary>
+		private bool isDragClipBoardPopUp = false;
+
+		/// <summary>
+		/// ドラッグ中の座標
+		/// </summary>
+		private Point dragOffsetClipBoardPopUp;
+
+		/// <summary>
+		/// ドラッグ開始イベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ClipBoardPopUpMouseLeftButtonDown( object sender , MouseButtonEventArgs e ) {
+			if( sender is UIElement uiElement ) {
+				this.isDragClipBoardPopUp = true;
+				this.dragOffsetClipBoardPopUp = e.GetPosition( uiElement );
+				uiElement.CaptureMouse();
+			}
+		}
+
+		/// <summary>
+		/// ドラッグ終了イベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ClipBoardPopUpMouseLeftButtonUp( object sender , MouseButtonEventArgs e ) {
+			if( this.isDragClipBoardPopUp ) {
+				UIElement uiElement = sender as UIElement;
+				uiElement.ReleaseMouseCapture();
+				this.isDragClipBoardPopUp = false;
+			}
+		}
+
+		/// <summary>
+		/// ドラック中
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void ClipBoardPopUpMouseMove( object sender , MouseEventArgs e ) {
+			if( this.isDragClipBoardPopUp == true ) {
+				Point point = Mouse.GetPosition( this.canvas );
+				UIElement urElement = sender as UIElement;
+				Canvas.SetLeft( urElement , point.X - this.dragOffsetClipBoardPopUp.X );
+				Canvas.SetTop( urElement , point.Y - this.dragOffsetClipBoardPopUp.Y );
+			}
+		}
+
+		#endregion
+		
 	}
 
 }

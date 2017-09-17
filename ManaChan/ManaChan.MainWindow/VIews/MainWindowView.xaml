@@ -37,9 +37,15 @@
 
 			<Separator />
 
+			<!-- 天気情報 -->
 			<MenuItem
 				Header="{ Binding WeatherInfoHeaderOfContextMenu }"
 				Command="{ Binding WeatherInfoCommandOfContextMenu }" />
+			
+			<!-- クリップボード -->
+			<MenuItem
+				Header="{ Binding ClipBoardHeaderOfContextMenu }"
+				Command="{ Binding ClipBoardCommandOfContextMenu }" />
 
 			<Separator />
 
@@ -246,7 +252,12 @@
 		<ContentControl
 			Canvas.Left="30"
 			Canvas.Top="30"
-			prism:RegionManager.RegionName="ClipBoardManagerRegion" />
+			MouseLeftButtonDown="ClipBoardPopUpMouseLeftButtonDown"
+			MouseLeftButtonUp="ClipBoardPopUpMouseLeftButtonUp"
+			MouseMove="ClipBoardPopUpMouseMove"
+			Visibility="{ Binding ClipBoardPopUpVisibility }"
+			prism:RegionManager.RegionName="ClipBoardManagerRegion"
+			/>
 
 	</Canvas>
 

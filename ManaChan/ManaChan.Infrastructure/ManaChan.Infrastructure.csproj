@@ -90,6 +90,7 @@
     <Compile Include="Models\Events\CallWeatherServiceEvent\CallWeatherServiceEventValue.cs" />
     <Compile Include="Models\Events\ChangeCharacterEmotionTypeEvent\ChangeCharacterEmotionTypeEventValue.cs" />
     <Compile Include="Models\Events\ChangeCharacterTypeEvent\ChangeCharacterTypeEventValue.cs" />
+    <Compile Include="Models\Events\ClosePopUpEvent\CloseClipBoardPopUpEventValue.cs" />
     <Compile Include="Models\Events\ClosePopUpEvent\CloseWeatherPopUpEventValue.cs" />
     <Compile Include="Models\Events\InputPinCodeEvent\InputPinCodeEventValue.cs" />
     <Compile Include="Models\ScreenSize\PrimaryScreenSize.cs" />

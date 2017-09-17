@@ -84,6 +84,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Publishers\ClosePopUp\CloseClipBoardPopUpPublisher.cs" />
+    <Compile Include="Models\Publishers\ClosePopUp\ICloseClipBoardPopUpPublisher.cs" />
     <Compile Include="ViewModels\ClipBoardManagerViewModel.ClipBoardData.cs" />
     <Compile Include="ViewModels\ClipBoardManagerViewModel.ClipboardMonitor.cs" />
     <Compile Include="ViewModels\ClipBoardManagerViewModel.cs" />
@@ -126,6 +128,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ManaChan.Infrastructure\ManaChan.Infrastructure.csproj">
+      <Project>{689C3D16-6518-43D6-8A48-95D9A9ABE45C}</Project>
+      <Name>ManaChan.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -11,6 +11,7 @@ using Prism.Mvvm;
 using ManaChan.MainWindow.Models.Publishers.ChangeCharacterEmotionType;
 using ManaChan.MainWindow.Models.Publishers.CallWeatherService;
 using ManaChan.MainWindow.Models.Providers.ClosePopUp;
+using ManaChan.MainWindow.Models.Publishers.ClosePopUp;
 
 namespace ManaChan.MainWindow.ViewModels {
 
@@ -1042,10 +1043,12 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// <param name="authenticatedService">認証サービス</param>
 		/// <param name="pinCodeProvider">PINコード購読者</param>
 		/// <param name="closeWeatherPopUpProvider">天気情報ポップアップを閉じるための購読者</param>
+		/// <param name="closeClipBoardPopUpProvider">クリップボードポップアップを閉じるための購読者</param>
 		public MainWindowViewModel(
 			IAuthenticatedService authenticatedService , 
 			IInputPinCodeProvider pinCodeProvider ,
-			ICloseWeatherPopUpProvider closeWeatherPopUpProvider
+			ICloseWeatherPopUpProvider closeWeatherPopUpProvider ,
+			ICloseClipBoardPopUpProvider closeClipBoardPopUpProvider
 		) {
 
 			this.AuthenticatedService = authenticatedService;
@@ -1087,6 +1090,12 @@ namespace ManaChan.MainWindow.ViewModels {
 				if( e.PropertyName == "Guid" )
 					this.WeatherPopUpVisibility = Visibility.Hidden;
 			};
+			closeClipBoardPopUpProvider.PropertyChanged += ( _ , e ) => { 
+				if( e.PropertyName == "Guid" )
+					this.ClipBoardPopUpVisibility = Visibility.Hidden;
+			};
+
+
 
 			// キャラクターのサイズ更新
 			this.UpdateSizeAndPosition();

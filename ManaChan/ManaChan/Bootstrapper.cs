@@ -10,6 +10,7 @@ using ManaChan.MainWindow;
 using ManaChan.Weather;
 using ManaChan.ClipBoardManager;
 using ManaChan.Infrastructure;
+using ManaChan.Bookmarks;
 
 namespace ManaChan {
 
@@ -45,6 +46,7 @@ namespace ManaChan {
 			
 			ModuleCatalog catalog = (ModuleCatalog)this.ModuleCatalog;
 			catalog.AddModule( typeof( InfrastructureModule ) );
+			catalog.AddModule( typeof( BookmarksModule ) );
 			catalog.AddModule( typeof( ClipBoardManagerModule ) );
 			catalog.AddModule( typeof( WeatherModule ) );
 			catalog.AddModule( typeof( TwitterModule ) );

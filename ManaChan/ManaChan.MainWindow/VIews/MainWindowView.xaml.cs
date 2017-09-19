@@ -174,7 +174,61 @@ namespace ManaChan.MainWindow.Views {
 		}
 
 		#endregion
-		
+
+		#region ブックマークポップアップのドラッグ&ドロップ
+
+		/// <summary>
+		/// ドラッグ中かどうか
+		/// </summary>
+		private bool isDragBookmarksPopUp = false;
+
+		/// <summary>
+		/// ドラッグ中の座標
+		/// </summary>
+		private Point dragOffsetBookmarksPopUp;
+
+		/// <summary>
+		/// ドラッグ開始イベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BookmarksPopUpMouseLeftButtonDown( object sender , MouseButtonEventArgs e ) {
+			if( sender is UIElement uiElement ) {
+				this.isDragBookmarksPopUp = true;
+				this.dragOffsetBookmarksPopUp = e.GetPosition( uiElement );
+				uiElement.CaptureMouse();
+			}
+		}
+
+		/// <summary>
+		/// ドラッグ終了イベント
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BookmarksPopUpMouseLeftButtonUp( object sender , MouseButtonEventArgs e ) {
+			if( this.isDragBookmarksPopUp ) {
+				UIElement uiElement = sender as UIElement;
+				uiElement.ReleaseMouseCapture();
+				this.isDragBookmarksPopUp = false;
+			}
+		}
+
+		/// <summary>
+		/// ドラック中
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void BookmarksPopUpMouseMove( object sender , MouseEventArgs e ) {
+			if( this.isDragBookmarksPopUp == true ) {
+				Point point = Mouse.GetPosition( this.canvas );
+				UIElement urElement = sender as UIElement;
+				Canvas.SetLeft( urElement , point.X - this.dragOffsetBookmarksPopUp.X );
+				Canvas.SetTop( urElement , point.Y - this.dragOffsetBookmarksPopUp.Y );
+			}
+		}
+
+		#endregion
+
 	}
 
 }

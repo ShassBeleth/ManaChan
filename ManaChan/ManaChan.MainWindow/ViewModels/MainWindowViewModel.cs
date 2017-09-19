@@ -95,6 +95,21 @@ namespace ManaChan.MainWindow.ViewModels {
 			get => this.clipBoardPopUpVisibility;
 		}
 		
+		/// <summary>
+		/// ブックマークポップアップの表示／非表示
+		/// </summary>
+		private Visibility bookmarksPopUpVisibility = Visibility.Hidden;
+
+		/// <summary>
+		/// ブックマークポップアップの表示／非表示
+		/// </summary>
+		public Visibility BookmarksPopUpVisibility {
+			private set => SetProperty( ref this.bookmarksPopUpVisibility , value );
+			get => this.bookmarksPopUpVisibility;
+		}
+
+
+
 		#endregion
 
 		#region 画面を閉じるかどうか
@@ -262,6 +277,40 @@ namespace ManaChan.MainWindow.ViewModels {
 		/// クリップボードイベント可否
 		/// </summary>
 		private Func<bool> CanClipBoardExecuteOfContextMenu() => () => true;
+
+		#endregion
+		
+		#region ブックマーク
+
+		/// <summary>
+		/// ブックマーク文字列
+		/// </summary>
+		public string BookmarksHeaderOfContextMenu { get; } = "ブックマーク";
+
+		/// <summary>
+		/// ブックマークコマンド
+		/// </summary>
+		private DelegateCommand bookmarksCommandOfContextMenu;
+
+		/// <summary>
+		/// ブックマークコマンド
+		/// </summary>
+		public DelegateCommand BookmarksCommandOfContextMenu {
+			private set => SetProperty( ref this.bookmarksCommandOfContextMenu , value );
+			get => this.bookmarksCommandOfContextMenu;
+		}
+
+		/// <summary>
+		/// ブックマークイベント
+		/// </summary>
+		private Action BookmarksExecuteOfContextMenu() => () => {
+			this.BookmarksPopUpVisibility = Visibility.Visible;
+		};
+
+		/// <summary>
+		/// ブックマークイベント可否
+		/// </summary>
+		private Func<bool> CanBookmarksExecuteOfContextMenu() => () => true;
 
 		#endregion
 
@@ -1057,6 +1106,7 @@ namespace ManaChan.MainWindow.ViewModels {
 
 			this.WeatherInfoCommandOfContextMenu = new DelegateCommand( this.WeatherInfoExecuteOfContextMenu() , this.CanWeatherInfoExecuteOfContextMenu() );
 			this.ClipBoardCommandOfContextMenu = new DelegateCommand( this.ClipBoardExecuteOfContextMenu() , this.CanClipBoardExecuteOfContextMenu() );
+			this.BookmarksCommandOfContextMenu = new DelegateCommand( this.BookmarksExecuteOfContextMenu() , this.CanBookmarksExecuteOfContextMenu() );
 
 			this.CharacterSpecialLargeCommandOfContextMenu = new DelegateCommand( this.CharacterSpecialLargeExecuteOfContextMenu() , this.CanCharacterSpecialLargeExecuteOfContextMenu() );
 			this.CharacterLargeCommandOfContextMenu = new DelegateCommand( this.CharacterLargeExecuteOfContextMenu() , this.CanCharacterLargeExecuteOfContextMenu() );

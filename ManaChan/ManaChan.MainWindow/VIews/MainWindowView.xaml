@@ -41,11 +41,16 @@
 			<MenuItem
 				Header="{ Binding WeatherInfoHeaderOfContextMenu }"
 				Command="{ Binding WeatherInfoCommandOfContextMenu }" />
-			
+
 			<!-- クリップボード -->
 			<MenuItem
 				Header="{ Binding ClipBoardHeaderOfContextMenu }"
 				Command="{ Binding ClipBoardCommandOfContextMenu }" />
+
+			<!-- ブックマーク -->
+			<MenuItem
+				Header="{ Binding BookmarksHeaderOfContextMenu }"
+				Command="{ Binding BookmarksCommandOfContextMenu }" />
 
 			<Separator />
 
@@ -257,6 +262,17 @@
 			MouseMove="ClipBoardPopUpMouseMove"
 			Visibility="{ Binding ClipBoardPopUpVisibility }"
 			prism:RegionManager.RegionName="ClipBoardManagerRegion"
+			/>
+
+		<!-- ブックマークポップアップ -->
+		<ContentControl
+			Canvas.Left="30"
+			Canvas.Top="30"
+			MouseLeftButtonDown="BookmarksPopUpMouseLeftButtonDown"
+			MouseLeftButtonUp="BookmarksPopUpMouseLeftButtonUp"
+			MouseMove="BookmarksPopUpMouseMove"
+			Visibility="{ Binding BookmarksPopUpVisibility }"
+			prism:RegionManager.RegionName="BookmarksRegion"
 			/>
 
 	</Canvas>
